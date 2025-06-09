@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+}
+
+header, footer {
+    background-color: #fff;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    left: 0;
+}
+footer{
+    padding-top: 15px;
+}
+
+header {
+    top: 0;
+    border-bottom: 2px solid #ccc;
+    z-index: 9999;
+}
+
+footer {
+    bottom: 0;
+    border-top: 2px solid #ccc;
+}
+.top-header{
+    height: auto;
+    padding-bottom: 10px;
+}
+.top-header a{
+    text-decoration: none;
+    color: #4d4d4d;
+}
+.top-header .top-header-left{
+    border-right: 0.1px solid #EEE;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.top-header .top-header-middile{
+    border-right: 0.1px solid #EEE;
+    padding-top: 3px;
+    padding-bottom: 2px;
+}
+.top-header .top-header-right{
+    display: block;
+    float: right;
+    padding-top: 25px;
+}
+.top-header .top-header-right span{
+    margin-right: 15px!important;
+    font-size: 20px;
+}
+.top-header .top-header-right img{
+    border: 3px solid #4d4d4d;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.top-header .top-header-right span input[type="search"]{
+    border: 0.1px solid #EEE;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+.top-header .top-header-right span input[type="search"]::placeholder{
+    font-size: 17px!important;
+}
+#profile{
+    height: auto;
+    padding-bottom: 2px;
+    width: 150px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 0.1px solid #091057;
+    position: absolute;
+    z-index: 9999;
+    right: 2%;
+    border-radius: 3px;
+    display: none;
+    animation: growDown1 500ms ease-in-out forwards;
+    transform-origin: top center;
+}
+
+#profile .logout a{
+    display: block;
+    text-align: left!important;
+    padding: 6px;
+    font-size: 14px;
+}
+#profile .admin-active{
+    border-bottom: 0.1px solid #EEE;
+}
+#profile .logout a i{
+    padding-right: 5px;
+}
+@keyframes growDown1 {
+    0% {
+        transform: scaleY(0)
+    }
+    80% {
+        transform: scaleY(1.1)
+    }
+    100% {
+        transform: scaleY(1)
+    }
+}
+main {
+    flex: 1;
+    padding: 20px;
+    margin: 120px 0px 100px 0px!important; /* Prevent overlap with fixed header and footer */
+    overflow-y: hidden; /* Disable vertical scrolling */
+}
+.school-name {
+    font-size: 30px;
+    font-weight: bold;
+    color: #091057;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    /* 3D effect using multiple shadows */
+    text-shadow:
+        1px 1px 0px #d1d1d1,   /* Light grey shadow */
+        1px 1px 0px #a3a3a3,   /* Slightly darker shadow */
+        2px 2px 0px #787878,   /* Darker shadow */
+        3px 3px 0px #4d4d4d;   /* Darkest shadow */
+}
+
+/*main button start here */
+.navbar-btn nav a button{
+    border: none;
+    padding: 6px 10px;
+    background-color: #fff;
+    color: #787878;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    border: 0.1px solid #EEE;
+    margin-left: 6px;
+    border-radius: 5px;
+}
+.navbar-btn nav a button:hover{
+    border: 0.1px solid #091057;
+    transition: all 2s;
+}
+#profile{
+    display: none;
+}
+.home-title a{
+    text-decoration: none;
+    color: #4d4d4d;
+}
+.home-card{
+    height: 100px;
+    background-color: #fff;
+    margin-top: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+.home-card .home-card-left{
+    height: 100px;
+    width: 30%;
+    float: left;
+    display: block;
+    text-align: center;
+    padding-top: 6.3%;
+}
+.home-card .home-card-left i{
+    color: #FF7601;
+    background-color: #FFEDF3;
+    padding: 13px;
+    border-radius: 50%;
+    font-size: 30px;
+}
+.home-card .home-card-right{
+    height: 100px;
+    width: 70%;
+    float: left;
+}
+.home-card .home-card-right .num{
+    padding-right: 25px;
+    font-size: 22px;
+    font-family: 'Exo 2';
+    padding-top: 16px;
+    text-align: right;
+    font-weight: bold;
+}
+.home-card .home-card-right .title{
+     padding-right: 25px;
+     letter-spacing: 1px;
+     padding-top: 5px;
+}
+.total-print{
+    padding-top: 6px;
+}
+.total-print a{
+    color: #4b5563;
+    text-decoration: none;
+}
+@media(max-width:600px){
+    .navbar-btn nav a button{
+        margin-top: 10px;
+    }
+}
