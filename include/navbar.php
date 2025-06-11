@@ -34,8 +34,8 @@
                 <div class="col-12 d-flex justify-content-center">
                     <div class="navbar-btn">
                         <nav>
-                            <a href=""><button><i class="fas fa-tachometer-alt" style="padding-right: 5px;"></i> Dashboard</button></a>
-                            <a href=""><button><i class="fas fa-graduation-cap" style="padding-right: 5px;"></i> Student</button></a>
+                            <a href="index"><button><i class="fas fa-tachometer-alt" style="padding-right: 5px;"></i> Dashboard</button></a>
+                            <a href="student"><button><i class="fas fa-graduation-cap" style="padding-right: 5px;"></i> Student</button></a>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Teacher</button></a>
                             <a href=""><button><i class="fas fa-users" style="padding-right: 5px;"></i> Parents</button></a>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button></a>

@@ -1,0 +1,61 @@
+.student-view{
+    height: auto;
+    border: 1.5px solid #091057;
+    margin-top: 15px;
+    border-radius: 5px;
+    border-top: 5px solid #091057;
+    padding: 10px;
+}
+.student-view .title-area{
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #091057;
+    padding: 10px 10px 5px 10px;
+    margin-top: 10px;
+    font-weight: 400;
+    display: flex;
+    justify-content: space-between;
+}
+.student-view .title-area a button{
+    background-color: #091057;
+    color: #fff;
+    border: none;
+    padding: 2px 15px;
+    border-radius: 5px;
+    font-weight: 400;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.student-view table thead tr th{
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    border-bottom: 2px solid #091057;
+}
+/*student admission form */
+.student-view .personal-details{
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #091057;
+    padding: 15px 10px 5px 10px;
+    margin-top: 10px;
+    font-weight: 400;
+}
+.student-view .personal-details label{
+    font-size: 14px;
+    letter-spacing: 0.3px;
+}
+.student-view .personal-details input[type="text"]{
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+.student-view .personal-details input[type="text"]::placeholder{
+    font-size: 14px!important;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+}
+.student-view .personal-details input[type="date"]{
+    border-radius: 4px;
+    font-size: 14px;
+}
