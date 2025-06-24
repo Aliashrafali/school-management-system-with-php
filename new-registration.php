@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
     include 'include/header.php';
 ?>
 
@@ -13,44 +17,46 @@
                 <div class="col-5">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
-                        <a href="student" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Panel</a>
-                        <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span>Add Student</span>
+                        <a href="registration" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Registration Panel</a>
+                        <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span>New Registration</span>
                     </div>
                 </div> 
             </div>
         </div>
     </section>
     <section>
+        <div id="toast" class="toast hidden"></div>
         <div class="container-fluid">
-            <form action="">
+            <form id="studentRegistration" method="POST">
+                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="row">
                     <div class="col-12">
                         <div class="student-view">
-                            <span>Student Admission Form</span><hr>
+                            <span>Student Registration Form</span><hr>
                             <div class="personal-details">
-                                <span>Personal Details ( व्यक्तिगत विवरण ) ---</span><hr>
+                                <span>Personal Details ---</span><hr>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Name ( विद्यार्थी का नाम )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Name <sup><span style="color: red;">*</span></sup></label>
                                             <input type="text" name="name" class="form-control" id="name" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" aria-describedby="emailHelp" placeholder="Enter Student's Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Father's Name ( विद्यार्थी के पिता का नाम ) <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Father's Name <sup><span style="color: red;">*</span></sup></label>
                                             <input type="text" name="fname" class="form-control" id="fname" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" aria-describedby="emailHelp" placeholder="Enter Father's Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Mother's Name ( विद्यार्थी के माता का नाम )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Mother's Name <sup><span style="color: red;">*</span></sup></label>
                                             <input type="text" name="mname" class="form-control" id="mname" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" aria-describedby="emailHelp" placeholder="Enter Mother's Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Date of Birth ( जन्मतिथि )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Date of Birth <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-primary text-white"><i class="fas fa-calendar-alt"></i></span>
                                                 <input type="date" name="dob" class="form-control" id="dob" required>
@@ -59,7 +65,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Mobile No. ( दूरभाष संख्या ) <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Mobile No. <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="mobile" class="form-control" id="mobile" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Your Mobile No." required>
                                             </div>
@@ -67,7 +73,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Alt. Mobile No. ( वैकल्पिक मोबाइल नंबर )</label>
+                                            <label for="dob" class="form-label">Alt. Mobile No. </label>
                                             <div class="input-group">
                                                 <input type="text" name="altmobile" class="form-control" id="altmobile" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Your Alt. Mobile No.">
                                             </div>
@@ -75,7 +81,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Email Id ( ईमेल आईडी )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Email Id <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="email" name="email" class="form-control" id="email" placeholder="Enter Your Email Id" required>
                                             </div>
@@ -83,7 +89,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Blood Group ( रक्त समूह )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Blood Group <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="bgroup" class="form-control" id="bgroup" oninput="this.value = this.value.replace(/[^a-zA-Z+-]/g, '')" placeholder="Eg: A,A+,B,B+, etc." required>
                                             </div>
@@ -91,9 +97,9 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Aadhar Number ( आधार संख्या )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Aadhar Number <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
-                                                <input type="text" name="adhar" class="form-control" id="adhar" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter 12 Digit Adhar No." required>
+                                                <input type="text" name="adhar" class="form-control" id="radhar" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter 12 Digit Adhar No." required>
                                             </div>
                                         </div>
                                     </div>
@@ -101,7 +107,7 @@
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-12">
                                                 <div class="mb-3">
-                                                    <label for="gender" class="form-label">Gender ( लिंग )<sup><span style="color: red;">*</span></sup></label>
+                                                    <label for="gender" class="form-label">Gender <sup><span style="color: red;">*</span></sup></label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -109,17 +115,17 @@
                                                 <label class="custom-radio">
                                                     <input type="radio" name="gender" value="male" />
                                                     <span class="radio-btn"></span>
-                                                    Male ( पुरुष )
+                                                    Male 
                                                 </label>
                                                 <label class="custom-radio">
                                                     <input type="radio" name="gender" value="female" />
                                                     <span class="radio-btn"></span>
-                                                    Female ( स्त्री )
+                                                    Female 
                                                 </label>
                                                 <label class="custom-radio">
                                                     <input type="radio" name="gender" value="female" />
                                                     <span class="radio-btn"></span>
-                                                    Other ( अन्य )
+                                                    Other 
                                                 </label>
                                                 </div>
                                             </div>
@@ -127,7 +133,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Religion ( धर्म )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Religion <sup><span style="color: red;">*</span></sup></label>
                                             <select class="form-select" name="religion" id="religion" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Religion--</option>
                                                 <option value="hindu">Hindu</option>
@@ -151,15 +157,15 @@
 
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Category ( श्रेणी )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Category <sup><span style="color: red;">*</span></sup></label>
                                             <select class="form-select" name="category" id="category" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select category--</option>
                                                 <option value="sc">Scheduled Caste (SC)</option>
                                                 <option value="st">Scheduled Tribe (ST)</option>
                                                 <option value="obc">Other Backward Class (OBC)</option>
                                                 <option value="ebc">Economically Backward Class (EBC)</option>
-                                                <option value="bci">Backward Class I (BC-I)</option>
-                                                <option value="bcii">Backward Class II (BC-II)</option>
+                                                <option value="bc-i">Backward Class I (BC-I)</option>
+                                                <option value="bc-ii">Backward Class II (BC-II)</option>
                                                 <option value="general">General</option>
                                                 <option value="ews">Economically Weaker Section (EWS)</option>
                                                 <option value="other">Other</option>
@@ -169,21 +175,24 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Image ( विद्यार्थी का फोटो )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Image <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
-                                                <input type="file" name="image" class="form-control" id="image" onchange="validateImage()" style="text-transform: capitalize!important;" accept="image/jpg, image/png, image/jpeg" required>
+                                                <input type="file" name="image" class="form-control" id="image" onchange="validateRegistrationImage()" style="text-transform: capitalize!important;" accept="image/jpg, image/png, image/jpeg" required>
+                                            </div>
+                                            <div id="preview-container" style="margin-top: 10px;">
+                                                <img id="image-preview" src="#" alt="Image Preview" style="max-width: 100px; display: none; border: 1px solid #ccc; padding: 5px; border-radius: 5px;" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12">
-                                        <span>Full Address ( सम्पूर्ण पता ) ---</span><hr>
+                                        <span>Full Address ---</span><hr>
                                     </div>
                                     <div class="col-lg-6 col-md-12 col-sm-12">
                                         <div class="address">
                                             <div class="mb-3">
-                                                <label for="dob" class="form-label">Parmanent Address ( स्थायी पता )<sup><span style="color: red;">*</span></sup></label>
+                                                <label for="dob" class="form-label">Parmanent Address <sup><span style="color: red;">*</span></sup></label>
                                                 <div class="input-group">
                                                     <textarea name="parmanent_address" id="address" class="form-control"></textarea>
                                                 </div>
@@ -193,12 +202,12 @@
                                     <div class="col-lg-6 col-md-12 col-sm-12">
                                         <div class="address">
                                             <div class="mb-3">
-                                                <label for="dob" class="form-label">Present Address ( वर्तमान पता )<sup><span style="color: red;">*</span></sup>
+                                                <label for="dob" class="form-label">Present Address <sup><span style="color: red;">*</span></sup>
                                                 <span> if Both are Same then </span>
-                                                <input type="checkbox" name="check">
+                                                <input type="checkbox" id="same-address" name="check" onclick="copyAddress()">
                                             </label>
                                                 <div class="input-group">
-                                                    <textarea name="present_address" class="form-control"></textarea>
+                                                    <textarea name="present_address" id="present-address" class="form-control"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -206,12 +215,12 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <span>Admission Details ( नामांकन विवरण ) ---</span><hr>
+                                        <span>Registration Details  ---</span><hr>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Class ( कक्षा )<sup><span style="color: red;">*</span></sup></label>
-                                             <select class="form-select" name="class" id="sclass" aria-label="Default select example" required>
+                                            <label for="exampleInputEmail1" class="form-label">Class <sup><span style="color: red;">*</span></sup></label>
+                                             <select class="form-select" name="class" id="registration" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Class--</option>
                                                 <option value="nur">Nursery</option>
                                                 <option value="lkg">LKG (Lower Kindergarten)</option>
@@ -233,81 +242,26 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Section ( अनुभाग )<sup><span style="color: red;">*</span></sup></label>
-                                             <select class="form-select" name="section" id="section" aria-label="Default select example" required>
-                                                <option disabled selected value="">--Select Section--</option>
-                                                <option value="A">Section A</option>
-                                                <option value="B">Section B</option>
-                                                <option value="C">Section C</option>
-                                                <option value="D">Section D</option>
-                                                <option value="E">Section E</option>
-                                                <option value="F">Section F</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="mb-3">
-                                            <label for="dob" class="form-label">Admission Date ( नामांकन तिथि )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Registration Date <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-primary text-white"><i class="fas fa-calendar-alt"></i></span>
-                                                <input type="date" name="admission_date" class="form-control" id="a_date" required>
+                                                <input type="date" name="registration_date" class="form-control" id="r_date" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Roll ( अनुक्रमांक )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Registration Fee<sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
-                                                <input type="text" name="roll" class="form-control" id="roll" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Roll Number" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-12">
-                                        <span>Fees Details ( शुल्क विवरण ) ---</span><hr>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="mb-3">
-                                            <label for="dob" class="form-label">Tution Fee ( शिक्षण शुल्क )<sup><span style="color: red;">*</span></sup></label>
-                                            <div class="input-group">
-                                                <input type="text" name="tution_fee" class="form-control" id="tution_fee" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Tution Fee" required>
+                                                <input type="text" name="registration_fee" class="form-control" id="r_fee" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Registration Fee" required>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Transport & Other Fee ( परिवहन एवं अन्य शुल्क )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Session<sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
-                                                <input type="text" name="transport_and_other_fee" class="form-control" id="tranport_fee" onchange="Bill()" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Transport & Other Fee" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="mb-3">
-                                            <label for="dob" class="form-label">Total ( कुल )<sup><span style="color: red;">*</span></sup></label>
-                                            <div class="input-group">
-                                                <input type="text" name="total" class="form-control" id="total" required readonly>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-12">
-                                        <div class="mb-3">
-                                            <label for="dob" class="form-label">Month & Years ( माह एवं वर्ष )<sup><span style="color: red;">*</span></sup></label>
-                                            <div class="input-group">
-                                                <?php
-                                                    $start = new DateTime('2000-01');
-                                                    $end = new DateTime();
-                                                    echo '<select class="form-select" id="month_years" name="month_years" required>';
-                                                    while($start < $end){
-                                                        $value = $start->format('F Y');
-                                                        $selected = ($value == date('F Y')) ? 'selected' : '';
-                                                        echo "<option value=\"$value\" $selected>$value</option>";
-                                                        $start->modify('+1 month');
-                                                    }
-                                                    echo '</select>';
-                                                ?>  
+                                                <input type="text" name="session" class="form-control" id="session" placeholder="Eg. 2024-25" required>
                                             </div>
                                         </div>
                                     </div>
@@ -317,7 +271,7 @@
                                 <div class="col-12">
                                     <div style="display: block; text-align: center;">
                                         <input type="reset" value="Reset">
-                                        <input type="submit" name="ok" onclick="return valiDateForm()" value="Submit">
+                                        <input type="submit" name="ok" onclick="return validateRegistration()" value="Submit">
                                     </div>
                                 </div>
                             </div>
@@ -328,6 +282,32 @@
         </div>
     </section>
 </main>
+
+<script>
+    // insert
+    let studentRegistration = document.getElementById('studentRegistration');
+    studentRegistration.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        if (document.getElementById('same-address').checked) {
+            document.getElementById('present-address').value = document.getElementById('address').value;
+        }
+        const formData = new FormData(studentRegistration);
+        try{
+            const response = await fetch('api/student_registration/create.php', {
+                method : 'POST',
+                body:formData
+            });
+            const result = await response.json();
+            showToast(result.message, !result.success);
+            setTimeout((function(){
+                window.location.reload();
+            }), 3000)
+        }catch(error){
+            alert("Something Went Wrong");
+            console.error(error);
+        }
+    })
+</script>
 
 <?php
     include 'include/footer.php';

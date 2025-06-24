@@ -35,7 +35,13 @@
                     <div class="navbar-btn">
                         <nav>
                             <a href="index"><button><i class="fas fa-tachometer-alt" style="padding-right: 5px;"></i> Dashboard</button></a>
-                            <a href="student"><button><i class="fas fa-graduation-cap" style="padding-right: 5px;"></i> Student</button></a>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-graduation-cap" style="padding-right: 5px;"></i> Student</button>
+                                <div class="dropdown-content">
+                                    <a href="registration">Registration</a>
+                                    <a href="student">Admission</a>
+                                </div>
+                            </div>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Teacher</button></a>
                             <a href=""><button><i class="fas fa-users" style="padding-right: 5px;"></i> Parents</button></a>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button></a>
@@ -46,10 +52,6 @@
                             <a href=""><button><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Reports</button></a>
                             <a href=""><button><i class="fas fa-user-shield" style="padding-right: 5px;"></i> Administrator</button></a>
                             <a href=""><button><i class="fas fa-cog" style="padding-right: 5px;"></i> Setting</button></a>
-                            <!-- <a href=""><button><i class="fas fa-file-invoice" style="padding-right: 5px;"></i> Generate Monthly Demand Bill</button></a>
-                            <a href=""><button><i class="fas fa-receipt" style="padding-right: 5px;"></i> Billing</button></a>
-                            <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button></a>
-                            <a href="javascript:void(0)"><button><i class="fab fa-product-hunt" style="padding-right: 5px;"></i> Product</button></a> -->
                         </nav>
                     </div>
                 </div>

@@ -150,6 +150,55 @@ main {
     border: 0.1px solid #091057;
     transition: all 2s;
 }
+/* Dropdown container */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown button style */
+.dropbtn {
+    border: none;
+    padding: 6px 10px;
+    background-color: #fff;
+    color: #787878;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    border: 0.1px solid #EEE;
+    margin-left: 6px;
+    border-radius: 5px;
+}
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 180px;
+    margin-left: 5px;
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 6px 10px;
+    text-decoration: none;
+    display: block;
+    color: #787878;
+    text-align: left;
+    font-size: 14px;
+    border: 0.1px solid #EEE;
+    border-radius: 5px;
+}
+/* Hover effects */
+.dropdown-content a:hover {
+    border: 0.1px solid #091057;
+    transition: all 2s;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 #profile{
     display: none;
 }

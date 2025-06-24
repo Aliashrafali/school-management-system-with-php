@@ -3,7 +3,9 @@
     $titles = [
         'index' => 'Home Page',
         'student' => 'Student Panel',
-        'addstudent' => 'Add Student'
+        'addstudent' => 'Add Student',
+        'registration' => 'Registration',
+        'new-registration' => 'New Registration'
     ];
 
     $title = isset($titles[$page]) ? $titles[$page] : "School Management System";

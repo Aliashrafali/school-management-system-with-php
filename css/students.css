@@ -154,3 +154,65 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+.student-view textarea{
+  font-size: 14px;
+}
+
+/* toast */
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(10px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.95);
+  }
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 10px;
+  background-color: #347433;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  font-size: 16px;
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(-30px);
+  pointer-events: none;
+}
+
+.toast.show {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.toast.hide {
+  animation: slideOut 0.5s ease-in forwards;
+}
+.toast.success{
+  background-color: #347433; /* Green */
+  color: white;
+}
+.toast.error{
+  background-color: #e53935; /* Red */
+  color: white;
+}
