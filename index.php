@@ -29,7 +29,7 @@
                     foreach($cards as $card){
                 ?>
                     <div class="col-lg-3 col-md-6 col-sm-12">
-                        <a href="javascript:void(0)">
+                        <a href="<?= $card['url']; ?>">
                             <div class="home-card" style="background-color:<?= $card['card-color']; ?>;">
                                 <div class="home-card-left">
                                     <i class="<?= $card['icon']; ?>" style="color:<?= $card['color']; ?>; background-color: <?= $card['bg-color']; ?>;"></i>

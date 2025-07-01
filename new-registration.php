@@ -38,25 +38,25 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Name <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Name ( विद्यार्थी का नाम )<sup><span style="color: red;">*</span></sup></label>
                                             <input type="text" name="name" class="form-control" id="name" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" aria-describedby="emailHelp" placeholder="Enter Student's Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Father's Name <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Father's Name ( विद्यार्थी के पिता का नाम )<sup><span style="color: red;">*</span></sup></label>
                                             <input type="text" name="fname" class="form-control" id="fname" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" aria-describedby="emailHelp" placeholder="Enter Father's Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Mother's Name <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Mother's Name ( विद्यार्थी के माता का नाम )<sup><span style="color: red;">*</span></sup></label>
                                             <input type="text" name="mname" class="form-control" id="mname" oninput="this.value = this.value.replace(/[^a-zA-Z\s]/g, '')" aria-describedby="emailHelp" placeholder="Enter Mother's Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Date of Birth <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Date of Birth ( जन्मतिथि )<sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-primary text-white"><i class="fas fa-calendar-alt"></i></span>
                                                 <input type="date" name="dob" class="form-control" id="dob" required>
@@ -65,7 +65,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Mobile No. <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Mobile No. ( मोबाइल नंबर ) <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="mobile" class="form-control" id="mobile" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Your Mobile No." required>
                                             </div>
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Alt. Mobile No. </label>
+                                            <label for="dob" class="form-label">Alt. Mobile No. ( वैकल्पिक मोबाइल नंबर ) </label>
                                             <div class="input-group">
                                                 <input type="text" name="altmobile" class="form-control" id="altmobile" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Your Alt. Mobile No.">
                                             </div>
@@ -81,7 +81,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Email Id <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Email Id ( इमेल आईडी )<sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="email" name="email" class="form-control" id="email" placeholder="Enter Your Email Id" required>
                                             </div>
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Blood Group <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Blood Group ( रक्त समूह )<sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="bgroup" class="form-control" id="bgroup" oninput="this.value = this.value.replace(/[^a-zA-Z+-]/g, '')" placeholder="Eg: A,A+,B,B+, etc." required>
                                             </div>
@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Aadhar Number <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Aadhar Number ( आधार संख्या )<sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="adhar" class="form-control" id="radhar" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter 12 Digit Adhar No." required>
                                             </div>
@@ -107,7 +107,7 @@
                                         <div class="row">
                                             <div class="col-lg-8 col-md-8 col-sm-12">
                                                 <div class="mb-3">
-                                                    <label for="gender" class="form-label">Gender <sup><span style="color: red;">*</span></sup></label>
+                                                    <label for="gender" class="form-label">Gender ( लिंग )<sup><span style="color: red;">*</span></sup></label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-4 col-md-4 col-sm-12">
@@ -115,17 +115,17 @@
                                                 <label class="custom-radio">
                                                     <input type="radio" name="gender" value="male" />
                                                     <span class="radio-btn"></span>
-                                                    Male 
+                                                    Male ( पुरुष )
                                                 </label>
                                                 <label class="custom-radio">
                                                     <input type="radio" name="gender" value="female" />
                                                     <span class="radio-btn"></span>
-                                                    Female 
+                                                    Female ( स्त्री )
                                                 </label>
                                                 <label class="custom-radio">
                                                     <input type="radio" name="gender" value="female" />
                                                     <span class="radio-btn"></span>
-                                                    Other 
+                                                    Other ( अन्य ) 
                                                 </label>
                                                 </div>
                                             </div>
@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Religion <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Religion ( धर्म ) <sup><span style="color: red;">*</span></sup></label>
                                             <select class="form-select" name="religion" id="religion" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Religion--</option>
                                                 <option value="hindu">Hindu</option>
@@ -157,7 +157,7 @@
 
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Category <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Category ( वर्ग )<sup><span style="color: red;">*</span></sup></label>
                                             <select class="form-select" name="category" id="category" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select category--</option>
                                                 <option value="sc">Scheduled Caste (SC)</option>
@@ -175,7 +175,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Image <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Image ( विद्यार्थी का फोटो )<sup><span style="color: red;">*</span></sup> <small style="color: red;">Only JPG, JPEG and PNG Accepted</small></label>
                                             <div class="input-group">
                                                 <input type="file" name="image" class="form-control" id="image" onchange="validateRegistrationImage()" style="text-transform: capitalize!important;" accept="image/jpg, image/png, image/jpeg" required>
                                             </div>
@@ -192,7 +192,7 @@
                                     <div class="col-lg-6 col-md-12 col-sm-12">
                                         <div class="address">
                                             <div class="mb-3">
-                                                <label for="dob" class="form-label">Parmanent Address <sup><span style="color: red;">*</span></sup></label>
+                                                <label for="dob" class="form-label">Permanent Address ( स्थायी पता )<sup><span style="color: red;">*</span></sup></label>
                                                 <div class="input-group">
                                                     <textarea name="parmanent_address" id="address" class="form-control"></textarea>
                                                 </div>
@@ -202,7 +202,7 @@
                                     <div class="col-lg-6 col-md-12 col-sm-12">
                                         <div class="address">
                                             <div class="mb-3">
-                                                <label for="dob" class="form-label">Present Address <sup><span style="color: red;">*</span></sup>
+                                                <label for="dob" class="form-label">Present Address (  वर्तमान पता ) <sup><span style="color: red;">*</span></sup>
                                                 <span> if Both are Same then </span>
                                                 <input type="checkbox" id="same-address" name="check" onclick="copyAddress()">
                                             </label>
@@ -219,7 +219,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="exampleInputEmail1" class="form-label">Class <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="exampleInputEmail1" class="form-label">Class ( कक्षा ) <sup><span style="color: red;">*</span></sup></label>
                                              <select class="form-select" name="class" id="registration" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Class--</option>
                                                 <option value="nur">Nursery</option>
@@ -242,7 +242,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Registration Date <sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Registration Date ( पंजीकरण तिथि ) <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <span class="input-group-text bg-primary text-white"><i class="fas fa-calendar-alt"></i></span>
                                                 <input type="date" name="registration_date" class="form-control" id="r_date" required>
@@ -251,7 +251,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Registration Fee<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Registration Fee ( पंजीकरण शुल्क ) <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="registration_fee" class="form-control" id="r_fee" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Registration Fee" required>
                                             </div>
@@ -259,10 +259,21 @@
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Session<sup><span style="color: red;">*</span></sup></label>
-                                            <div class="input-group">
-                                                <input type="text" name="session" class="form-control" id="session" placeholder="Eg. 2024-25" required>
-                                            </div>
+                                            <label for="dob" class="form-label">Session ( सत्र ) <sup><span style="color: red;">*</span></sup></label>
+                                             <select class="form-select" name="session" id="registration" aria-label="Default select example" required>
+                                                <option disabled selected value="">--Select Session--</option>
+                                                <?php
+                                                    $startYear = 2000;
+                                                    $currentYear = date('Y');
+                                                    $currentSession = $currentYear.'-'.substr($currentYear + 1,-2);
+                                                    for($years=$startYear; $years<=$currentYear; $years++){
+                                                        $nextYear = substr($years + 1, -2);
+                                                        $session = "$years-$nextYear";
+                                                        $selected = ($session === $currentSession) ? "selected" : "";
+                                                        echo "<option value='$session' $selected>$session</option>";
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -298,10 +309,15 @@
                 body:formData
             });
             const result = await response.json();
-            showToast(result.message, !result.success);
-            setTimeout((function(){
-                window.location.reload();
-            }), 3000)
+            if(result.message && result.redirect){
+                showToast(result.message, !result.success);
+                setTimeout((function(){
+                    window.open(result.redirect, '_blank');
+                }), 2000)
+                setTimeout((function(){
+                    window.location.reload();
+                }), 5000)
+            }
         }catch(error){
             alert("Something Went Wrong");
             console.error(error);

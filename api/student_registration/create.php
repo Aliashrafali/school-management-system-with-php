@@ -37,17 +37,7 @@
         $registration_fee = $_POST['registration_fee'] ?? '';
         $session = $_POST['session'] ?? '';
         $status = 0;
-            $check = $conn->prepare("SELECT * FROM registration WHERE adhar = ? AND class = ? ");
-            $check->bind_param('ss', $adhar, $class);
-            $check->execute();
-            $check->store_result();
-            if($check->num_rows > 0){
-                echo json_encode([
-                    'success' => false, 
-                    'message' => 'Student Already Registered !'
-                ]);
-                exit;
-            }
+        
             if (!isset($_FILES['image']) || $_FILES['image']['error'] !== 0) {
                 echo json_encode([
                     'success' => false, 
@@ -74,10 +64,32 @@
             }
             $insert = $conn->prepare("INSERT INTO registration(reg_no,name,fname,mname,dob,mobile,altmobile,email,bgroup,adhar,gender,religion,category,parmanent_address,present_address,class,registration_date,registration_fee,session,image,status)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $insert->bind_param('ssssssssssssssssssssi', $reg_no, $name, $fname, $mname, $dob, $mobile, $altmobile, $email, $bgroup, $adhar, $gender, $religion, $category, $parmanent_address,$present_address, $class,$registration_date, $registration_fee,$session,$newFileName, $status);
-            if($insert->execute()){
-                echo json_encode(['success' => true, 'message' => 'Registration Successful']);
-            }else{
-                echo json_encode(['success' => false, 'message' => 'DB Error'.$conn->error]);
+                try{
+                    $insert->execute();
+                    $id = $insert->insert_id;
+                    $reg_id = $conn->prepare("SELECT * FROM registration WHERE id = ?");
+                    $reg_id->bind_param('i', $id);
+                    $reg_id->execute();
+                    $result = $reg_id->get_result();
+                    $reg_no = $result->fetch_assoc()['reg_no'];
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Registration successful!.',
+                        'reg_id' => $reg_no,
+                        'redirect' => 'print_reg?reg_no='.$reg_no
+                    ]);
+                }catch(mysqli_sql_exception $e){
+                if(strpos(strtolower($e->getMessage()), 'duplicate entry') !== false){
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'Student Already Registered!'
+                    ]);
+                }else{
+                    echo json_encode([
+                        'success' => false,
+                        'message' => 'DB Error'.$conn->error
+                    ]);
+                }
             }
     }catch(Exception $e){
         http_response_code(500);

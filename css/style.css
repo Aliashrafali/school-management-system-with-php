@@ -394,6 +394,9 @@ main {
     color: #00c853;
     user-select: none;
 }
+footer p{
+    font-size: 14px;
+}
 @media(max-width:600px){
     .navbar-btn nav a button{
         margin-top: 10px;

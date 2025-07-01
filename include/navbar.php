@@ -38,17 +38,27 @@
                             <div class="dropdown">
                                 <button class="dropbtn"><i class="fas fa-graduation-cap" style="padding-right: 5px;"></i> Student</button>
                                 <div class="dropdown-content">
-                                    <a href="registration">Registration</a>
-                                    <a href="student">Admission</a>
+                                    <a href="registration"><i class="fas fa-book" style="padding-right: 5px;"></i> Registration</a>
+                                    <a href="student"><i class="fas fa-book" style="padding-right: 5px;"></i> Admission</a>
                                 </div>
                             </div>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Teacher</button></a>
                             <a href=""><button><i class="fas fa-users" style="padding-right: 5px;"></i> Parents</button></a>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button></a>
-                            <a href=""><button><i class="fas fa-book" style="padding-right: 5px;"></i> Admission</button></a>
                             <a href=""><button><i class="fas fa-book" style="padding-right: 5px;"></i> Attendance</button></a>
                             <a href=""><button><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Exam</button></a>
-                            <a href=""><button><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account</button></a>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account</button>
+                                <div class="dropdown-content">
+                                    <a href="demand-bill"><i class="fas fa-file-invoice-dollar" style="padding-right: 5px;"></i> Demand Bill</a>
+                                    <a href=""> 
+                                        <span style="display: inline-flex; gap: 4px; align-items: center;">
+                                            <i class="fas fa-file-invoice-dollar"></i>
+                                            <i class="fas fa-chart-line"></i>
+                                        </span> Invoice & Reports
+                                    </a>
+                                </div>
+                            </div>
                             <a href=""><button><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Reports</button></a>
                             <a href=""><button><i class="fas fa-user-shield" style="padding-right: 5px;"></i> Administrator</button></a>
                             <a href=""><button><i class="fas fa-cog" style="padding-right: 5px;"></i> Setting</button></a>

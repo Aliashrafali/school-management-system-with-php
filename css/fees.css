@@ -1,0 +1,35 @@
+.fees-view{
+    height: auto;
+    border: 1.5px solid #091057;
+    margin-top: 15px;
+    border-radius: 5px;
+    border-top: 5px solid #091057;
+    padding: 10px;
+}
+.fees-view .bill-form{
+    height: auto;
+    background-color: #fff;
+    border: 0.1px solid #091057;
+    border-radius: 5px;
+    padding: 10px;
+}
+.fees-view .bill-form select option{
+    text-transform: uppercase;
+}
+.fees-view .bill-form select{
+    font-size: 14px;
+    height: 40px;
+    letter-spacing: 0.7px;
+}
+.fees-view .bill-form label{
+    letter-spacing: 0.7px;
+}
+.fees-view .bill-form button{
+    padding: 4px 15px;
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    letter-spacing: 0.7px;
+}
