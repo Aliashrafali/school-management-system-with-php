@@ -107,11 +107,11 @@
                                                     <?php
                                                         if($row['status'] == 0){
                                                     ?>
-                                                        <a href="edit_status.php?id=<?php echo $row['id']; ?>"><span class="badge rounded-pill text-bg-success">Active</span><span></span></a>
+                                                        <a href="addstudent"><span class="badge rounded-pill text-bg-warning">Admission Pending</span><span></span></a>
                                                     <?php
                                                         }else{
                                                     ?>
-                                                        <a href="edit_status.php?id=<?php echo $row['id']; ?>"><span class="badge rounded-pill text-bg-warning">Suspended</span><span></span></a>
+                                                        <a href="#"><span class="badge rounded-pill text-bg-success">Admission Done</span><span></span></a>
                                                     <?php
                                                         }
                                                     ?>

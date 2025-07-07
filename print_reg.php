@@ -118,13 +118,13 @@ class PDFWithWatermark extends FPDF {
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(26, 10, $row['reg_no'], 0, 0,);
 
-    $pdf->SetXY(148,45);
+    $pdf->SetXY(130,45);
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(26, 10, 'Registration Date.'. ' '.':', 0, 0,);
-    $pdf->SetXY(178,45);
+    $pdf->SetXY(158,45);
     $pdf->SetFont('Arial', 'B', 9);
-    $date = $row['registration_date'];
-    $org_date = date('d-m-Y', strtotime($date));
+    $date = new DateTime($row['registration_date']);
+    $org_date = $date->format('d-m-Y h:i:s A');
     $pdf->Cell(26, 10, $org_date, 0, 0,);
 
     $x_axis = 15;
@@ -183,7 +183,7 @@ class PDFWithWatermark extends FPDF {
     $pdf->Cell(26, 10, "Status".' '. ':', 0, 0,);
     $pdf->SetXY(180,$y_axis);
     $pdf->SetFont('Arial', 'B', 9);
-    if($row['status'] == 0){
+    if($row['status'] == 0 || $row['status'] == 1){
         $status = 'Success';
     }else{
         $status = 'Fail';

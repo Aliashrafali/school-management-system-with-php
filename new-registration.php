@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (!isset($_SESSION['csrf_token'])) {
+    if(!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
     include 'include/header.php';
@@ -220,7 +220,7 @@
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Class ( कक्षा ) <sup><span style="color: red;">*</span></sup></label>
-                                             <select class="form-select" name="class" id="registration" aria-label="Default select example" required>
+                                             <select class="form-select" name="class" id="rclass" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Class--</option>
                                                 <option value="nur">Nursery</option>
                                                 <option value="lkg">LKG (Lower Kindergarten)</option>
@@ -260,7 +260,7 @@
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="mb-3">
                                             <label for="dob" class="form-label">Session ( सत्र ) <sup><span style="color: red;">*</span></sup></label>
-                                             <select class="form-select" name="session" id="registration" aria-label="Default select example" required>
+                                             <select class="form-select" name="session" id="session" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Session--</option>
                                                 <?php
                                                     $startYear = 2000;
@@ -309,14 +309,19 @@
                 body:formData
             });
             const result = await response.json();
-            if(result.message && result.redirect){
-                showToast(result.message, !result.success);
+            showToast(result.message, !result.success);
+            if(result.success && result.redirect){
                 setTimeout((function(){
                     window.open(result.redirect, '_blank');
                 }), 2000)
-                setTimeout((function(){
+                setTimeout(() => {
                     window.location.reload();
-                }), 5000)
+                }, 5000);
+            }else{
+                showToast(result.message, true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 5000);
             }
         }catch(error){
             alert("Something Went Wrong");

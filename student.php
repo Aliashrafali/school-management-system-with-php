@@ -2,19 +2,7 @@
     session_start();
     include 'sql/config.php';
     include 'include/header.php';
-    $fetch = $conn->prepare("
-        SELECT 
-        registration.*,
-        tbl_admission.section,
-        tbl_admission.admission_date,
-        tbl_admission.roll,
-        tbl_admission.tution_fee,
-        tbl_admission.transport_and_other_fee,
-        tbl_admission.total,
-        tbl_admission.month_year,
-        tbl_admission.status
-        FROM registration INNER JOIN tbl_admission ON registration.reg_no = tbl_admission.reg_no AND registration.session = tbl_admission.session
-    ");
+    $fetch = $conn->prepare("SELECT * FROM registration WHERE status = 1");
     $fetch->execute();
     $result = $fetch->get_result();
 ?>
@@ -44,7 +32,7 @@
                         <div class="title-area">
                             <h5>All Student's Admission Records</h5>
                             <?php
-                                $sql = $conn->prepare("SELECT COUNT(*) AS total FROM registration r INNER JOIN tbl_admission a ON r.reg_no = a.reg_no");
+                                $sql = $conn->prepare("SELECT COUNT(*) AS total FROM registration WHERE status = 1");
                                 $sql->execute();
                                 $sql->bind_result($students_total);
                                 $sql->fetch();
@@ -91,7 +79,7 @@
                                                     ?>
                                                 </span></td>
                                                 <td>
-                                                    <?= ($row['status'] == 0) ? '<span class="badge rounded-pill text-bg-success">Success</span>' : '<span class="badge rounded-pill text-bg-danger">Admission Failed</span>' ?>
+                                                    <?= ($row['status'] == 1) ? '<span class="badge rounded-pill text-bg-success">Success</span>' : '<span class="badge rounded-pill text-bg-danger">Admission Failed</span>' ?>
                                                 </td>
                                                 <td>
                                                     <a href="#?reg_id=<?= $row['reg_no']; ?>" class="badge rounded-pill text-bg-primary" style="text-decoration: none;">Edit</a>

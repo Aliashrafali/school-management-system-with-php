@@ -49,8 +49,8 @@
                                             <td colspan="2"><span>Registration No. : <?php echo $row['reg_no']; ?></span></td>
                                             <td colspan="2"><span>Registration Date. :      
                                                 <?php 
-                                                    $rdate = $row['registration_date'];
-                                                    $orgrdate = date('d-m-Y', strtotime($rdate));
+                                                    $rdate = new DateTime($row['registration_date']);
+                                                    $orgrdate = $rdate->format('d-m-Y h:i:s A');
                                                     echo $orgrdate;
                                                 ?>
                                             </span></td>
@@ -120,11 +120,11 @@
                                                 <?php
                                                     if($row['status'] == 0){
                                                 ?>
-                                                    <span class="badge text-bg-success">Active</span>
+                                                    <span class="badge text-bg-warning">Admission Pending</span>
                                                 <?php
                                                     }else{
                                                 ?>
-                                                    <span class="badge text-bg-warning">Suspended</span>
+                                                    <span class="badge text-bg-success">Admission Done</span>
                                                 <?php
                                                     }
                                                 ?>

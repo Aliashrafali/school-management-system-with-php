@@ -41,11 +41,10 @@ function validateRegistration(){
     let image = document.getElementById('image');
     let address = document.getElementById('address');
     let present = document.getElementById('present-address');
-    let registration = document.getElementById('registration');
-    let registration_date = document.getElementById('registration_date');
-    let registration_fee = document.getElementById('registration_fee');
+    let registration_date = document.getElementById('r_date');
+    let registration_fee = document.getElementById('r_fee');
     let session = document.getElementById('session');
-    let rclass = document.getElementById('class');
+    let rclass = document.getElementById('rclass');
     let gender = document.querySelector('input[name="gender"]:checked');
 
     if(!name.value){
@@ -110,10 +109,6 @@ function validateRegistration(){
     }else if(!present.value){
       alert("Enter Present Address !");
       present.focus();
-      return false;
-    }else if(!registration.value){
-      alert("Select Class !");
-      registration.focus();
       return false;
     }else if(!registration_date.value){
       alert("Enter Registration Date !");
@@ -221,7 +216,7 @@ function valiDateForm(){
 }
 
 // registration adhar varified
-document.getElementById('adhar').addEventListener('input', function(e){
+document.getElementById('radhar').addEventListener('input', function(e){
     let value = e.target.value;
     value = value.replace(/\D/g, '');
     value = value.substring(0, 12);

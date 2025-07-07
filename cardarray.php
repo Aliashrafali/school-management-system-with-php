@@ -1,21 +1,21 @@
 <?php
     session_start();
     include 'sql/config.php';
-    $students = $conn->prepare("SELECT COUNT(*) as total FROM registration r INNER JOIN tbl_admission a ON r.reg_no = a.reg_no");
+    $students = $conn->prepare("SELECT COUNT(*) as total FROM registration r INNER JOIN tbl_fees a ON r.reg_no = a.reg_no WHERE r.status = 1 AND a.status = 1");
     $students->execute();
     $students->bind_result($students_total);
     $students->fetch();
     $students->close();
 
     // active students
-    $active = $conn->prepare("SELECT COUNT(*) as active FROM registration r INNER JOIN tbl_admission a ON r.reg_no = a.reg_no WHERE a.status = 0 AND r.status = 0");
+    $active = $conn->prepare("SELECT COUNT(*) as active FROM registration r INNER JOIN tbl_fees a ON r.reg_no = a.reg_no WHERE a.status = 1 AND r.status = 1");
     $active->execute();
     $active->bind_result($activestudents);
     $active->fetch();
     $active->close();
 
     // suspended students
-    $suspended = $conn->prepare("SELECT COUNT(*) as suspended FROM registration r INNER JOIN tbl_admission a ON r.reg_no = a.reg_no WHERE r.status = 1 AND a.status = 1");
+    $suspended = $conn->prepare("SELECT COUNT(*) as suspended FROM registration r INNER JOIN tbl_fees a ON r.reg_no = a.reg_no WHERE r.status = 2 AND a.status = 2");
     $suspended->execute();
     $suspended->bind_result($suspendedstudents);
     $suspended->fetch();

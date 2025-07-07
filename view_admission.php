@@ -7,15 +7,12 @@
     $fetch = $conn->prepare("
         SELECT 
         registration.*,
-        tbl_admission.section,
-        tbl_admission.admission_date,
-        tbl_admission.roll,
-        tbl_admission.tution_fee,
-        tbl_admission.transport_and_other_fee,
-        tbl_admission.total,
-        tbl_admission.month_year,
-        tbl_admission.status
-        FROM registration INNER JOIN tbl_admission ON registration.reg_no = tbl_admission.reg_no AND registration.session = tbl_admission.session WHERE registration.reg_no = ?
+        tbl_fees.tution_fee,
+        tbl_fees.transport_and_other_fee,
+        tbl_fees.total,
+        tbl_fees.month_year,
+        tbl_fees.status
+        FROM registration INNER JOIN tbl_fees ON registration.reg_no = tbl_fees.reg_no AND registration.id = tbl_fees.student_id AND tbl_fees.status = 1 WHERE registration.reg_no = ?
     ");
     $fetch->bind_param('s', $reg_no);
     $fetch->execute();
@@ -63,15 +60,15 @@
                                             <td colspan="2"><span style="text-transform: capitalize;">Registration No. :</span> <?= $row['reg_no']; ?></td>
                                             <td><span style="text-transform: capitalize;">Registration Date. :</span> 
                                                 <?php 
-                                                    $date = $row['registration_date'];
-                                                    $org_date = date('d-m-Y', strtotime($date));
+                                                    $date = new DateTime($row['registration_date']);
+                                                    $org_date = $date->format('d-m-Y h:i:s A');
                                                     echo $org_date;
                                                 ?>
                                             </td>
                                             <td><span style="text-transform: capitalize;">Admission Date. :</span> 
                                                 <?php 
-                                                    $adate = $row['admission_date'];
-                                                    $org_adate = date('d-m-Y', strtotime($adate));
+                                                    $adate = new DateTime($row['admission_date']);
+                                                    $org_adate = $adate->format('d-m-Y h:i:s A');
                                                     echo $org_adate;
                                                 ?>
                                             </td>
@@ -147,7 +144,7 @@
                                             <td><span style="text-transform: capitalize;">
                                                 Admission : 
                                                 <?php
-                                                    echo ($row['status'] == 0) ? '<span class="badge rounded-pill text-bg-success">Success</span>' : '<span class="badge rounded-pill text-bg-danger">Failed</span>';
+                                                    echo ($row['status'] == 1) ? '<span class="badge rounded-pill text-bg-success">Success</span>' : '<span class="badge rounded-pill text-bg-danger">Failed</span>';
                                                 ?>
                                             </span></td>
                                         </tr>

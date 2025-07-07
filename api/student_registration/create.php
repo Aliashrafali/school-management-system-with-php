@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('Asia/Kolkata');
     include '../../sql/config.php';
     session_start();
     header("Access-Control-Allow-Origin: *");
@@ -26,14 +27,16 @@
         $altmobile = $_POST['altmobile'] ?? '';
         $email = $_POST['email'] ?? '';
         $bgroup = $_POST['bgroup'] ?? '';
-        $adhar = preg_replace('/\s+/', '', $_POST['adhar'] ?? '');
+        $adhar = trim(preg_replace('/\s+/', '', $_POST['adhar'] ?? ''));
         $gender = $_POST['gender'] ?? '';
         $religion = $_POST['religion'] ?? '';
         $category = $_POST['category'] ?? '';
         $parmanent_address = $_POST['parmanent_address'] ?? '';
         $present_address = $_POST['present_address'] ?? '';
         $class = $_POST['class'] ?? '';
-        $registration_date = $_POST['registration_date'] ?? '';
+        $registration_d = $_POST['registration_date'] ?? '';
+        $time = date("H:i:s");
+        $registration_date = $registration_d.' '.$time;
         $registration_fee = $_POST['registration_fee'] ?? '';
         $session = $_POST['session'] ?? '';
         $status = 0;
@@ -62,6 +65,32 @@
                 echo json_encode(['success' => false, 'message' => 'Error While File Uploading']);
                 exit;
             }
+
+            //check already exits
+            $check = $conn->prepare("SELECT * FROM registration WHERE adhar = ? AND class = ?");
+            $check->bind_param('ss', $adhar, $class);
+            $check->execute();
+            $check->store_result();
+            if($check->num_rows > 0){
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Student Already Registered with same Aadhaar and Class.'
+                ]);
+                exit;
+            }
+
+            $check1 = $conn->prepare("SELECT * FROM registration WHERE reg_no = ? AND session = ?");
+            $check1->bind_param('ss', $reg_no,$session);
+            $check1->execute();
+            $check1->store_result();
+            if($check1->num_rows > 0){
+                echo json_encode([
+                    'success' => false,
+                    'message' => 'Student Already Registered in this Session!'
+                ]);
+                exit;
+            }
+
             $insert = $conn->prepare("INSERT INTO registration(reg_no,name,fname,mname,dob,mobile,altmobile,email,bgroup,adhar,gender,religion,category,parmanent_address,present_address,class,registration_date,registration_fee,session,image,status)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             $insert->bind_param('ssssssssssssssssssssi', $reg_no, $name, $fname, $mname, $dob, $mobile, $altmobile, $email, $bgroup, $adhar, $gender, $religion, $category, $parmanent_address,$present_address, $class,$registration_date, $registration_fee,$session,$newFileName, $status);
                 try{
@@ -79,18 +108,11 @@
                         'redirect' => 'print_reg?reg_no='.$reg_no
                     ]);
                 }catch(mysqli_sql_exception $e){
-                if(strpos(strtolower($e->getMessage()), 'duplicate entry') !== false){
-                    echo json_encode([
-                        'success' => false,
-                        'message' => 'Student Already Registered!'
-                    ]);
-                }else{
                     echo json_encode([
                         'success' => false,
                         'message' => 'DB Error'.$conn->error
                     ]);
                 }
-            }
     }catch(Exception $e){
         http_response_code(500);
         echo json_encode(['success' => false, 'message' => 'error'.$e->getMessage()]);

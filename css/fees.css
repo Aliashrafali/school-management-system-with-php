@@ -33,3 +33,14 @@
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
     letter-spacing: 0.7px;
 }
+.custom-label {
+    letter-spacing: 0.7px;
+}
+.custom-input {
+    font-size: 14px;
+    height: 40px;
+    letter-spacing: 0.7px;
+}
+.custom-input::placeholder{
+    font-size: 14px;
+}
