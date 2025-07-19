@@ -29,7 +29,8 @@
             "title"=>"Total Students", 
             "bg-color"=>"#FFEDF3", "color"=>"#FF7601", 
             "card-color"=>'#fff', 
-            "num-color"=>'#000'
+            "num-color"=>'#000',
+            "border-left" => '#FF7601'
         ],
         [
             "icon"=>"fas fa-check-circle", 
@@ -39,7 +40,8 @@
             "bg-color"=>"#E8F9FF", 
             "color"=>"#4300FF", 
             "card-color"=>'#fff', 
-            "num-color"=>'#000'
+            "num-color"=>'#000',
+            "border-left" => '#4300FF'
         ],
         [
             "icon"=>"fas fa-ban text-danger", 
@@ -49,7 +51,8 @@
             "bg-color"=>"#FFE2E2", 
             "color"=>"#F564A9", 
             "card-color"=>'#fff', 
-            "num-color"=>'#000'
+            "num-color"=>'#000',
+            "border-left" => '#F564A9'
         ],
         [
             "icon"=>"fas fa-user", 
@@ -59,7 +62,8 @@
             "bg-color"=>"#CBDCEB", 
             "color"=>"#01a9ac", 
             "card-color"=>'#fff', 
-            "num-color"=>'#000'
+            "num-color"=>'#000',
+            "border-left" => '#01a9ac'
         ],
         [
             "icon"=>"fas fa-user", 
@@ -69,7 +73,8 @@
             "bg-color"=>"#fff", 
             "color"=>"#FF7601", 
             "card-color"=>'#FF7601', 
-            "num-color"=>'#fff'
+            "num-color"=>'#fff',
+            "border-left" => '#FF7601'
         ],
         [
             "icon"=>"fas fa-folder-open", 
@@ -79,7 +84,8 @@
             "bg-color"=>"#fff", 
             "color"=>"#4300FF", 
             "card-color"=>'#4300FF', 
-            "num-color"=>'#fff'
+            "num-color"=>'#fff',
+            "border-left" => '#4300FF'
         ],
         [
             "icon"=>"fas fa-folder-open", 
@@ -89,7 +95,8 @@
             "bg-color"=>"#fff", 
             "color"=>"#dc3545", 
             "card-color"=>'#dc3545', 
-            "num-color"=>'#fff'
+            "num-color"=>'#fff',
+            "border-left" => '#dc3545'
         ],
         [
             "icon"=>"fas fa-file-invoice-dollar", 
@@ -99,7 +106,8 @@
             "bg-color"=>"#fff", 
             "color"=>"#01a9ac", 
             "card-color"=>'#01a9ac', 
-            "num-color"=>'#fff'
+            "num-color"=>'#fff',
+            "border-left" => '#01a9ac'
         ],
     ];
 ?>

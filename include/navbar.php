@@ -51,12 +51,13 @@
                                 <button class="dropbtn"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account</button>
                                 <div class="dropdown-content">
                                     <a href="demand-bill"><i class="fas fa-file-invoice-dollar" style="padding-right: 5px;"></i> Demand Bill</a>
-                                    <a href=""> 
+                                    <a href="invoice-reports"> 
                                         <span style="display: inline-flex; gap: 4px; align-items: center;">
                                             <i class="fas fa-file-invoice-dollar"></i>
                                             <i class="fas fa-chart-line"></i>
                                         </span> Invoice & Reports
                                     </a>
+                                    <a href="#"><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Previus Reports</a>
                                 </div>
                             </div>
                             <a href=""><button><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Reports</button></a>

@@ -1,47 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Address Auto Fill</title>
-  <style>
-    textarea {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-    }
-  </style>
-</head>
-<body>
+<?php
+$xml = <<<XML
+<?xml version="1.0" encoding="utf-8"?>
+<soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+               xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <AddEmployee xmlns="http://tempuri.org/">
+      <APIKey>11</APIKey>
+      <EmployeeCode>1123</EmployeeCode>
+      <EmployeeName>Amitkumar</EmployeeName>
+      <CardNumber>778956</CardNumber>
+      <SerialNumber>BRM9202760325</SerialNumber>
+      <UserName>Test</UserName>
+      <UserPassword>Test@1234</UserPassword>
+      <CommandId></CommandId>
+    </AddEmployee>
+  </soap:Body>
+</soap:Envelope>
+XML;
 
-  <div>
-    <label for="permanent-address">Permanent Address</label><br>
-    <textarea id="permanent-address" rows="3" placeholder="Enter permanent address"></textarea>
-  </div>
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "http://192.168.1.140/iclock/WebAPIService.asmx");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    "Content-Type: text/xml; charset=utf-8",
+    "SOAPAction: \"http://tempuri.org/AddEmployee\"",
+    "Content-Length: " . strlen($xml),
+]);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
+$response = curl_exec($ch);
+curl_close($ch);
 
-  <div>
-    <input type="checkbox" id="same-address" onclick="copyAddress()">
-    <label for="same-address">Current address is same as permanent address</label>
-  </div>
-
-  <div>
-    <label for="current-address">Current Address</label><br>
-    <textarea id="current-address" rows="3" placeholder="Enter current address"></textarea>
-  </div>
-
-  <script>
-    function copyAddress() {
-      const permanent = document.getElementById("permanent-address");
-      const current = document.getElementById("current-address");
-      const checkbox = document.getElementById("same-address");
-
-      if (checkbox.checked) {
-        current.value = permanent.value;
-        current.setAttribute("disabled", true);
-      } else {
-        current.value = "";
-        current.removeAttribute("disabled");
-      }
-    }
-  </script>
-
-</body>
-</html>
+echo htmlentities($response);
+var_dump($response);
+?>

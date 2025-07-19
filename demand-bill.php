@@ -36,7 +36,7 @@
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account Panel</a>
-                         <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span> Demand Bill</span>
+                        <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span> Demand Bill</span>
                     </div>
                 </div> 
             </div>
@@ -50,7 +50,7 @@
                         <div class="bill-form pt-3">
                             <div class="d-flex justify-content-between">
                                 <span><b>Fill The Details --</b></span>
-                                <button type="button" onclick="addMore()" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Add More</button>
+                                <button type="button" onclick="addMore()" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; background-color:#091057!important;">Add More</button>
                             </div><hr>
                             <form id="demand-bill">
                                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
@@ -99,7 +99,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div style="display: block; float: right;">
-                                            <button type="submit">Generate</button>
+                                            <button type="submit" style="background-color:#091057;">Generate</button>
                                         </div>
                                     </div>
                                 </div>
@@ -188,6 +188,23 @@
             const res = await response.json();
             if(res){
                 alert(res.message);
+                if(res.redirect){
+                   const classParams = encodeURIComponent(res.class);
+                   const monthParams = encodeURIComponent(res.month_year);
+                   let url = `view-bill.php?class=${classParams}&month_year=${monthParams}`;
+                   if(res.section && res.section !== ""){
+                        const sectionParams = encodeURIComponent(res.section);
+                        url += `&section=${sectionParams}`;
+                   }
+                   if (res.student_ids && res.student_ids.length > 0) {
+                        const idsParam = encodeURIComponent(res.student_ids.join(','));
+                        url += `&student_ids=${idsParam}`;
+                    }
+                   window.open(url, '_blank');
+                }
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
             }
         }catch(error){
             alert("Something Went Wrong");

@@ -44,3 +44,12 @@
 .custom-input::placeholder{
     font-size: 14px;
 }
+.title-area-search{
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #091057;
+    padding: 10px 10px 9px 10px;
+    margin-top: 10px;
+    font-weight: 400;
+}
