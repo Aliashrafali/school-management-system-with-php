@@ -127,6 +127,242 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <form>
+                                <input type="hidden" id="tuition_fee" value="<?= $row['tution_fee']; ?>">
+                                <input type="hidden" id="transport_fee" value="<?= $row['transport_and_other_fee']; ?>">
+                                <?php
+                                    if($row['paid'] == 0){
+                                ?>
+                                    <input type="hidden" id="total" value="<?= $row['total']; ?>">
+                                <?php
+                                    }else{
+                                ?>
+                                    <input type="hidden" id="total" value="<?= $row['rest_dues']; ?>">
+                                <?php
+                                    }
+                                ?>
+                                <input type="hidden" id="total" value="<?= $row['total']; ?>">
+                                <div class="row payment-form">
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Total Amount</label>
+                                            <?php
+                                                if ($row['paid'] == 0) {
+                                            ?>
+                                                <input type="text" id="name" name="amount" value="<?= number_format($row['total'],2); ?>" required readonly>
+                                            <?php
+                                                } else {
+                                            ?>
+                                                <input type="text" id="name" name="amount" value="<?= number_format($row['rest_dues'], 2); ?>" required readonly>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Advanced Month</label>
+                                            <select name="adv_month" id="adv_month">
+                                                <?php
+                                                    for($i = 0; $i <= 12; $i++) {
+                                                        echo "<option value=\"$i\">$i</option>";
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Advanced Amount</label>
+                                            <input type="text" id="adv_amount" name="adv_amount" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Discount</label>
+                                            <input type="text" id="discount" name="discount" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Grant Total</label>
+                                            <?php
+                                                if ($row['paid'] == 0) {
+                                            ?>
+                                                <input type="text" id="grant_total" name="grant_total" value="<?= number_format($row['total'],2); ?>" required readonly>
+                                            <?php
+                                                } else {
+                                            ?>
+                                                <input type="text" id="grant_total" name="grant_total" value="<?= number_format($row['rest_dues'], 2); ?>" required readonly>
+                                            <?php
+                                            }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Paid Amount</label>
+                                            <input type="text" id="paid" name="name" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Rest Dues</label>
+                                            <input type="text" id="rest_dues" name="rest_dues" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="name">Payment By</label>
+                                            <select name="payment_by" id="payment_by" onchange="paidBy()" required>
+                                                <option disabled selected value="">--Select--</option>
+                                                <?php
+                                                    $paymentby = [
+                                                        "payment" => ['bank', 'upi', 'cash', 'check', 'other']
+                                                    ];
+                                                    foreach($paymentby['payment'] as $payment){
+                                                        echo "<option value=\"$payment\">$payment</option>";
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="bank">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="name">Bank Name</label>
+                                                    <select name="bankname" id="bankname">
+                                                        <option disabled selected value="">--Select--</option>
+                                                        <?php
+                                                            $bank = [
+                                                                "bankname" => [
+                                                                    'State Bank of India',
+                                                                    'Punjab National Bank',
+                                                                    'Bank of Baroda',
+                                                                    'Canara Bank',
+                                                                    'Union Bank of India',
+                                                                    'Indian Bank',
+                                                                    'Bank of India',
+                                                                    'UCO Bank',
+                                                                    'Indian Overseas Bank',
+                                                                    'Central Bank of India',
+                                                                    'Bank of Maharashtra',
+                                                                    'Punjab & Sind Bank',
+                                                                    'HDFC Bank',
+                                                                    'ICICI Bank',
+                                                                    'Axis Bank',
+                                                                    'Kotak Mahindra Bank',
+                                                                    'IndusInd Bank',
+                                                                    'Yes Bank',
+                                                                    'IDFC FIRST Bank',
+                                                                    'Federal Bank',
+                                                                    'South Indian Bank',
+                                                                    'Bandhan Bank',
+                                                                    'RBL Bank',
+                                                                    'CSB Bank',
+                                                                    'DCB Bank',
+                                                                    'City Union Bank',
+                                                                    'Karur Vysya Bank',
+                                                                    'Karnataka Bank',
+                                                                    'Tamilnad Mercantile Bank',
+                                                                    'Jammu & Kashmir Bank',
+                                                                    'Nainital Bank',
+                                                                    'AU Small Finance Bank',
+                                                                    'Equitas Small Finance Bank',
+                                                                    'Ujjivan Small Finance Bank',
+                                                                    'Suryoday Small Finance Bank',
+                                                                    'ESAF Small Finance Bank',
+                                                                    'Jana Small Finance Bank',
+                                                                    'North East Small Finance Bank',
+                                                                    'Capital Small Finance Bank',
+                                                                    'Fincare Small Finance Bank',
+                                                                    'Utkarsh Small Finance Bank',
+                                                                    'Shivalik Small Finance Bank',
+                                                                    'DBS Bank',
+                                                                    'Standard Chartered Bank',
+                                                                    'HSBC Bank',
+                                                                    'Barclays Bank',
+                                                                    'Deutsche Bank',
+                                                                    'JP Morgan Chase',
+                                                                    'Bank of America',
+                                                                    'BNP Paribas',
+                                                                    'United Overseas Bank',
+                                                                ]
+                                                            ];
+                                                            foreach($bank['bankname'] as $bankname){
+                                                                echo "<option value=\"$bankname\">$bankname</option>";
+                                                            }
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="name">Account No.</label>
+                                                    <input type="text" id="account" name="acc_no" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="name">Branch</label>
+                                                    <input type="text" id="branch" name="branch" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="form-group">
+                                                    <label for="name">IFSC Code.</label>
+                                                    <input type="text" id="ifsc" name="ifsc" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" style="text-transform: uppercase;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--upi-->
+                                    <div id="upi">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="name">UPI Number</label>
+                                                    <input type="text" id="upiid" name="upi">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--Check-->
+                                    <div id="check">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="name">Check Number</label>
+                                                    <input type="text" id="checkno" name="check">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--other-->
+                                    <div id="other">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label for="name">Enter Name of the Payment Method</label>
+                                                    <input type="text" id="othermethod" name="other">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row pb-2">
+                                    <div class="col-12">
+                                        <div style="display: block; float: right;">
+                                            <button type="submit" class="btn btn-primary btn-sm" style="background-color:#091057; border-radius: 5px;">
+                                                <i class="fas fa-file-invoice" style="padding-right: 5px;"></i> Submit and Generate Receipt
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>   
@@ -134,6 +370,57 @@
         </div>
     </section>
 </main>
+
+<!--Fees Calculation start-->
+<script>
+    const tuition = parseFloat(document.getElementById('tuition_fee').value) || 0;
+    const transport = parseFloat(document.getElementById('transport_fee').value) || 0;
+    const total = parseFloat(document.getElementById('total').value) || 0;
+
+    const advMonth = document.getElementById('adv_month');
+    const advAmount = document.getElementById('adv_amount');
+    const discount = document.getElementById('discount');
+    const grantTotal = document.getElementById('grant_total');
+    const paid = document.getElementById('paid');
+    const restDues = document.getElementById('rest_dues');
+
+    let isManualAdv = false;
+
+    function calculateAdvAmount() {
+        if (!isManualAdv) {
+            const adv = parseInt(advMonth.value) || 0;
+            const advAmt = adv * (tuition + transport);
+            advAmount.value = advAmt;
+        }
+    }
+
+    function calculateAll() {
+        calculateAdvAmount();
+
+        const advAmt = parseFloat(advAmount.value) || 0;
+        const dis = parseFloat(discount.value) || 0;
+        const paidAmount = parseFloat(paid.value) || 0;
+
+        const grand = (total + advAmt) - dis;
+        grantTotal.value = grand.toFixed(2);
+
+        const dues = grand - paidAmount;
+        restDues.value = dues.toFixed(2);
+    }
+
+    advMonth.addEventListener('change', () => {
+        isManualAdv = false;
+        calculateAll();
+    });
+
+    advAmount.addEventListener('input', () => {
+        isManualAdv = true;
+        calculateAll();
+    });
+
+    discount.addEventListener('input', calculateAll);
+    paid.addEventListener('input', calculateAll);
+</script>
 
 <?php
     include 'include/footer.php';

@@ -246,3 +246,35 @@ function showToast1(message, isError = false) {
         toast1.className = 'toast';
     }, 3000);
 }
+
+function paidBy() {
+  const payment = document.getElementById('payment_by').value;
+  if (payment === 'bank') {
+    document.getElementById('bank').style.display = 'block';
+    document.getElementById('upi').style.display = 'none';
+    document.getElementById('check').style.display = 'none';
+    document.getElementById('other').style.display = 'none';
+  }else if(payment === 'upi'){
+    document.getElementById('upi').style.display = 'block';
+    document.getElementById('bank').style.display = 'none';
+    document.getElementById('check').style.display = 'none';
+    document.getElementById('other').style.display = 'none';
+  }else if(payment === 'cash'){
+    document.getElementById('bank').style.display = 'none';
+    document.getElementById('upi').style.display = 'none';
+    document.getElementById('check').style.display = 'none';
+    document.getElementById('other').style.display = 'none';
+  }else if(payment === 'check'){
+    document.getElementById('check').style.display = 'block';
+    document.getElementById('bank').style.display = 'none';
+    document.getElementById('upi').style.display = 'none';
+    document.getElementById('other').style.display = 'none';
+  }else if(payment === 'other'){
+    document.getElementById('other').style.display = 'block';
+    document.getElementById('bank').style.display = 'none';
+    document.getElementById('upi').style.display = 'none';
+    document.getElementById('check').style.display = 'none';
+  }else {
+    document.getElementById('bank').style.display = 'none';
+  }
+}
