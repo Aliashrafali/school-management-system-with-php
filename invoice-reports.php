@@ -4,13 +4,16 @@
     session_start();
     $current_month = date('Y-m');
     $sql = $conn->prepare("
-        SELECT tbl_demand.*,
+        SELECT 
+        tbl_demand.id AS demand_id,
+        tbl_demand.*,
         registration.id,
         registration.reg_no,
         registration.name,
         registration.fname,
         registration.mobile,
-        registration.class
+        registration.class,
+        registration.section
         FROM tbl_demand
         INNER JOIN registration
         ON tbl_demand.reg_no = registration.reg_no
@@ -118,6 +121,7 @@
                                         <th>Father's Name</th>
                                         <th>Mobile No.</th>
                                         <th>Class</th>
+                                        <th>Section</th>
                                         <th>Demand</th>
                                         <th>Date and Time</th>
                                         <th>Status</th>
@@ -133,6 +137,47 @@
                                         <tr>
                                             <td><?= $i++; ?></td>
                                             <td><?= $row['reg_no']; ?></td>
+                                            <td><span style="text-transform: capitalize;"><?= $row['name']; ?></span></td>
+                                            <td><span style="text-transform: capitalize;"><?= $row['fname']; ?></span></td>
+                                            <td><span><?= $row['mobile']; ?></span></td>
+                                            <td><span style="text-transform: capitalize;"><?= $row['class']; ?></span></td>
+                                            <td><span style="text-transform: capitalize;"><?= $row['section']; ?></span></td>
+                                            <td><span><?= $row['month_year']; ?></span></td>
+                                            <td><span>
+                                                    <?php
+                                                        $dateandtime = $row['date_and_time'];
+                                                        $org_date = date('d-m-Y h:i A', strtotime($dateandtime));
+                                                        echo $org_date;
+                                                    ?>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                    if($row['status'] == 0){
+                                                        $status = '<span class="badge rounded-pill text-bg-danger">Pending</span>';
+                                                    }else if($row['status'] == 1){
+                                                        $status = '<span class="badge rounded-pill text-bg-warning">Partially Paid</span>';
+                                                    }else if($row['rest_dues'] == 0 AND $row['paid'] != 0){
+                                                        $status = '<span class="badge rounded-pill text-bg-success">Full Paid</span>';
+                                                    }else if($row['rest_dues'] < 0){
+                                                        $status = '<span class="badge rounded-pill text-bg-primary"><i class="fas fa-check-circle"></i> Advanced Paid</span>';
+                                                    }
+                                                    echo $status;
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <a href="payments?id=<?= $row['demand_id']; ?>" style="background-color: #d4edda; color: #155724; padding: 6px 8px; border-radius: 5px; margin-right: 5px;" title="Payment">
+                                                    <i class="fas fa-money-bill-wave"></i>
+                                                </a>
+                                                
+                                                <a href="#?id=<?= $row['demand_id']; ?>" style="background-color: #cce5ff; color: #004085; padding: 6px 8px; border-radius: 5px; margin-right: 5px;" title="View">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                
+                                                <a href="#?id=<?= $row['demand_id']; ?>" style="background-color: #fff3cd; color: #856404; padding: 6px 8px; border-radius: 5px;" title="Ledger">
+                                                    <i class="fas fa-folder-open"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     <?php
                                             }

@@ -53,3 +53,12 @@
     margin-top: 10px;
     font-weight: 400;
 }
+.title-area-payments{
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #091057;
+    padding: 10px 10px 0px 10px;
+    margin-top: 10px;
+    font-weight: 400;
+}

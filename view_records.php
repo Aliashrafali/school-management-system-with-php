@@ -38,7 +38,7 @@
                 <div class="col-12">
                     <div class="student-view">
                         <div class="all_records">
-                            <a href="registration"><button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                            <a href="registration"><button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; background-color: #091057;">
                                 Back
                             </button></a><br>
                             <h6 class="pt-3">Student's Information</h6><hr>

@@ -10,7 +10,8 @@
         'print_reg' => 'Print',
         'view_admission' => 'Admission Details',
         'demand-bill' => 'Demand Bill',
-        'invoice-reports' => 'Invoice and Reports'
+        'invoice-reports' => 'Invoice and Reports',
+        'payments' => 'Payments'
     ];
 
     $title = isset($titles[$page]) ? $titles[$page] : "School Management System";
