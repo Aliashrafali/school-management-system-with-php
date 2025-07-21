@@ -30,5 +30,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="css/fees.css">
+    <link rel="stylesheet" href="css/parents.css">
 </head>
 <body>

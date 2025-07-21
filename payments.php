@@ -356,7 +356,7 @@
                                 <div class="row pb-2">
                                     <div class="col-12">
                                         <div style="display: block; float: right;">
-                                            <button type="submit" class="btn btn-primary btn-sm" style="background-color:#091057; border-radius: 5px;">
+                                            <button type="submit" onclick="return validatePayments()" class="btn btn-primary btn-sm" style="background-color:#091057; border-radius: 5px;">
                                                 <i class="fas fa-file-invoice" style="padding-right: 5px;"></i> Submit and Generate Receipt
                                             </button>
                                         </div>

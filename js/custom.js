@@ -144,13 +144,18 @@ function copyAddress() {
 }
 
 // registration aadhar validation
-document.getElementById('radhar').addEventListener('input', function(e){
-    let value = e.target.value;
-    value = value.replace(/\D/g, '');
-    value = value.substring(0, 12);
-    value = value.replace(/(.{4})/g, '$1 ').trim();
-    e.target.value = value;
-})
+['radhar', 'padhar'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) {
+        input.addEventListener('input', function(e) {
+            let value = e.target.value;
+            value = value.replace(/\D/g, '');
+            value = value.substring(0, 12);
+            value = value.replace(/(.{4})/g, '$1 ').trim();
+            e.target.value = value;
+        });
+    }
+});
 
 // registration image validation
 function validateRegistrationImage(){
@@ -206,11 +211,6 @@ function valiDateForm(){
       element.focus();
       return false;
     }
-    // if(field.length && element.value.trim().value !== field.length){
-    //   alert(`${field.lebel}`);
-    //   element.focus();
-    //   return false;
-    // }
   }
   return true
 }
@@ -277,4 +277,45 @@ function paidBy() {
   }else {
     document.getElementById('bank').style.display = 'none';
   }
+}
+
+// payments validation
+function validatePayments(){
+  const paymentFields = [
+    {id:'paid', message:'Enter Paid Amount'},
+    {id:'payment_by', message:'Select Payment Method'}
+  ];  
+
+  for(let payment of paymentFields){
+    let payelement = document.getElementById(payment.id);
+    if(!payelement.value.trim()){
+      alert(payment.message);
+      payelement.focus();
+      return false;
+    }
+  }
+  return true
+}
+
+// parents validation 
+function validParents(){
+  const parentsFields = [
+    {id:'pname', message:"Enter Name !"},
+    {id:'pmobile', message:'Enter Your Mobile', length:10}
+  ];
+
+  for(let parents of parentsFields){
+    let parentelements = document.getElementById(parents.id);
+    if(!parentelements.value.trim()){
+      alert(parents.message);
+      parentelements.focus();
+      return false;
+    }
+    if (parents.id === 'pmobile' && parentelements.length !== parents.length) {
+      alert("Mobile number must be exactly 10 digits!");
+      parentelements.focus();
+      return false;
+    }
+  }
+  return true;
 }

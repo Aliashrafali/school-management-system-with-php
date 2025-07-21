@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Teacher</button></a>
-                            <a href=""><button><i class="fas fa-users" style="padding-right: 5px;"></i> Parents</button></a>
+                            <a href="parents"><button><i class="fas fa-users" style="padding-right: 5px;"></i> Parents</button></a>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button></a>
                             <a href=""><button><i class="fas fa-book" style="padding-right: 5px;"></i> Attendance</button></a>
                             <a href=""><button><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Exam</button></a>
