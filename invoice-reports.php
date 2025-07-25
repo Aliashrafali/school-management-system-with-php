@@ -153,12 +153,12 @@
                                             </td>
                                             <td>
                                                 <?php
-                                                    if($row['status'] == 0){
-                                                        $status = '<span class="badge rounded-pill text-bg-danger">Pending</span>';
-                                                    }else if($row['status'] == 1){
+                                                    if($row['paid'] == 0){
+                                                        $status = '<span class="badge rounded-pill text-bg-danger"><i class="fa fa-times-circle"></i> Pending</span>';
+                                                    }else if($row['paid'] > 0 AND $row['rest_dues'] > 0){
                                                         $status = '<span class="badge rounded-pill text-bg-warning">Partially Paid</span>';
                                                     }else if($row['rest_dues'] == 0 AND $row['paid'] != 0){
-                                                        $status = '<span class="badge rounded-pill text-bg-success">Full Paid</span>';
+                                                        $status = '<span class="badge rounded-pill text-bg-success"><i class="fas fa-check-circle"></i> Full Paid</span>';
                                                     }else if($row['rest_dues'] < 0){
                                                         $status = '<span class="badge rounded-pill text-bg-primary"><i class="fas fa-check-circle"></i> Advanced Paid</span>';
                                                     }

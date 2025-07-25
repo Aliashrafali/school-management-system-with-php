@@ -216,13 +216,13 @@ function valiDateForm(){
 }
 
 // registration adhar varified
-document.getElementById('radhar').addEventListener('input', function(e){
-    let value = e.target.value;
-    value = value.replace(/\D/g, '');
-    value = value.substring(0, 12);
-    value = value.replace(/(.{4})/g, '$1 ').trim();
-    e.target.value = value;
-});
+// document.getElementById('radhar').addEventListener('input', function(e){
+//     let value = e.target.value;
+//     value = value.replace(/\D/g, '');
+//     value = value.substring(0, 12);
+//     value = value.replace(/(.{4})/g, '$1 ').trim();
+//     e.target.value = value;
+// });
 
 // toast//
 function showToast(message, isError = false) {

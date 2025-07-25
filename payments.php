@@ -26,7 +26,9 @@
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
     }
-
+    if (!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // generate token
+    }
 ?>
 
 <header>
@@ -111,12 +113,12 @@
                                             <td><?= $row['month_year']; ?></td>
                                             <td>
                                                 <?php
-                                                    if($row['status'] == 0){
-                                                        $status = '<span class="badge rounded-pill text-bg-danger">Pending</span>';
-                                                    }else if($row['status'] == 1){
-                                                        $status = '<span class="badge rounded-pill text-bg-warning">Partially Paid</span>';
-                                                    }else if($row['rest_dues'] == 0 AND $row['paid'] != 0){
-                                                        $status = '<span class="badge rounded-pill text-bg-success">Full Paid</span>';
+                                                    if($row['paid'] == 0){
+                                                        $status = '<span class="badge rounded-pill text-bg-danger"><i class="fa fa-times-circle"></i> Pending</span>';
+                                                    }else if($row['paid'] > 0 AND $row['rest_dues'] > 0 ){
+                                                        $status = '<span class="badge rounded-pill text-bg-warning"><i class="fa-solid fa-circle-half-stroke"></i> Partially Paid</span>';
+                                                    }else if($row['rest_dues'] == 0 AND $row['paid'] !== 0){
+                                                        $status = '<span class="badge rounded-pill text-bg-success"><i class="fas fa-check-circle"></i> Full Paid</span>';
                                                     }else if($row['rest_dues'] < 0){
                                                         $status = '<span class="badge rounded-pill text-bg-primary"><i class="fas fa-check-circle"></i> Advanced Paid</span>';
                                                     }
@@ -127,21 +129,30 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <form>
+                            <form id="payments" method="POST">
+                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                                <input type="hidden" name="reg_no" value="<?= $row['reg_no']; ?>">
+                                <input type="hidden" name="month_year" value="<?= $row['month_year']; ?>">
+                                <input type="hidden" name="sid" value="<?= $row['id']; ?>">
+                                <input type="hidden" name="id" value="<?= $row['demand_id']; ?>">
                                 <input type="hidden" id="tuition_fee" value="<?= $row['tution_fee']; ?>">
                                 <input type="hidden" id="transport_fee" value="<?= $row['transport_and_other_fee']; ?>">
                                 <?php
                                     if($row['paid'] == 0){
                                 ?>
-                                    <input type="hidden" id="total" value="<?= $row['total']; ?>">
+                                    <input type="hidden" name="totalamount" id="totalamount" value="<?= $row['total']; ?>">
                                 <?php
                                     }else{
                                 ?>
-                                    <input type="hidden" id="total" value="<?= $row['rest_dues']; ?>">
+                                    <input type="hidden" name="totalamount" id="total" value="<?= $row['rest_dues']; ?>">
                                 <?php
                                     }
                                 ?>
-                                <input type="hidden" id="total" value="<?= $row['total']; ?>">
+                                <?php
+                                    $totalForCalc = ($row['paid'] == 0) ? $row['total'] : $row['rest_dues'];
+                                ?>
+                                <input type="hidden" id="totalcal" value="<?= $totalForCalc ?>">
+
                                 <div class="row payment-form">
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="form-group">
@@ -202,7 +213,7 @@
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="name">Paid Amount</label>
-                                            <input type="text" id="paid" name="name" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                                            <input type="text" id="paid" name="paid" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">
@@ -312,7 +323,7 @@
                                             <div class="col-lg-3 col-md-6 col-sm-12">
                                                 <div class="form-group">
                                                     <label for="name">IFSC Code.</label>
-                                                    <input type="text" id="ifsc" name="ifsc" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')" style="text-transform: uppercase;">
+                                                    <input type="text" id="ifsc" name="ifsc" style="text-transform: uppercase;">
                                                 </div>
                                             </div>
                                         </div>
@@ -370,12 +381,11 @@
         </div>
     </section>
 </main>
-
 <!--Fees Calculation start-->
 <script>
     const tuition = parseFloat(document.getElementById('tuition_fee').value) || 0;
     const transport = parseFloat(document.getElementById('transport_fee').value) || 0;
-    const total = parseFloat(document.getElementById('total').value) || 0;
+    const total = parseFloat(document.getElementById('totalcal').value) || 0;
 
     const advMonth = document.getElementById('adv_month');
     const advAmount = document.getElementById('adv_amount');
@@ -421,6 +431,44 @@
     discount.addEventListener('input', calculateAll);
     paid.addEventListener('input', calculateAll);
 </script>
+
+<!--Form Submit Code here -->
+<script>
+    let payments = document.getElementById('payments');
+    payments.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(payments);
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+        try{
+            const response = await fetch('api/account/payments.php',{
+                method:'POST',
+                body:formData
+            });
+            console.log("Raw Response", response);
+            const result = await response.json();
+            console.log("Parsed JSON", result);
+            
+            if(result.success){
+                alert(result.message);
+                window.open("print-reciept.php?invoice_no="+result.invoice_no, "_blank");
+                setTimeout((function(){
+                    window.location.reload();
+                }), 3000);
+            }else{
+                alert(result.message);
+                setTimeout((function(){
+                    window.location.reload();
+                }), 3000);
+            }
+        }catch(error){
+            alert("Something Went Wrong");
+            console.error(error);
+        }
+    });
+</script>
+<!--end here -->
 
 <?php
     include 'include/footer.php';
