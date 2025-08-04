@@ -1,4 +1,5 @@
 <?php
+    date_default_timezone_set('Asia/Kolkata');
     include 'sql/config.php';
     include 'include/header.php';
     session_start();
@@ -156,7 +157,7 @@
                                                     if($row['paid'] == 0){
                                                         $status = '<span class="badge rounded-pill text-bg-danger"><i class="fa fa-times-circle"></i> Pending</span>';
                                                     }else if($row['paid'] > 0 AND $row['rest_dues'] > 0){
-                                                        $status = '<span class="badge rounded-pill text-bg-warning">Partially Paid</span>';
+                                                        $status = '<span class="badge rounded-pill text-bg-warning"><i class="fas fa-adjust"></i> Partially Paid</span>';
                                                     }else if($row['rest_dues'] == 0 AND $row['paid'] != 0){
                                                         $status = '<span class="badge rounded-pill text-bg-success"><i class="fas fa-check-circle"></i> Full Paid</span>';
                                                     }else if($row['rest_dues'] < 0){

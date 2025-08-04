@@ -1,10 +1,15 @@
-<script>
-  const total = 0;
-  const advAmt = 1000;
-  const dis = 0;
-  const paid = 1500;
+<?php
+$month = date('n'); // numeric month (1 to 12)
+$year = date('Y');
 
-  let dues = (advAmt - dis) - paid; 
-  console.log("dues:", dues); 
-  
-</script>
+if ($month >= 4) {
+    // April to December → session starts this year
+    $current_session = $year . '-' . substr($year + 1, -2);
+    echo $current_session;
+} else {
+    // Jan to March → session is of previous year
+    $current_session = ($year - 1) . '-' . substr($year, -2);
+    echo $current_session;
+}
+
+?>

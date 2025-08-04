@@ -94,16 +94,10 @@ if($result->num_rows === 0){
 // Create PDF
 $pdf = new PDFWithWatermark();
 $pdf->AddPage();
+// $pdf->SetFillColor(235, 255, 245); // RGB page color
+// $pdf->Rect(0, 0, 210, 297, 'F');
 $pdf->SetAutoPageBreak(false);
 
-// Set light yellow background
-// $pdf->SetFillColor(255, 255, 204);
-// $pdf->Rect(0, 0, 210, 297, 'F');
-
-// Bill layout
-// $billCount = 3;
-// $billHeight = 90;
-// $startY = 10;
 $billHeight = 90;
 $startY = 10;
 $index = 0;
@@ -111,8 +105,8 @@ $index = 0;
 while($row = $result->fetch_assoc()){
      if ($index > 0 && $index % 3 === 0) {
         $pdf->AddPage();
-        $pdf->SetFillColor(255, 255, 255);
-        $pdf->Rect(0, 0, 210, 297, 'F');
+        // $pdf->SetFillColor(235, 255, 245); // RGB page color
+        // $pdf->Rect(0, 0, 210, 297, 'F');
         $startY = 10;
     }
 
@@ -176,22 +170,24 @@ while($row = $result->fetch_assoc()){
 
     $yOffset += 7;
     $pdf->SetXY($info_x, $yOffset);
+    // Total printable width (adjust according to your page)
+    $totalWidth = 190; // Assuming left and right margin are 10 each on A4
+    $numColumns = 5;
+    $colWidth = $totalWidth / $numColumns;
 
-    $pdf->Cell(15, 5, 'Name :', 0, 0);
-    $pdf->Cell(40, 5, ucwords(strtolower($row['name'])), 0, 0);
+    // Cell height
+    $cellHeight = 5;
 
-    $pdf->Cell(15, 5, 'Class :', 0, 0);
-    $pdf->Cell(20, 5, strtoupper($row['class']), 0, 0);
+    // Draw each field
+    $pdf->Cell($colWidth, $cellHeight, 'Name : ' . ucwords(strtolower($row['name'])), 0, 0);
+    $pdf->Cell($colWidth, $cellHeight, 'Class : ' . strtoupper($row['class']), 0, 0);
+    $pdf->Cell($colWidth, $cellHeight, 'Section : ' . strtoupper($row['section']), 0, 0);
+    $pdf->Cell($colWidth, $cellHeight, 'Roll No. : ' . strtoupper($row['roll']), 0, 0);
+    $pdf->Cell($colWidth, $cellHeight, 'Session : ' . strtoupper($row['session']), 0, 1);
 
-    $pdf->Cell(20, 5, 'Section :', 0, 0);
-    $pdf->Cell(15, 5, strtoupper($row['section']), 0, 0);
-
-    $pdf->Cell(20, 5, 'Roll No. :', 0, 0);
-    $pdf->Cell(20, 5, strtoupper($row['roll']), 0, 0);
-    
     $pdf->SetX(10); // left margin
     $pdf->SetFont('Arial', '', 8);
-    $pdf->Cell(190, 15, str_repeat('-', 200), 0, 1, 'C'); // centered line of dashes
+    $pdf->Cell(190, 3, str_repeat('-', 200), 0, 1, 'C'); // centered line of dashes
 
     $yOffset += 10;
     $pdf->SetXY($info_x, $yOffset);

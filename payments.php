@@ -25,6 +25,9 @@
     $result = $sql->get_result();
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
+    }else{
+        header("Location:invoice-reports.php");
+        exit;
     }
     if (!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // generate token
@@ -160,11 +163,11 @@
                                             <?php
                                                 if ($row['paid'] == 0) {
                                             ?>
-                                                <input type="text" id="name" name="amount" value="<?= number_format($row['total'],2); ?>" required readonly>
+                                                <input type="text" id="name" name="amount" value="<?= $row['total']; ?>.00" required readonly>
                                             <?php
                                                 } else {
                                             ?>
-                                                <input type="text" id="name" name="amount" value="<?= number_format($row['rest_dues'], 2); ?>" required readonly>
+                                                <input type="text" id="name" name="amount" value="<?= $row['rest_dues']; ?>.00" required readonly>
                                             <?php
                                             }
                                             ?>
@@ -229,7 +232,7 @@
                                                 <option disabled selected value="">--Select--</option>
                                                 <?php
                                                     $paymentby = [
-                                                        "payment" => ['bank', 'upi', 'cash', 'check', 'other']
+                                                        "payment" => ['online', 'cash', 'check']
                                                     ];
                                                     foreach($paymentby['payment'] as $payment){
                                                         echo "<option value=\"$payment\">$payment</option>";
@@ -238,103 +241,23 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div id="bank">
+                                    <div id="online">
                                         <div class="row">
-                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="name">Bank Name</label>
-                                                    <select name="bankname" id="bankname">
-                                                        <option disabled selected value="">--Select--</option>
-                                                        <?php
-                                                            $bank = [
-                                                                "bankname" => [
-                                                                    'State Bank of India',
-                                                                    'Punjab National Bank',
-                                                                    'Bank of Baroda',
-                                                                    'Canara Bank',
-                                                                    'Union Bank of India',
-                                                                    'Indian Bank',
-                                                                    'Bank of India',
-                                                                    'UCO Bank',
-                                                                    'Indian Overseas Bank',
-                                                                    'Central Bank of India',
-                                                                    'Bank of Maharashtra',
-                                                                    'Punjab & Sind Bank',
-                                                                    'HDFC Bank',
-                                                                    'ICICI Bank',
-                                                                    'Axis Bank',
-                                                                    'Kotak Mahindra Bank',
-                                                                    'IndusInd Bank',
-                                                                    'Yes Bank',
-                                                                    'IDFC FIRST Bank',
-                                                                    'Federal Bank',
-                                                                    'South Indian Bank',
-                                                                    'Bandhan Bank',
-                                                                    'RBL Bank',
-                                                                    'CSB Bank',
-                                                                    'DCB Bank',
-                                                                    'City Union Bank',
-                                                                    'Karur Vysya Bank',
-                                                                    'Karnataka Bank',
-                                                                    'Tamilnad Mercantile Bank',
-                                                                    'Jammu & Kashmir Bank',
-                                                                    'Nainital Bank',
-                                                                    'AU Small Finance Bank',
-                                                                    'Equitas Small Finance Bank',
-                                                                    'Ujjivan Small Finance Bank',
-                                                                    'Suryoday Small Finance Bank',
-                                                                    'ESAF Small Finance Bank',
-                                                                    'Jana Small Finance Bank',
-                                                                    'North East Small Finance Bank',
-                                                                    'Capital Small Finance Bank',
-                                                                    'Fincare Small Finance Bank',
-                                                                    'Utkarsh Small Finance Bank',
-                                                                    'Shivalik Small Finance Bank',
-                                                                    'DBS Bank',
-                                                                    'Standard Chartered Bank',
-                                                                    'HSBC Bank',
-                                                                    'Barclays Bank',
-                                                                    'Deutsche Bank',
-                                                                    'JP Morgan Chase',
-                                                                    'Bank of America',
-                                                                    'BNP Paribas',
-                                                                    'United Overseas Bank',
-                                                                ]
-                                                            ];
-                                                            foreach($bank['bankname'] as $bankname){
-                                                                echo "<option value=\"$bankname\">$bankname</option>";
-                                                            }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="name">Account No.</label>
-                                                    <input type="text" id="account" name="acc_no" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="name">Branch</label>
-                                                    <input type="text" id="branch" name="branch" oninput="this.value = this.value.replace(/[^a-zA-Z ]/g, '')">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-6 col-sm-12">
-                                                <div class="form-group">
-                                                    <label for="name">IFSC Code.</label>
-                                                    <input type="text" id="ifsc" name="ifsc" style="text-transform: uppercase;">
+                                                    <label for="name">Transaction Id</label>
+                                                    <input type="text" id="account" name="online">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!--upi-->
-                                    <div id="upi">
+                                    <div id="cash">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="name">UPI Number</label>
-                                                    <input type="text" id="upiid" name="upi">
+                                                    <label for="name">Payment By</label>
+                                                    <input type="text" id="upiid" name="cash">
                                                 </div>
                                             </div>
                                         </div>
@@ -347,18 +270,6 @@
                                                 <div class="form-group">
                                                     <label for="name">Check Number</label>
                                                     <input type="text" id="checkno" name="check">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--other-->
-                                    <div id="other">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label for="name">Enter Name of the Payment Method</label>
-                                                    <input type="text" id="othermethod" name="other">
                                                 </div>
                                             </div>
                                         </div>
@@ -410,12 +321,17 @@
         const advAmt = parseFloat(advAmount.value) || 0;
         const dis = parseFloat(discount.value) || 0;
         const paidAmount = parseFloat(paid.value) || 0;
-
+        
         const grand = (total + advAmt) - dis;
         grantTotal.value = grand.toFixed(2);
 
-        const dues = grand - paidAmount;
-        restDues.value = dues.toFixed(2);
+        if(grand === total || grand < total){
+            const dues = grand - paidAmount;
+            restDues.value = dues.toFixed(2);
+        }else{
+            const dues = total - dis - paidAmount;
+            restDues.value = dues.toFixed(2);
+        }
     }
 
     advMonth.addEventListener('change', () => {

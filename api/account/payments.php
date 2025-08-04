@@ -47,14 +47,9 @@ try {
     $month_year = $_POST['month_year'] ?? '';
 
     // Payment method fields
-    $bankname = $_POST['bankname'] ?? '';
-    $acc_no = $_POST['acc_no'] ?? '';
-    $branch = $_POST['branch'] ?? '';
-    $ifsc = $_POST['ifsc'] ?? '';
-    $upi = $_POST['upi'] ?? '';
+    $online = $_POST['online'] ?? '';
     $cash = $_POST['cash'] ?? '';
     $check = $_POST['check'] ?? '';
-    $other = $_POST['other'] ?? '';
 
     // Generate invoice number
     $invoice_no = 'INV' . date('dmy') . mt_rand(3, 999);
@@ -80,15 +75,13 @@ try {
     $insert = $conn->prepare("INSERT INTO tbl_payments(
         demand_id, reg_no, student_id, invoice_no, total_amount, month_year,
         no_of_advance_month, advance_amount, discount_amount, grant_total, paid_amount,
-        rest_dues, paid_by, bank_name, account_no, branch, ifsc_code,
-        upi_id, check_no, other_method, date_and_time, status
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        rest_dues, paid_by, transaction_id, payment_by, check_no, date_and_time, status
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-   $insert->bind_param('isisdsidddddsssssssssi', 
+   $insert->bind_param('isisdsidddddsssssi', 
     $demand_id, $reg_no, $sid, $invoice_no, $amount, $month_year,
     $adv_month, $adv_amount, $discount, $grant_total, $paid,
-    $rest_dues, $payment_by, $bankname, $acc_no, $branch, $ifsc,
-    $upi, $check, $other, $currentDateTime, $status);
+    $rest_dues, $payment_by, $online, $cash, $check, $currentDateTime, $status);
     $insert->execute();
     $inserted_id = $insert->insert_id;
 
