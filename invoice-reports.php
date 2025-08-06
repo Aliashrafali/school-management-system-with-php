@@ -83,7 +83,7 @@
                                             <option disabled selected value="">--Select Class--</option>
                                             <?php
                                                 foreach($classArray['class'] as $class){
-                                                    echo "<option value=\"$class\">$class</option>";
+                                                    echo "<option value=\"$class\" style='text-transform:uppercase;'>$class</option>";
                                                 }
                                             ?>
                                         </select>
@@ -171,11 +171,14 @@
                                                     <i class="fas fa-money-bill-wave"></i>
                                                 </a>
                                                 
-                                                <a href="#?id=<?= $row['demand_id']; ?>" style="background-color: #cce5ff; color: #004085; padding: 6px 8px; border-radius: 5px; margin-right: 5px;" title="View">
+                                                <a href="view_demand?demand_id=<?= $row['demand_id']; ?>&month_year=<?= urlencode($row['month_year']); ?>" style="background-color: #cce5ff; color: #004085; padding: 6px 8px; border-radius: 5px; margin-right: 5px;" title="View">
                                                     <i class="fas fa-eye"></i>
                                                 </a>
-                                                
-                                                <a href="#?id=<?= $row['demand_id']; ?>" style="background-color: #fff3cd; color: #856404; padding: 6px 8px; border-radius: 5px;" title="Ledger">
+                                                <a href="edit?id=<?= $row['demand_id']; ?>" style="background-color: #cce5ff; color: #004085; padding: 6px 8px; border-radius: 5px; margin-right: 5px;" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+
+                                                <a href="ladger?session=<?= urlencode($row['session']); ?>&reg=<?= urlencode($row['reg_no']); ?>" style="background-color: #fff3cd; color: #856404; padding: 6px 8px; border-radius: 5px;" title="Ledger">
                                                     <i class="fas fa-folder-open"></i>
                                                 </a>
                                             </td>

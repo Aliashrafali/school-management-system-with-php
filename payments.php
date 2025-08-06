@@ -326,9 +326,14 @@
         grantTotal.value = grand.toFixed(2);
 
         if(grand === total || grand < total){
-            const dues = grand - paidAmount;
+            const dues = total - paidAmount - dis;
             restDues.value = dues.toFixed(2);
-        }else{
+        }else if(total < 0){
+            const grandnew = (advAmt - dis);
+            grantTotal.value = grandnew.toFixed(2);
+            restDues.value = total - paidAmount - dis;
+        }
+        else{
             const dues = total - dis - paidAmount;
             restDues.value = dues.toFixed(2);
         }

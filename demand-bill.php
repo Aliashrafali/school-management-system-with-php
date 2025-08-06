@@ -126,14 +126,14 @@
         col1.className = "col-md-6";
         
         const lebel1 = document.createElement('label');
-        lebel1.innerText = "Title";
+        lebel1.innerText = "Other Fee Type";
         lebel1.classList.add("form-label", "custom-label");
 
         const input1 = document.createElement("input");
         input1.classList.add("form-control", "custom-input");
         input1.type = "text";
         input1.name = "title[]";
-        input1.placeholder = "Enter Title";
+        input1.placeholder = "Enter Other Fee Type";
         col1.appendChild(lebel1);
         col1.appendChild(input1);
 
@@ -146,13 +146,13 @@
         const label2 = document.createElement('label');
         const col2 = document.createElement("div");
         col2.className = "col-md-6";
-        label2.innerText = "Fees";
+        label2.innerText = "Amount";
         label2.classList.add("form-label", "custom-label");
 
         const input2 = document.createElement("input");
         input2.type = "text";
         input2.name = "fees[]";
-        input2.placeholder = "Enter Fees";
+        input2.placeholder = "Enter Amount";
         input2.classList.add("form-control", "custom-input");
         col2.appendChild(label2);
         col2.appendChild(input2);

@@ -63,6 +63,7 @@ try {
     $result = $stmt->get_result();
     if($result->num_rows > 0){
         $row = $result->fetch_assoc();
+        $session = $row['session'];
     }
 
     $old_paid = (float)$row['paid'];
@@ -73,13 +74,13 @@ try {
 
     // Insert into tbl_payments
     $insert = $conn->prepare("INSERT INTO tbl_payments(
-        demand_id, reg_no, student_id, invoice_no, total_amount, month_year,
+        demand_id, reg_no, student_id, invoice_no,session, total_amount, month_year,
         no_of_advance_month, advance_amount, discount_amount, grant_total, paid_amount,
         rest_dues, paid_by, transaction_id, payment_by, check_no, date_and_time, status
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-   $insert->bind_param('isisdsidddddsssssi', 
-    $demand_id, $reg_no, $sid, $invoice_no, $amount, $month_year,
+   $insert->bind_param('isissdsidddddsssssi', 
+    $demand_id, $reg_no, $sid, $invoice_no, $session, $amount, $month_year,
     $adv_month, $adv_amount, $discount, $grant_total, $paid,
     $rest_dues, $payment_by, $online, $cash, $check, $currentDateTime, $status);
     $insert->execute();

@@ -148,15 +148,21 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
         $pdf->Cell(70, 7, number_format($row['advance_amount'], 2), 1, 1);
     }
 
+    if(!empty($row['discount_amount']) || $row['discount_amount'] !== 0){
+        $pdf->Cell(120, 7, 'Discount Amount:', 1, 0);
+        $pdf->Cell(70, 7, number_format($row['discount_amount'], decimals: 2), 1, 1);
+    }
+
     $pdf->Cell(120, 7, 'Paid Amount:', 1, 0);
     $pdf->Cell(70, 7, number_format($row['paid_amount'], 2), 1, 1);
 
     $pdf->Cell(120, 7, 'Rest Dues:', 1, 0);
     $pdf->Cell(70, 7, number_format($row['rest_dues'], 2), 1, 1);
 
+
     // Payment Mode Box
     $startY = 103 + $yShift;
-    if(!empty($row['advance_amount'])){
+    if(!empty($row['advance_amount']) || !empty($row['discount_amount'])){
         $boxHeight = 30;
     }else{
         $boxHeight = 21;
@@ -165,7 +171,7 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
     $pdf->Rect($startX, $startY, $leftWidth, $boxHeight);
     $pdf->Rect($startX + $leftWidth, $startY, $rightWidth, $boxHeight);
     $pdf->SetFont('Arial', '', 10);
-    if(!empty($row['advance_amount'])){
+    if(!empty($row['advance_amount']) || !empty($row['discount_amount'])){
         $pdf->SetXY($startX, $startY + 8);
     }else{
         $pdf->SetXY($startX, $startY + 2);
@@ -187,7 +193,7 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
     }
 
     $pdf->SetX($startX);
-    if(!empty($row['advance_amount'])){
+    if(!empty($row['advance_amount']) || !empty($row['discount_amount'])){
         $pdf->Cell(30, 10, "Payment Status:", 0, 0);
     }else{
         $pdf->Cell(30, 6, "Payment Status:", 0, 0);
@@ -202,7 +208,7 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
         $pdf->SetTextColor(0, 0, 255);
         $status = "Advanced Paid";
     }
-    if(!empty($row['advance_amount'])){
+    if(!empty($row['advance_amount']) || !empty($row['discount_amount'])){
         $pdf->Cell(70, 10, $status, 0, 1);
     }else{
         $pdf->Cell(70, 6, $status, 0, 1);
@@ -211,7 +217,7 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
     $pdf->SetTextColor(0, 0, 0);
 
     // Type of Copy
-    if(!empty($row['advance_amount'])){
+    if(!empty($row['advance_amount']) || !empty($row['discount_amount'])){
         $pdf->SetXY($startX + 90, $startY + 16);
         $pdf->Cell(30, 3, "TYPE", 0, 0);
         $pdf->SetXY($startX + 83, $startY + 24);
@@ -223,7 +229,7 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
         $pdf->Cell(30, 3, $copyType, 0, 0);
     }
 
-    if(!empty($row['advance_amount'])){
+    if(!empty($row['advance_amount']) || !empty($row['discount_amount'])){
         $pdf->SetXY($startX + $leftWidth + 25, $startY + 22);
     }else{
         $pdf->SetXY($startX + $leftWidth + 25, $startY + 12);
