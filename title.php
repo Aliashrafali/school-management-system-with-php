@@ -25,7 +25,10 @@
         'all-questionpapers' => 'All Questionpapers',
         'edit-marks' => 'Edit Marks',
         'all-marks' => 'All Marks',
-        'marksheet' => 'Marksheet'
+        'marksheet' => 'Marksheet',
+        'all-marksheet' => 'All Marksheet',
+        'id-cards' => 'ID Cards',
+        'all-idcards' => 'All ID Cards'
     ];
 
     $title = isset($titles[$page]) ? $titles[$page] : "School Management System";

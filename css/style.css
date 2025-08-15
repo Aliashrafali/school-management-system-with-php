@@ -394,6 +394,30 @@ main {
     color: #00c853;
     user-select: none;
 }
+.software-porform .payment-btn-home{
+    border: none;
+    background-color: #fff;
+    border: 2px solid #4300FF;
+    border-radius: 3px;
+    padding: 2px 25px 3px 25px;
+    margin-top: 11px;
+    font-family: 'Exo 2';
+    animation: borderFlash 1s infinite;
+}
+@keyframes borderFlash {
+    0% {
+        border-color: #4300FF;
+        box-shadow: 0 0 0px #4300FF;
+    }
+    50% {
+        border-color: #FF00FF; /* Flash color */
+        box-shadow: 0 0 10px #FF00FF;
+    }
+    100% {
+        border-color: #4300FF;
+        box-shadow: 0 0 0px #4300FF;
+    }
+}
 footer p{
     font-size: 14px;
 }

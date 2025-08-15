@@ -1,6 +1,6 @@
 <!--Navbar end here -->
 <footer>
-    <p>Copyright © <?php echo date('Y'); ?> Design and Developed by <span style="color: #091057;"><b>Company Name</b></span></p>
+    <p>Copyright © <?php echo date('Y'); ?> Design and Developed by <span style="color: #091057; letter-spacing: 1.7px;"><b>ArsaSoftTech</b></span></p>
 </footer>
 <!--ck editor -->
 <script src="ckeditornew/ck.js"></script>

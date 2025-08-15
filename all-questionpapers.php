@@ -27,7 +27,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="student-view">
-                        <div class="title-area">
+                        <div class="title-area" style="background-color:#091057!important; color: #fff!important;">
                             <h5>All Question Papers</h5>
                             <span>
                                 <?php

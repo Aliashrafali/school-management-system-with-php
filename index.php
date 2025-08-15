@@ -119,6 +119,9 @@
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-12">
+                    <div class="software-porform" style="height: 95px!important;">
+                        <a href="invoice-reports"><button class="payment-btn-home">Quick Payment</button></a>
+                    </div>
                     <div class="software-porform">
                         <span>Software Performance</span>
                         <div class="progress-circle">
@@ -133,6 +136,9 @@
                 </div>
 
                 <div class="col-lg-2 col-md-2 col-sm-12">
+                    <div class="software-porform" style="height: 95px!important;">
+                        <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home">Payment Reminder</button></a>
+                    </div>
                     <div class="software-porform">
                         <span>Software Speed</span>
                         <div class="progress-circle">

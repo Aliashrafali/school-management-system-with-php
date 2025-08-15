@@ -16,7 +16,7 @@
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Exam Panel</a>
-                        <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span> All Marks</span>
+                        <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span> All ID Cards</span>
                     </div>
                 </div> 
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-12">
                     <div class="student-view">
                         <div class="title-area" style="background-color:#091057!important; color: #fff!important;">
-                            <h5>All Marks</h5>
+                            <h5>All ID Cards</h5>
                             <span>
                                 <?php
                                     $parents = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_parents") or die(mysqli_error($conn));
@@ -46,42 +46,14 @@
                                 <thead>
                                     <tr>
                                         <th>Sno.</th>
+                                        <th>Reg No.</th>
+                                        <th>Name</th>
+                                        <th>Father</th>
                                         <th>Class</th>
                                         <th>Section</th>
-                                        <th>Subject</th>
-                                        <th>Exam Type</th>
+                                        <th>Roll</th>
                                         <th>Session</th>
-                                        <th>English</th>
-                                        <th>Hindi</th>
-                                        <th>Mathematics</th>
-                                        <th>Environmental Studies</th>
-                                        <th>General Knowledge</th>
-                                        <th>Rhymes & Stories</th>
-                                        <th>Drawing</th>
-                                        <th>Music</th>
-                                        <th>Computer Science</th>
-                                        <th>Moral Science</th>
-                                        <th>Science</th>
-                                        <th>Social Science</th>
-                                        <th>Art & Craft</th>
-                                        <th>Physical Education</th>
-                                        <th>Physics</th>
-                                        <th>Chemistry</th>
-                                        <th>Biology</th>
-                                        <th>History</th>
-                                        <th>Geography</th>
-                                        <th>Civics</th>
-                                        <th>Economics</th>
-                                        <th>Computer Applications</th>
-                                        <th>Art Education</th>
-                                        <th>English Core</th>
-                                        <th>Informatics Practices</th>
-                                        <th>Psychology</th>
-                                        <th>Environmental Studies</th>
-                                        <th>Accountancy</th>
-                                        <th>Business Studies</th>
-                                        <th>Sociology</th>
-                                        <th>Political Science</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>

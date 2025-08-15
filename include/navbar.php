@@ -73,7 +73,7 @@
                                     <a href="question-paper"><i class="fas fa-tasks" style="padding-right: 5px;"></i> Question Paper</a>
                                     <a href="edit-marks"><i class="fas fa-edit" style="padding-right: 5px;"></i> Edit Marks</a>
                                     <a href="marksheet"><i class="fas fa-scroll" style="padding-right: 5px;"></i> Marksheet</a>
-                                    <a href="#"><i class="fas fa-user-circle" style="padding-right: 5px;"></i> Id Card</a>
+                                    <a href="id-cards"><i class="fas fa-user-circle" style="padding-right: 5px;"></i> ID Card</a>
                                 </div>
                             </div>
                             <div class="dropdown">
