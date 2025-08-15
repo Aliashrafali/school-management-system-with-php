@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="student-view">
-                        <a href="invoice-reports"><button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; background-color: #091057;">Back</button></a>
+                        <!-- <a href="invoice-reports"><button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; background-color: #091057;">Back</button></a> -->
                         <div class="title-area">
                             <?php
                                 $fetch = $conn->prepare("

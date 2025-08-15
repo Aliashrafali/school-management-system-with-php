@@ -1,0 +1,52 @@
+.student-view .title-area-exam{
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #091057;
+    padding: 10px 10px 10px 10px;
+    margin-top: 10px;
+    font-weight: 400;
+}
+.student-view .title-area-exam h5{
+    background-color: #091057;
+    padding: 10px 10px 13px 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.title-area-exam button {
+    padding: 4px 15px;
+    background-color: #091057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.title-area-exam select{
+    height: 47px;
+    border: 0.1px solid #091057;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+.ck-editor__editable[role="textbox"] {
+    min-height: 300px;
+}
+.ck-content .image {
+    /* block images */
+    max-width: 80%;
+    margin: 20px auto;
+}
+.question-btn button{
+    padding: 4px 15px;
+    background-color: #091057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.edit-marks-btn button{
+    padding: 11.5px 15px;
+    background-color: #091057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}

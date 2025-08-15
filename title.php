@@ -15,7 +15,17 @@
         'parents' => 'Parents',
         'view_demand' => 'View all Payments',
         'ladger' => 'Ladger',
-        'add-parents' => 'Add Parents'
+        'add-parents' => 'Add Parents',
+        'previous-reports' => 'Previous Reports',
+        'collection-reports' => 'Collection Reports',
+        'dues-reports' => 'Dues Reports',
+        'admit-cards' => 'Admit Cards',
+        'question-paper' => 'Question Paper',
+        'all-admitcards' => 'All Admitcards',
+        'all-questionpapers' => 'All Questionpapers',
+        'edit-marks' => 'Edit Marks',
+        'all-marks' => 'All Marks',
+        'marksheet' => 'Marksheet'
     ];
 
     $title = isset($titles[$page]) ? $titles[$page] : "School Management System";

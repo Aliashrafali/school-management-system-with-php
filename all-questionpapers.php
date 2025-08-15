@@ -2,7 +2,6 @@
     include 'sql/config.php';
     include 'include/header.php';
     session_start();
-    $sql = mysqli_query($conn, "SELECT * FROM registration") or die(mysqli_error($conn));
 ?>
 
 <header>
@@ -16,7 +15,8 @@
                 <div class="col-5">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
-                        <nsen href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Parent's Panel</a>
+                        <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Exam Panel</a>
+                        <span style="margin-left: 7px; margin-right: 7px; font-weight: 200; font-family: 'Exo 2';"><i class="fas fa-angle-right"></i><i class="fas fa-angle-right"></i></span><span> All Question Papers</span>
                     </div>
                 </div> 
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-12">
                     <div class="student-view">
                         <div class="title-area">
-                            <h5>All Parent's Records</h5>
+                            <h5>All Question Papers</h5>
                             <span>
                                 <?php
                                     $parents = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_parents") or die(mysqli_error($conn));
@@ -40,21 +40,17 @@
                                 ?>
                                 Total Records [ <?= $total; ?> ]
                             </span>
-                            <a href="add-parents"><button>Add New</button></a>
                         </div>
                         <div class="table-responsive">
                             <table id="example" class="display table-responsive nowrap table-bordered" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>Sno.</th>
-                                        <th>Reg. No.</th>
-                                        <th>Name</th>
-                                        <th>Father's Name</th>
-                                        <th>Mobile No.</th>
                                         <th>Class</th>
-                                        <th>Registration Date</th>
-                                        <th>Date Of Birth</th>
-                                        <th>Image</th>
+                                        <th>Section</th>
+                                        <th>Subject</th>
+                                        <th>Exam Type</th>
+                                        <th>Session</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>

@@ -27,9 +27,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <!--ck editor-->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="css/fees.css">
     <link rel="stylesheet" href="css/parents.css">
+    <link rel="stylesheet" href="css/exam.css">
 </head>
 <body>

@@ -44,9 +44,38 @@
                             </div>
                             <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Teacher</button></a>
                             <a href="parents"><button><i class="fas fa-users" style="padding-right: 5px;"></i> Parents</button></a>
-                            <a href=""><button><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button></a>
-                            <a href=""><button><i class="fas fa-book" style="padding-right: 5px;"></i> Attendance</button></a>
-                            <a href=""><button><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Exam</button></a>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-user" style="padding-right: 5px;"></i> Users</button>
+                                <div class="dropdown-content">
+                                    <a href="#"><i class="fas fa-users-cog" style="padding-right: 5px;"></i> Add Users</a>
+                                    <a href="#"><i class="fas fa-user-friends" style="padding-right: 5px;"></i> View Users</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-male" style="padding-right: 5px;"></i> Staff</button>
+                                <div class="dropdown-content">
+                                    <a href="#"><i class="fas fa-users-cog" style="padding-right: 5px;"></i> Staffs</a>
+                                    <a href="#"><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Take Attendance</a>
+                                    <a href="#"><i class="fas fa-table" style="padding-right: 5px;"></i> View Attendance</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-book" style="padding-right: 5px;"></i> Attendance</button>
+                                <div class="dropdown-content">
+                                    <a href="#"><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Take Attendance</a>
+                                    <a href="#"><i class="fas fa-table" style="padding-right: 5px;"></i> View Attendance</a>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-clipboard-check" style="padding-right: 5px;"></i> Exam</button>
+                                <div class="dropdown-content">
+                                    <a href="admit-cards"><i class="fas fa-id-card" style="padding-right: 5px;"></i> Admit Card</a>
+                                    <a href="question-paper"><i class="fas fa-tasks" style="padding-right: 5px;"></i> Question Paper</a>
+                                    <a href="edit-marks"><i class="fas fa-edit" style="padding-right: 5px;"></i> Edit Marks</a>
+                                    <a href="marksheet"><i class="fas fa-scroll" style="padding-right: 5px;"></i> Marksheet</a>
+                                    <a href="#"><i class="fas fa-user-circle" style="padding-right: 5px;"></i> Id Card</a>
+                                </div>
+                            </div>
                             <div class="dropdown">
                                 <button class="dropbtn"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account</button>
                                 <div class="dropdown-content">
@@ -57,10 +86,16 @@
                                             <i class="fas fa-chart-line"></i>
                                         </span> Invoice & Reports
                                     </a>
-                                    <a href="#"><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Previus Reports</a>
+                                    <a href="previous-reports"><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Previous Reports</a>
                                 </div>
                             </div>
-                            <a href=""><button><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Reports</button></a>
+                            <div class="dropdown">
+                                <button class="dropbtn"><i class="fas fa-chart-bar" style="padding-right: 5px;"></i> Payment Reports</button>
+                                <div class="dropdown-content">
+                                    <a href="collection-reports"><i class="fas fa-file-invoice-dollar" style="padding-right: 5px;"></i> Collection Report</a>
+                                    <a href="dues-reports"><i class="fas fa-wallet" style="padding-right: 5px;"></i> Dues Reports</a>
+                                </div>
+                            </div>
                             <a href=""><button><i class="fas fa-user-shield" style="padding-right: 5px;"></i> Administrator</button></a>
                             <a href=""><button><i class="fas fa-cog" style="padding-right: 5px;"></i> Setting</button></a>
                         </nav>

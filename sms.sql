@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 04, 2025 at 10:14 AM
+-- Generation Time: Aug 15, 2025 at 05:30 AM
 -- Server version: 8.3.0
 -- PHP Version: 8.2.18
 
@@ -107,26 +107,27 @@ CREATE TABLE IF NOT EXISTS `tbl_demand` (
   `print_status` enum('Not Printed','Printed','Reprinted') DEFAULT 'Not Printed',
   `print_count` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbl_demand`
 --
 
 INSERT INTO `tbl_demand` (`id`, `student_id`, `reg_no`, `session`, `tution_fee`, `transport_and_other_fee`, `other_fee`, `total`, `paid`, `advance_month`, `advance_amount`, `discount`, `rest_dues`, `month_year`, `date_and_time`, `status`, `print_status`, `print_count`) VALUES
-(1, 1, 'ABC2025813739', '2025-26', 40, 40, 'Library Fee 500', 580, 630, 1, 80, 30, -80, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(2, 4, 'ABC2025199280', '2025-26', 1200, 1500, 'Library Fee 500', 3200, 3000, 0, 0, 200, 0, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(3, 5, 'ABC2025920552', '2025-26', 500, 600, 'Library Fee 500', 1600, 1500, 0, 0, 0, 100, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(4, 6, 'ABC2025599788', '2025-26', 150, 200, 'Library Fee 500', 850, 0, 0, 0, 0, 0, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(5, 7, 'ABC2025994842', '2025-26', 500, 450, 'Library Fee 500', 1450, 0, 0, 0, 0, 0, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(6, 9, 'ABC2025868613', '2025-26', 450, 500, 'Library Fee 500', 1450, 0, 0, 0, 0, 0, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(7, 13, 'ABC2025332824', '2025-26', 450, 500, 'Library Fee 500', 1450, 0, 0, 0, 0, 0, 'July 2025', '2025-08-02 18:07:16.000000', 0, 'Not Printed', 0),
-(9, 3, 'ABC2025434513', '2025-26', 250, 350, 'Library Fee 500, Exam Fee 200', 1300, 0, 0, 0, 0, 0, 'July 2025', '2025-08-03 07:30:25.000000', 0, 'Not Printed', 0),
-(11, 10, 'ABC2025340557', '2025-26', 400, 500, '', 900, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 08:15:13.000000', 0, 'Not Printed', 0),
-(12, 11, 'ABC2025801414', '2025-26', 500, 300, '', 800, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 08:19:20.000000', 0, 'Not Printed', 0),
-(13, 14, 'ABC2025261039', '2025-26', 400, 350, '', 750, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 08:19:20.000000', 0, 'Not Printed', 0),
-(14, 12, 'ABC2025855458', '2025-26', 500, 400, 'Exam Fee 250', 1150, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 08:19:41.000000', 0, 'Not Printed', 0),
-(15, 15, 'ABC2025576003', '2025-26', 450, 200, 'Exam Fee 250', 900, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 08:23:54.000000', 0, 'Not Printed', 0);
+(1, 1, 'ABC2025813739', '2025-26', 40, 40, 'Exam Fee 250', 330, 350, 1, 80, 60, -80, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(2, 4, 'ABC2025199280', '2025-26', 1200, 1500, 'Exam Fee 250', 2950, 2900, 0, 0, 50, 0, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(3, 5, 'ABC2025920552', '2025-26', 500, 600, 'Exam Fee 250', 1350, 1300, 0, 0, 50, 0, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(4, 6, 'ABC2025599788', '2025-26', 150, 200, 'Exam Fee 250', 600, 1200, 2, 700, 150, -750, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(5, 7, 'ABC2025994842', '2025-26', 500, 450, 'Exam Fee 250', 1200, 1200, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(6, 9, 'ABC2025868613', '2025-26', 450, 500, 'Exam Fee 250', 1200, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(7, 12, 'ABC2025855458', '2025-26', 500, 400, 'Exam Fee 250', 1150, 1150, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(8, 13, 'ABC2025332824', '2025-26', 450, 500, 'Exam Fee 250', 1200, 1100, 0, 0, 0, 100, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(9, 15, 'ABC2025576003', '2025-26', 450, 200, 'Exam Fee 250', 900, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:33:48.000000', 0, 'Not Printed', 0),
+(10, 10, 'ABC2025340557', '2025-26', 400, 500, '', 900, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:34:00.000000', 0, 'Not Printed', 0),
+(11, 11, 'ABC2025801414', '2025-26', 500, 300, '', 800, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:34:00.000000', 0, 'Not Printed', 0),
+(12, 14, 'ABC2025261039', '2025-26', 400, 350, '', 750, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:34:00.000000', 0, 'Not Printed', 0),
+(13, 2, 'ABC2025802715', '2025-26', 450, 450, 'Library Fee 500, Exam Fee 200', 1600, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:36:38.000000', 0, 'Not Printed', 0),
+(14, 3, 'ABC2025434513', '2025-26', 250, 350, '', 600, 0, 0, 0, 0, 0, 'July 2025', '2025-08-04 15:37:03.000000', 0, 'Not Printed', 0);
 
 -- --------------------------------------------------------
 
@@ -180,31 +181,33 @@ INSERT INTO `tbl_fees` (`id`, `student_id`, `reg_no`, `session`, `tution_fee`, `
 DROP TABLE IF EXISTS `tbl_parents`;
 CREATE TABLE IF NOT EXISTS `tbl_parents` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
-  `phone` bigint NOT NULL,
-  `altmobile` bigint NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `bgroup` varchar(20) NOT NULL,
-  `adhar` bigint NOT NULL,
-  `occupation` varchar(20) NOT NULL,
+  `fname` varchar(20) NOT NULL,
+  `fphone` bigint NOT NULL,
+  `femail` varchar(30) NOT NULL,
+  `fadhar` varchar(30) NOT NULL,
+  `foccupation` varchar(30) NOT NULL,
+  `fdesignation` varchar(20) NOT NULL,
   `department` varchar(30) NOT NULL,
-  `designation` varchar(30) NOT NULL,
-  `gender` varchar(10) NOT NULL,
-  `religion` varchar(20) NOT NULL,
-  `category` varchar(20) NOT NULL,
-  `childnum` int NOT NULL,
+  `monthly_income` varchar(20) NOT NULL,
+  `fimage` varchar(300) NOT NULL,
+  `mname` varchar(20) NOT NULL,
+  `mphone` bigint NOT NULL,
+  `madhar` varchar(10) NOT NULL,
+  `moocupation` varchar(20) NOT NULL,
+  `mdesignation` varchar(30) NOT NULL,
+  `mdepartment` varchar(20) NOT NULL,
+  `m_monthly_income` varchar(20) NOT NULL,
+  `mimgage` varchar(300) NOT NULL,
   `present_address` longtext NOT NULL,
-  `parmanent_address` longtext NOT NULL,
+  `parmanent_adress` longtext NOT NULL,
+  `no_of_student` int NOT NULL,
+  `student_reg_no` int NOT NULL,
+  `emergency_contact_person` bigint NOT NULL,
+  `mobile` bigint NOT NULL,
+  `relation` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_adhar` (`adhar`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tbl_parents`
---
-
-INSERT INTO `tbl_parents` (`id`, `name`, `phone`, `altmobile`, `email`, `bgroup`, `adhar`, `occupation`, `department`, `designation`, `gender`, `religion`, `category`, `childnum`, `present_address`, `parmanent_address`) VALUES
-(1, 'asraf ali', 9135467672, 1010101010, 'mdashraf9135@gmail.com', 'a+', 201010101010, 'Farmer', 'other', 'Other', 'male', 'confucianism', 'prefer_not_say', 5, 'Kolkata', 'Kolkata');
+  UNIQUE KEY `unique_email` (`femail`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -236,17 +239,23 @@ CREATE TABLE IF NOT EXISTS `tbl_payments` (
   `date_and_time` timestamp(6) NOT NULL,
   `status` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `tbl_payments`
 --
 
 INSERT INTO `tbl_payments` (`id`, `demand_id`, `reg_no`, `student_id`, `invoice_no`, `session`, `total_amount`, `month_year`, `no_of_advance_month`, `advance_amount`, `discount_amount`, `grant_total`, `paid_amount`, `rest_dues`, `paid_by`, `transaction_id`, `payment_by`, `check_no`, `payment_status`, `date_and_time`, `status`) VALUES
-(1, 1, 'ABC2025813739', 1, 'INV030825753', '', 580, 'July 2025', 0, 0, 0, 580, 580, 0, 'online', '123456', '', '', '', '2025-08-03 06:39:50.000000', 0),
-(2, 1, 'ABC2025813739', 1, 'INV040825718', '', 0, 'July 2025', 1, 80, 30, 50, 50, -80, 'online', 'Asraf Ali', '', '', '', '2025-08-04 06:42:03.000000', 0),
-(3, 2, 'ABC2025199280', 4, 'INV040825627', '', 3200, 'July 2025', 0, 0, 200, 3000, 3000, 0, 'online', '123456', '', '', '', '2025-08-04 06:57:49.000000', 0),
-(4, 3, 'ABC2025920552', 5, 'INV040825698', '', 1600, 'July 2025', 0, 0, 0, 1600, 1500, 100, 'cash', '', 'Pawan Kumar', '', '', '2025-08-04 07:55:15.000000', 0);
+(1, 1, 'ABC2025813739', 1, 'INV040825997', '2025-26', 330, 'July 2025', 0, 0, 30, 300, 300, 0, 'online', '9135467672@ybl', '', '', '', '2025-08-04 15:38:30.000000', 0),
+(2, 1, 'ABC2025813739', 1, 'INV040825383', '2025-26', 0, 'July 2025', 1, 80, 30, 50, 50, -80, 'cash', '', 'Shamim Alam', '', '', '2025-08-04 15:39:05.000000', 0),
+(3, 3, 'ABC2025920552', 5, 'INV050825965', '2025-26', 1350, 'July 2025', 0, 0, 50, 1300, 1200, 100, 'online', '9135467672@ybl', '', '', '', '2025-08-05 14:24:26.000000', 0),
+(4, 3, 'ABC2025920552', 5, 'INV050825762', '2025-26', 100, 'July 2025', 0, 0, 0, 100, 100, 0, 'cash', '', 'pawan kumar', '', '', '2025-08-05 14:24:45.000000', 0),
+(5, 7, 'ABC2025855458', 12, 'INV050825316', '2025-26', 1150, 'July 2025', 0, 0, 0, 1150, 1150, 0, 'check', '', '', '1234560', '', '2025-08-05 14:25:48.000000', 0),
+(6, 4, 'ABC2025599788', 6, 'INV050825487', '2025-26', 600, 'July 2025', 1, 350, 100, 850, 900, -400, 'cash', '', 'Pawan Kumar', '', '', '2025-08-05 14:31:03.000000', 0),
+(7, 4, 'ABC2025599788', 6, 'INV060825995', '2025-26', -400, 'July 2025', 1, 350, 50, 300, 300, -750, 'online', '4521010', '', '', '', '2025-08-06 04:15:43.000000', 0),
+(8, 2, 'ABC2025199280', 4, 'INV060825123', '2025-26', 2950, 'July 2025', 0, 0, 50, 2900, 2900, 0, 'cash', '', 'Samim Rizwi', '', '', '2025-08-06 04:16:17.000000', 0),
+(9, 5, 'ABC2025994842', 7, 'INV060825994', '2025-26', 1200, 'July 2025', 0, 0, 0, 1200, 1200, 0, 'check', '', '', '12345check', '', '2025-08-06 04:26:34.000000', 0),
+(10, 8, 'ABC2025332824', 13, 'INV06082562', '2025-26', 1200, 'July 2025', 0, 0, 0, 1200, 1100, 100, 'cash', '', 'Sohan Kumar', '', '', '2025-08-06 04:29:56.000000', 0);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

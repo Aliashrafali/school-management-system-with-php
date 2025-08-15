@@ -94,6 +94,28 @@
     border-radius: 6px;
     outline: none;
 }
+.title-area-collection{
+    height: auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border: 1px solid #091057;
+    padding: 10px 10px 10px 10px;
+    margin-top: 10px;
+    font-weight: 400;
+}
+.title-area-collection button {
+    padding: 4px 15px;
+    background-color: #091057;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+.title-area-collection select{
+    height: 47px;
+    border: 0.1px solid #091057;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
 #online, #cash, #check{
     display: none;
     animation: growDown1 600ms ease-in-out forwards;
