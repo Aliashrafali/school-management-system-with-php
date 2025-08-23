@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `registration` (
   `parents_id` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_adhar_class` (`adhar`,`class`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `registration`
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `tbl_demand` (
   `print_status` enum('Not Printed','Printed','Reprinted') DEFAULT 'Not Printed',
   `print_count` int DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `tbl_demand`
@@ -149,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `tbl_fees` (
   `status` int NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_fee_entry` (`reg_no`,`session`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `tbl_fees`
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `tbl_parents` (
   `relation` varchar(30) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_email` (`femail`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM;
 
 -- --------------------------------------------------------
 
@@ -232,14 +232,14 @@ CREATE TABLE IF NOT EXISTS `tbl_payments` (
   `paid_amount` bigint NOT NULL,
   `rest_dues` bigint NOT NULL,
   `paid_by` varchar(50) NOT NULL,
-  `transaction_id` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `payment_by` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `transaction_id` varchar(100) NOT NULL,
+  `payment_by` varchar(50) NOT NULL,
   `check_no` varchar(40) NOT NULL,
   `payment_status` varchar(20) NOT NULL,
   `date_and_time` timestamp(6) NOT NULL,
   `status` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM;
 
 --
 -- Dumping data for table `tbl_payments`

@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    // session_start();
     include 'sql/config.php';
     $students = $conn->prepare("SELECT COUNT(*) as total FROM registration r INNER JOIN tbl_fees a ON r.reg_no = a.reg_no WHERE r.status = 1 AND a.status = 1");
     $students->execute();

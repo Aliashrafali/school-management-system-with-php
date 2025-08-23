@@ -1,23 +1,16 @@
 <?php
     date_default_timezone_set('Asia/Kolkata');
-    session_start();
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
     include 'sql/config.php';
     include 'include/header.php';
-    // $fetch = $conn->prepare("
-    //     SELECT 
-    //     registration.*,
-    //     tbl_admission.section,
-    //     tbl_admission.admission_date,
-    //     tbl_admission.roll,
-    //     tbl_admission.tution_fee,
-    //     tbl_admission.transport_and_other_fee,
-    //     tbl_admission.total,
-    //     tbl_admission.month_year,
-    //     tbl_admission.status
-    //     FROM registration INNER JOIN tbl_admission ON registration.reg_no = tbl_admission.reg_no AND registration.session = tbl_admission.session
-    // ");
-    // $fetch->execute();
-    // $result = $fetch->get_result();
 
    if (!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32)); // generate token
@@ -56,15 +49,15 @@
                             <form id="demand-bill">
                                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Class <sup><span style="color: red;">*</span></sup></label>
                                             <?php
                                                 $classArray = [
-                                                    "class" => ["nur","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
+                                                    "class" => ["all","nur","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
                                                 ];
                                             ?>
-                                            <select class="form-select" name="class" id="demand-class" aria-label="Default select example">
+                                            <select class="form-select" name="class" id="demand-class" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Class--</option>
                                                 <?php
                                                     foreach($classArray['class'] as $class){
@@ -75,12 +68,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
                                         <div class="mb-3">
                                             <label for="exampleInputEmail1" class="form-label">Section</label>
                                             <?php
                                                 $sectionArray = [
-                                                    "section" => ["A","B","C","D","E"]
+                                                    "section" => ["all","A","B","C","D","E"]
                                                 ];
                                             ?>
                                             <select class="form-select" name="section" id="demand-section" aria-label="Default select example">
@@ -93,6 +86,24 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-12">
+                                        <div class="mb-3">
+                                            <label for="exampleInputEmail1" class="form-label">Month <sup><span style="color:red;">*</span></sup></label>
+                                            <select class="form-select" name="demand_month" id="demand-month" aria-label="Default select example" required>
+                                                <option disabled selected value="">--Select Month--</option>
+                                                <?php
+                                                    $currentYear = date('Y');
+                                                    $currentMonth = date('n');
+                                                    for($m = 1; $m <= $currentMonth; $m++){
+                                                        $monthName = date('F', mktime(0,0,0,$m,1,$currentYear));
+                                                        $selected = ($m == $currentMonth) ? 'selected' : '';
+                                                        echo "<option value='$monthName-$currentYear' $selected>$monthName $currentYear</option>";
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+
                                     <div id="input-container">
                                        
                                     </div>
@@ -203,9 +214,9 @@
                     }
                    window.open(url, '_blank');
                 }
-                setTimeout(() => {
-                    location.reload();
-                }, 3000);
+                //setTimeout(() => {
+                    //location.reload();
+                //}, 3000);
             }
         }catch(error){
             alert("Something Went Wrong");

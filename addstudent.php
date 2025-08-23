@@ -1,5 +1,14 @@
 <?php
-    session_start();
+    date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+    
     include 'sql/config.php';
     include 'include/header.php';
     if (!isset($_SESSION['csrf_token'])) {
@@ -273,7 +282,7 @@
                                                 <div class="col-12">
                                                     <span>Fees Details ( शुल्क विवरण ) ---</span><hr>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="col-lg-2 col-md-6 col-sm-12">
                                                     <div class="mb-3">
                                                         <label for="dob" class="form-label">Tution Fee ( शिक्षण शुल्क )<sup><span style="color: red;">*</span></sup></label>
                                                         <div class="input-group">
@@ -285,11 +294,19 @@
                                                     <div class="mb-3">
                                                         <label for="dob" class="form-label">Transport & Other Fee ( परिवहन एवं अन्य शुल्क )<sup><span style="color: red;">*</span></sup></label>
                                                         <div class="input-group">
-                                                            <input type="text" name="transport_and_other_fee" class="form-control" id="tranport_fee" onchange="Bill()" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Transport & Other Fee" required>
+                                                            <input type="text" name="transport_and_other_fee" class="form-control" id="tranport_fee" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter Transport & Other Fee" required>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="col-lg-2 col-md-6 col-sm-12">
+                                                    <div class="mb-3">
+                                                        <label for="dob" class="form-label">Back Dues ( बकाया राशि )<sup><span style="color: red;">*</span></sup></label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="back_dues" class="form-control" id="back_dues" onchange="Bill()" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Back Dues" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-2 col-md-6 col-sm-12">
                                                     <div class="mb-3">
                                                         <label for="dob" class="form-label">Total ( कुल )<sup><span style="color: red;">*</span></sup></label>
                                                         <div class="input-group">

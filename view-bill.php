@@ -1,6 +1,14 @@
 <?php
-date_default_timezone_set('Asia/Kolkata');
-session_start();
+    date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
 require './sql/config.php';
 require_once('./fpdf/fpdf.php');
 require_once('./FPDI/src/autoload.php');
@@ -63,14 +71,26 @@ $sql = "
     SELECT d.*, r.name, r.fname, r.roll, r.class, r.section, r.reg_no
     FROM tbl_demand d
     JOIN registration r ON d.student_id = r.id 
-    WHERE r.class = ? AND d.month_year = ?
+    WHERE 1=1
 ";
 
-$params = [$class,$month_years];
-$types = 'ss';
+$params = [];
+$types = '';
 
-if(!empty($section)){
-    $sql .= "AND r.section = ?";
+if($class !== 'all' && !empty($class)){
+    $sql .= " AND r.class = ?";
+    $params[] = $class;
+    $types .= 's';
+}
+
+if($month_years){
+    $sql .= " AND d.month_year = ?";
+    $params[] = $month_years;
+    $types .= 's';
+}
+
+if($section !== 'all' && !empty($section)){
+    $sql .= " AND r.section = ?";
     $params[] = $section;
     $types .= 's';
 }
@@ -83,7 +103,11 @@ if (!empty($student_ids)) {
 }
 
 $final = $conn->prepare($sql);
-$final->bind_param($types, ...$params);
+
+if($params){
+    $final->bind_param($types, ...$params);
+}
+
 $final->execute();
 $result = $final->get_result();
 
@@ -121,11 +145,11 @@ while($row = $result->fetch_assoc()){
     $pdf->SetXY(10, $yOffset += 2);
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0, 0, 0);
-    $pdf->Cell(190, 6, strtoupper('RN Mission Public School'), 0, 1, 'C');
+    $pdf->Cell(190, 6, strtoupper('Kid\'s Blooming World School'), 0, 1, 'C');
 
     $pdf->SetFont('Arial', '', 10);
     $pdf->SetXY(10, $yOffset += 7);
-    $pdf->Cell(190, 5, strtoupper('Mujauna Bazar, Parsa(Saran)'), 0, 1, 'C');
+    $pdf->Cell(190, 5, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->SetXY(10, $yOffset += 5);
     $pdf->SetTextColor(0,0,139);
@@ -213,7 +237,13 @@ while($row = $result->fetch_assoc()){
     $pdf->Cell(30, 5, $sno++, 1, 0);
     $pdf->Cell(90, 5, 'Transport Fee', 1, 0);
     $pdf->Cell(60, 5, number_format($row['transport_and_other_fee'], 2), 1, 0);
-
+    if($row['back_dues'] !== 0){
+        $yOffset += 5;
+        $pdf->SetXY($info_x, $yOffset);
+        $pdf->Cell(30, 5, $sno++, 1, 0);
+        $pdf->Cell(90, 5, 'Back Dues', 1, 0);
+        $pdf->Cell(60, 5, number_format($row['back_dues'], 2), 1, 0);
+    }
     $other_fee = $row['other_fee'];
     $fees = explode(',', $other_fee);
     $pared_fee = [];

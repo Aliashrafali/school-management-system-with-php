@@ -36,7 +36,8 @@
         $admission_date = $admission_d. ' '.$time;
         $roll = isset($input['roll']) ? (int)$input['roll'] : '';
         $tution_fee = isset($input['tution_fee']) ? (float)$input['tution_fee'] : '';
-        $transport_and_other_fee = ($input['transport_and_other_fee']) ? (float)$input['transport_and_other_fee'] : '';
+        $transport_and_other_fee = isset($input['transport_and_other_fee']) ? (float)$input['transport_and_other_fee'] : '';
+        $back_dues = isset($input['back_dues']) ? (float)$input['back_dues'] : '';
         $total = isset($input['total']) ? (float)$input['total'] : '';
         $month_years = $input['month_years'] ?? '';
         $status = 1;
@@ -59,8 +60,8 @@
         $update->bind_param('sisis', $section,$roll,$admission_date,$status, $reg_no);
         $update_result  = $update->execute();
 
-        $insert = $conn->prepare("INSERT INTO tbl_fees(student_id,reg_no,session,tution_fee,transport_and_other_fee,total,month_year,date_time,status)VALUES(?,?,?,?,?,?,?,?,?)");
-        $insert->bind_param('issdddssi', $id,$reg_no,$session,$tution_fee,$transport_and_other_fee,$total,$month_years,$now, $status);
+        $insert = $conn->prepare("INSERT INTO tbl_fees(student_id,reg_no,session,tution_fee,transport_and_other_fee,back_dues,total,month_year,date_time,status)VALUES(?,?,?,?,?,?,?,?,?,?)");
+        $insert->bind_param('issddddssi', $id,$reg_no,$session,$tution_fee,$transport_and_other_fee,$back_dues,$total,$month_years,$now, $status);
         try{
             $insert_result = $insert->execute();
             if($update_result && $insert_result){

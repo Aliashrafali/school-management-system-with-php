@@ -1,5 +1,6 @@
 <?php
     date_default_timezone_set('Asia/Kolkata');
+    require '../../phpMail/registrationMail.php';
     include '../../sql/config.php';
     session_start();
     header("Access-Control-Allow-Origin: *");
@@ -15,9 +16,9 @@
             exit;
         }
         // random registration no
-        $prefix = 'ABC';
+        $prefix = 'KBWS';
         $years = date('Y');
-        $randomnumber = mt_rand(100000, 999999);
+        $randomnumber = mt_rand(1000, 9999);
         $reg_no = $prefix . $years . $randomnumber;
         $name = $_POST['name'] ?? '';
         $fname = $_POST['fname'] ?? '';
@@ -101,9 +102,12 @@
                     $reg_id->execute();
                     $result = $reg_id->get_result();
                     $reg_no = $result->fetch_assoc()['reg_no'];
+
+                    //mail function 
+                    sendRegistrationMail($email, $name, $reg_no, $class);
                     echo json_encode([
                         'success' => true,
-                        'message' => 'Registration successful!.',
+                        'message' => 'Registration successful!',
                         'reg_id' => $reg_no,
                         'redirect' => 'print_reg?reg_no='.$reg_no
                     ]);

@@ -1,7 +1,17 @@
 <?php
+    date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
     include 'sql/config.php';
     include 'include/header.php';
-    session_start();
+
     $reg_id = $_GET['reg_no'];
     $fetch = $conn->prepare("SELECT * FROM registration WHERE reg_no  = ?");
     $fetch->bind_param('s', $reg_id);

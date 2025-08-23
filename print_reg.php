@@ -1,7 +1,17 @@
 <?php
+    date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
     include 'sql/config.php';
     include 'title.php';
-    session_start();
+
     require_once('./fpdf/fpdf.php');
     require_once('./FPDI/src/autoload.php');
     include 'phpqrcode/qrlib.php';
@@ -51,7 +61,8 @@ class PDFWithWatermark extends FPDF {
         if($result->num_rows > 0){
             $row = $result->fetch_assoc();
         }else{
-            $row = 'Not Found';
+            header("Location:registration");
+            exit;
         }
     }
     if(!empty($row['image'])){
@@ -62,11 +73,12 @@ class PDFWithWatermark extends FPDF {
     $pdf = new PDFWithWatermark();
     $pdf->SetAutoPageBreak(false);
     $pdf->AddPage();
-    $pdf->SetFont('Arial', 'B', 20);
+     $pdf->SetFont('Arial', 'B', 15);
     $pdf->SetTextColor(220, 220, 220); // Light gray
-    $pdf->RotatedText(80, 213, 'RN MISSION SHOOL', 45); // ✅ Now this works
+    $pdf->RotatedText(80, 213, 'KID\'S BLOOMING WORLD SCHOOL', 45); // ✅ Now this works
     $pdf->SetLineWidth(0.8); // Border thickness (3px)
     $pdf->SetDrawColor(0, 0, 0); // Black
+
 
     // Apply half-page border
     $pdf->Rect(
@@ -79,10 +91,10 @@ class PDFWithWatermark extends FPDF {
     // Set font and text
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0,0,0);
-    $pdf->Cell(0, 10, strtoupper('RN Mission Public School'), 0, 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('KID\'S BLOOMING WORLD SCHOOL'), 0, 1, 'C');
     $pdf->SetFont('Arial', '', 10);
     $pdf->SetXY(10,16);
-    $pdf->Cell(0, 10, strtoupper('Mujauna bazar, Parsa(Saran)'), '0', 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), '0', 1, 'C');
 
     $pdf->SetXY(15,26);
     $pdf->SetFont('Arial', '', 9);

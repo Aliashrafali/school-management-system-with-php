@@ -1,0 +1,69 @@
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.register-card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+}
+.register-card label{
+    color: #c9b4c5!important;
+}
+.register-container .register-card input[type="email"]::placeholder, 
+.register-container .register-card input[type="text"]::placeholder,
+.register-container .register-card input[type="password"]::placeholder{
+    color: #c9b4c5!important;
+}
+.register-card h3{
+    font-size: 20px!important;
+}
+.register-container .register-card .form-control:focus,
+.register-container .register-card .form-select:focus {
+  border: 1px solid #4300FF !important;
+  box-shadow: none !important;
+}
+.register-card select{
+    color: #c9b4c5!important;
+}
+#teacher_class{
+    display: none;
+}
+.left-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+.left-section img {
+    max-width: 100%;
+}
+.register-container .register-card .form-control:focus {
+    border: 1px solid #4300FF !important;
+    box-shadow: none !important;
+}
+.btn-custom {
+    background: #1a73e8;
+    color: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 500;
+}
+.btn-custom:hover {
+    background: #0056d2;
+    color: #fff;
+}
+.small-text {
+    font-size: 14px;
+    color: #c9b4c5;
+}
+ #strength {
+    font-weight: bold;
+    margin-top: 5px;
+}
+.weak { color: red; }
+.medium { color: orange; }
+.strong { color: green; }

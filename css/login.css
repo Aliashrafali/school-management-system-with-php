@@ -1,0 +1,72 @@
+.login-form{
+    height:auto;
+    background-color: #fff;
+    border-radius: 5px;
+    border-top: 3px solid #091057;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+.login-form .login-img{
+    display: block;
+    text-align: center;
+}
+.login-form .login-img p {
+    font-size: 17px;
+    font-weight: 700;
+    color: #1f4cff;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(31, 76, 255, 0.15);
+    font-family: 'Segoe UI', sans-serif;
+}
+.erp-input {
+  position: relative;
+}
+
+.erp-input i {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #1f4cff;
+  font-size: 18px;
+}
+
+.erp-input select,
+.erp-input input {
+    padding-left: 45px;
+    height: 50px;
+    border-radius: 50px;
+    border: 2px solid #e6ebff;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    background-color: #fff;
+}
+
+.erp-input select:focus,
+.erp-input input:focus {
+    border-color: #1f4cff;
+    box-shadow: 0 0 0 4px rgba(31, 76, 255, 0.15);
+    outline: none;
+}
+.erp-btn {
+    background: #1f4cff;
+    color: #fff;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    box-shadow: 0 4px 12px rgba(31, 76, 255, 0.25);
+    transition: all 0.3s ease;
+}
+
+.erp-btn:hover {
+    background: #0e38c6;
+    box-shadow: 0 6px 18px rgba(31, 76, 255, 0.35);
+    transform: translateY(-2px);
+}
+
+.erp-btn i {
+    margin-right: 8px;
+}

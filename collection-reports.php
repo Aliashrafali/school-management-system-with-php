@@ -1,8 +1,19 @@
 <?php
     date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
     include 'sql/config.php';
     include 'include/header.php';
-    session_start();
+    if(!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 ?>
 
 <header>
@@ -32,11 +43,12 @@
                             <div class="pt-2">
                                 <h5>All Collections Reports in Excel</h5><hr>
                             </div>
-                            <form action="">
+                            <form id="collectionReports" method="POST" action="api/account/collection-reports.php">
+                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="class" required>
                                             <option disabled selected value>--Select Class--</option>
                                             <option value="all">All</option>
                                             <?php
@@ -52,7 +64,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="section" required>
                                             <option disabled selected value>--Select Section--</option>
                                             <option value="all">All</option>
                                             <?php
@@ -68,7 +80,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="month" required>
                                             <option disabled selected value>--Select Month--</option>
                                             <option value="all">All</option>
                                             <?php
@@ -83,7 +95,7 @@
 
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                            <select class="form-select">
+                                            <select class="form-select" name="session" required>
                                                 <option disabled selected value>--Select Session--</option>
                                                 <option value="all">All</option>
                                                 <?php
@@ -112,7 +124,6 @@
         </div>
     </section>
 </main>
-
 <?php
     include 'include/footer.php';
 ?>

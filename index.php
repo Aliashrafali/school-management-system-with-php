@@ -1,4 +1,15 @@
 <?php
+    // declare(strict_types=1);
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+?>
+<?php
     include 'cardarray.php';
 ?>
 <?php include 'include/header.php'; ?>
@@ -11,13 +22,13 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-lg-5 col-md-5 col-sm-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-home" style="padding-right: 5px;"></i> Anlysis</a>
                     </div>
                 </div> 
-                <div class="col-12 col-md-7">
+                <div class="col-12 col-md-7 col-lg-7 col-sm-12 home-amount">
                     <div class="total-print d-flex justify-content-between">
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"> Total Amount <?= date('F Y') ?> <i class="fas fa-arrow-right" style="font-size: 13px; padding-left: 5px; padding-right: 5px;"></i> <span style="color: #4CAF50;"><b>[ 00 ]</b></span></a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"> Total Amount Till Now <i class="fas fa-arrow-right" style="font-size: 13px; padding-left: 5px; padding-right: 5px;"></i> <span style="color: #FF4545;"><b>[ 00 ]</b></span></a>
@@ -28,7 +39,7 @@
                 <?php
                     foreach($cards as $card){
                 ?>
-                    <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-6 col-sm-12" id="home-page-mobile">
                         <a href="<?= $card['url']; ?>">
                             <div class="home-card" style="background-color:<?= $card['card-color']; ?>; border-left: 3px solid <?= $card['border-left']; ?>;">
                                 <div class="home-card-left">
@@ -54,7 +65,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-8 col-sm-12">
+                <div class="col-lg-8 col-md-8 col-sm-12" id="home-page-mobile">
                     <div class="chart-card">
                         <div class="chart-title"><b><?= date('F Y') ?></b>, Monthly Revenue</div>
                         <div class="percentage-circle" aria-label="Average monthly collection 61.7 percent">
@@ -118,9 +129,14 @@
                         <div class="bottom-text">Average monthly Collection for every Student</div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-2 col-sm-12">
+                <div class="col-lg-2 col-md-2 col-sm-12" id="home-page-mobile">
                     <div class="software-porform" style="height: 95px!important;">
                         <a href="invoice-reports"><button class="payment-btn-home">Quick Payment</button></a>
+                    </div>
+                    <div class="software-porform" style="height: 95px!important;" id="reminder">
+                        <div style="display: block; text-align: center;">
+                            <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home">Payment Reminder</button></a>
+                        </div>
                     </div>
                     <div class="software-porform">
                         <span>Software Performance</span>
@@ -135,8 +151,8 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2 col-md-2 col-sm-12">
-                    <div class="software-porform" style="height: 95px!important;">
+                <div class="col-lg-2 col-md-2 col-sm-12" id="home-page-mobile">
+                    <div class="software-porform" style="height: 95px!important;" id="desk-reminder">
                         <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home">Payment Reminder</button></a>
                     </div>
                     <div class="software-porform">

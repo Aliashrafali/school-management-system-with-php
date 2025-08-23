@@ -1,5 +1,14 @@
 <?php
-    session_start();
+    date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
     if(!isset($_SESSION['csrf_token'])) {
         $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
     }
@@ -9,7 +18,6 @@
 <header>
     <?php include 'include/navbar.php'; ?>
 </header>
-
 <main>
     <section>
         <div class="container-fluid mt-3">
@@ -25,9 +33,17 @@
         </div>
     </section>
     <section>
+        <div id="loader" style="display:none;">
+            <div class="overlay">
+                <div class="spinner"></div>
+                <div>
+                <p>Please Wait...</p>
+                </div>
+            </div>
+        </div>
         <div id="toast" class="toast hidden"></div>
         <div class="container-fluid">
-            <form id="studentRegistration" method="POST">
+            <form id="studentRegistration" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="row">
                     <div class="col-12">
@@ -299,24 +315,25 @@
     let studentRegistration = document.getElementById('studentRegistration');
     studentRegistration.addEventListener('submit', async function(e) {
         e.preventDefault();
+
         if (document.getElementById('same-address').checked) {
             document.getElementById('present-address').value = document.getElementById('address').value;
         }
         const formData = new FormData(studentRegistration);
+        document.getElementById('loader').style.display = 'block';
+
         try{
             const response = await fetch('api/student_registration/create.php', {
                 method : 'POST',
                 body:formData
             });
             const result = await response.json();
+            document.getElementById('loader').style.display = 'none';
+
             showToast(result.message, !result.success);
             if(result.success && result.redirect){
-                setTimeout((function(){
-                    window.open(result.redirect, '_blank');
-                }), 2000)
-                setTimeout(() => {
-                    window.location.reload();
-                }, 5000);
+                setTimeout(() => window.location.href = result.redirect, 2000);
+                setTimeout(() => window.location.reload(), 5000);
             }else{
                 showToast(result.message, true);
                 setTimeout(() => {
@@ -324,6 +341,7 @@
                 }, 5000);
             }
         }catch(error){
+            document.getElementById('loader').style.display = 'none';
             alert("Something Went Wrong");
             console.error(error);
         }

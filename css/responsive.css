@@ -1,0 +1,83 @@
+#reminder{
+    display: none;
+}
+[data-bs-toggle="collapse"]::after {
+  content: "\f078"; /* FontAwesome down arrow */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  float: right;
+  transition: transform 0.3s;
+}
+[data-bs-toggle="collapse"].collapsed::after {
+  transform: rotate(-90deg);
+}
+#mobileMenu{
+    background-color: #4300ff;
+}
+#mobileMenu ul li a {
+    text-align: left;
+    display: block; 
+    float: none;   
+    text-decoration: none;
+    padding: 7px 10px;
+    color: #EEE;
+    font-size: 14px;
+    letter-spacing: 0.7px;
+    border-bottom: 0.1px solid #EEE;
+    border-radius: 0px 0px 5px 5px;
+}
+/* Offcanvas ka custom width */
+#mobileMenu.offcanvas-start {
+  width: 250px;   /* yahan apne hisaab se width kam kijiye */
+  max-width: 80%; /* mobile screen pe responsive banane ke liye */
+}
+@media(max-width:600px){
+    .top-header .top-header-left{
+        display: none;
+    }
+    .top-header{
+        background-color: #4300ff;
+    }
+    .top-header .top-header-right{
+        padding-top: 0px!important;
+        padding-bottom: 5px!important;
+    }
+    .navbar-btn{
+        display: none;
+    }
+    main{
+        margin-top: 40px!important;
+    }
+    .home-amount{
+        display: none;
+    }
+    #mobile-view{
+        display: block!important;
+    }
+    #desktop{
+        display: none;
+    }
+    .top-header .top-header-right{
+        display: none!important;
+    }
+    #mobile-view nav{
+        background-color: #fff!important;
+    }
+    #mobile-view nav a{
+        float: left!important;
+        border: none!important;
+    }
+    #reminder{
+        display: block;
+    }
+    #desk-reminder{
+        display: none;
+    }
+    .top-header-middile{
+        display: none!important;
+    }
+    #home-page-mobile{
+        margin: 0px!important;
+        padding: 0px!important;
+    }
+}

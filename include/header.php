@@ -29,10 +29,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <!--ck editor-->
     <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/super-build/ckeditor.js"></script>
+    <!--tostify -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <!--toastyfy end here -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="css/fees.css">
-    <link rel="stylesheet" href="css/parents.css">
+    <link rel="stylesheet" href="css/parents.css?v=2">
     <link rel="stylesheet" href="css/exam.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/users.css">
+    <link rel="stylesheet" href="css/responsive.css?v=3">
 </head>
 <body>

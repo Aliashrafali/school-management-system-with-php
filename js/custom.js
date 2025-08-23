@@ -187,7 +187,8 @@ function validateRegistrationImage(){
 function Bill(){
     let tution_fee = Number(document.getElementById('tution_fee').value);
     let tranport_fee = Number(document.getElementById('tranport_fee').value);
-    let total = tution_fee + tranport_fee;
+    let back_dues = Number(document.getElementById('back_dues').value);
+    let total = tution_fee + tranport_fee + back_dues;
 
     document.getElementById('total').value = total;
 }
@@ -199,6 +200,7 @@ function valiDateForm(){
       { id: 'a_date', message: "Enter Admission Date !" },
       { id: 'roll', message: "Enter Roll Number !" },
       { id: 'tution_fee', message: "Enter Tution Fee !" },
+      { id: 'back_dues', message: "Enter Back Dues"},
       { id: 'tranport_fee', message: "Enter Transport and Other Fee" },
       { id: 'total', message: "Enter Total !" },
       { id: 'month_years', message: "Select Month and Years !" }

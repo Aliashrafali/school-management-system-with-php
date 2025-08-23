@@ -9,4 +9,5 @@
     if($conn->connect_error){
         die("Connection Error".$conn->connect_error);
     }
+    $secret_key = 'MY_SUPER_SECRET_KEY_123';
 ?>

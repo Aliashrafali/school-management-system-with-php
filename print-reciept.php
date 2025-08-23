@@ -1,7 +1,17 @@
 <?php
+    date_default_timezone_set('Asia/Kolkata');
+    require __DIR__ . '/api/login/check_auth.php';
+    require __DIR__ . '/api/login/auth.php';
+
+    header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+    header("Cache-Control: post-check=0, pre-check=0", false);
+    header("Pragma: no-cache");
+    header("Expires: 0");
+    $claims = require_auth();
+
 include 'sql/config.php';
 include 'title.php';
-session_start();
+
 require_once('./fpdf/fpdf.php');
 require_once('./FPDI/src/autoload.php');
 include 'phpqrcode/qrlib.php';
@@ -59,14 +69,14 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetXY(10, 10 + $yShift);
-    $pdf->Cell(0, 10, strtoupper('RN Mission Public School'), 0, 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('Kid\'s Blooming World School'), 0, 1, 'C');
 
     $pdf->SetFont('Arial', '', 10);
     $pdf->SetXY(10, 16 + $yShift);
-    $pdf->Cell(0, 10, strtoupper('Mujauna bazar, Parsa(Saran)'), 0, 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), 0, 1, 'C');
 
     $pdf->SetFont('Arial', 'B', 10);
-    $pdf->SetXY(85, 23 + $yShift);
+    $pdf->SetXY(81, 23 + $yShift);
     $pdf->SetTextColor(0, 0, 139);
     $pdf->Cell(50, 10, 'PAYMENT RECEIPT', 0, 0, 'C');
     $pdf->SetTextColor(0, 0, 0);
