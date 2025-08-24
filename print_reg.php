@@ -73,7 +73,7 @@ class PDFWithWatermark extends FPDF {
     $pdf = new PDFWithWatermark();
     $pdf->SetAutoPageBreak(false);
     $pdf->AddPage();
-     $pdf->SetFont('Arial', 'B', 15);
+    $pdf->SetFont('Arial', 'B', 15);
     $pdf->SetTextColor(220, 220, 220); // Light gray
     $pdf->RotatedText(80, 213, 'KID\'S BLOOMING WORLD SCHOOL', 45); // ✅ Now this works
     $pdf->SetLineWidth(0.8); // Border thickness (3px)
@@ -87,6 +87,8 @@ class PDFWithWatermark extends FPDF {
         $pdf->GetPageWidth() - 20,  // Width (full width minus margins)
         ($pdf->GetPageHeight() / 2.4) - 10 // Half height - 10mm bottom padding
     );
+    $logo = 'img/logo.png';
+    $pdf->Image($logo, 2, 9, 50, 25);
 
     // Set font and text
     $pdf->SetFont('Arial', 'B', 14);
@@ -96,27 +98,28 @@ class PDFWithWatermark extends FPDF {
     $pdf->SetXY(10,16);
     $pdf->Cell(0, 10, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), '0', 1, 'C');
 
-    $pdf->SetXY(15,26);
-    $pdf->SetFont('Arial', '', 9);
-    $pdf->Cell(50, 10, 'Serial Number'.' '.':', 0, 0);
-    $pdf->SetXY(40,26);
-    $pdf->Cell(50, 10, '0'.$row['id'], 0, 1);
-    
-    $pdf->SetXY(165,26);
-    $pdf->Cell(50, 10, 'Date'.' '. ':', 0, 0);
-
-    $pdf->SetXY(177,26);
-    $date = date('d-m-Y');
-    $pdf->Cell(50, 10, $date, 0, 0);
-
     $pdf->SetFont('Arial', 'B', 12);
-    $pdf->SetXY(85,35);
+    $pdf->SetXY(82,23);
     $pdf->SetTextColor(0,0,139);
     $pdf->SetDrawColor(0, 0, 139);
     $pdf->Cell(50, 10, 'REGISTRATION RECIEVED', 0, 0, 'C');
     $x = $pdf->GetX() - 50; // starting X of the cell
     $y = $pdf->GetY() + 8; // 10mm below current line
     $pdf->Line($x-2, $y, $x + 52, $y); // x1, y1, x2, y2
+
+    $pdf->SetTextColor(0,0,0);
+    $pdf->SetXY(15,35);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(50, 10, 'Serial Number'.' '.':', 0, 0);
+    $pdf->SetXY(45,35);
+    $pdf->Cell(50, 10, '0'.$row['id'], 0, 1);
+    
+    $pdf->SetXY(165,35);
+    $pdf->Cell(50, 10, 'Date'.' '. ':', 0, 0);
+
+    $pdf->SetXY(177,35);
+    $date = date('d-m-Y');
+    $pdf->Cell(50, 10, $date, 0, 0);
 
     $pdf->SetLineWidth(0.4);
     $pdf->SetDrawColor(169, 169, 169); // Light gray

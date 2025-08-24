@@ -14,7 +14,7 @@ use Firebase\JWT\Key;
 $secret = $secret_key;
 
 if (!isset($_SESSION['jwt'])) {
-    header("Location: login?error=unauthorized");
+    header("Location: login");
     exit;
 }
 

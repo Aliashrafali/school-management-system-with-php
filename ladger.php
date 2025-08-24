@@ -14,6 +14,7 @@ include 'title.php';
 
 require_once('./fpdf/fpdf.php');
 require_once('./FPDI/src/autoload.php');
+include 'phpqrcode/qrlib.php';
 
 class PDFWithWatermark extends FPDF {
     protected $angle = 0;
@@ -86,7 +87,7 @@ class PDFWithWatermark extends FPDF {
     $registration_info = $data[0];
 
     // total amount
-    $sql2 = $conn->prepare("SELECT SUM(total_amount) AS total_amount, SUM(paid_amount) AS total_paid, SUM(discount_amount) AS discount_amount, SUM(advance_amount) AS advance_amount, SUM(grant_total) AS grant_total FROM tbl_payments WHERE session = ? AND reg_no = ?");
+    $sql2 = $conn->prepare("SELECT SUM(total) AS total_amount, SUM(paid) AS total_paid, SUM(discount) AS discount_amount, SUM(advance_amount) AS advance_amount FROM tbl_demand WHERE session = ? AND reg_no = ?");
     $sql2->bind_param('ss', $session, $reg_no);
     $sql2->execute();
     $result2 = $sql2->get_result();
@@ -102,7 +103,7 @@ class PDFWithWatermark extends FPDF {
         $total_paid = $row2['total_paid'] ?? 0;
         $total_discount = $row2['discount_amount'] ?? 0;
         $total_advance = $row2['advance_amount'] ?? 0;
-        $grant_total = $row2['grant_total'] ?? 0;
+        // $grant_total = $row2['grant_total'] ?? 0;
     }
     $last_dues = $conn->prepare("SELECT id, rest_dues FROM tbl_payments WHERE reg_no = ? AND session = ? ORDER BY id DESC LIMIT 1");
     $last_dues->bind_param('ss', $reg_no, $session);
@@ -116,27 +117,59 @@ class PDFWithWatermark extends FPDF {
         $pdf->SetAutoPageBreak(false);
         $pdf->AddPage();
         // Set font and text
+        $pdf->SetLineWidth(0.1); // border की मोटाई
+        $pdf->Rect(5, 5, $pdf->GetPageWidth() - 10, $pdf->GetPageHeight() - 10);
+
+        $logo = 'img/logo.png';
+        $pdf->Image($logo, 2, 6, 50, 25);
+
+        $qr_ladger = 'Total Amount : '.$total_grant;
+        $qr_file = 'qr_ladger/qr_'.$reg_no.'.png';
+        if(!file_exists('qr_ladger')){
+            mkdir('qr_ladger');
+        }
+        QRcode::png($qr_ladger, $qr_file, QR_ECLEVEL_L, 3);
+        $pdf->Image($qr_file, 262, 6, 25, 25);
+
+        //title
         $pdf->SetFont('Arial', 'B', 14);
         $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY(10,10);
-        $pdf->Cell(0, 10, 'Session - ', 0, 1, '');
-        $pdf->SetXY(35,10);
-        $pdf->Cell(0, 10, $session, 0, 1, '');
-        $pdf->SetXY(210,10);
-        $pdf->Cell(0, 10, 'Registration No - ', 0, 1, '');
-        $pdf->SetXY(251,10);
-        $pdf->Cell(0, 10, $reg_no, 0, 1, '');
-        $y = $pdf->GetY();
-        $pdf->Line(10, $y, 230, $y);
+        $pdf->Cell(0, 10, strtoupper('KID\'S BLOOMING WORLD SCHOOL'), 0, 1, 'C');
+        $pdf->SetFont('Arial', '', 10);
+        $pdf->SetXY(10,16);
+        $pdf->Cell(0, 10, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), '0', 1, 'C');
 
+        $pdf->SetFont('Arial', 'B', 12);
+        $pdf->SetXY(120,23);
+        $pdf->SetTextColor(0,0,139);
+        $pdf->SetDrawColor(0, 0, 139);
+        $pdf->Cell(50, 10, 'STUDENT LADGER', 0, 0, 'C');
+        $x = $pdf->GetX() - 44; // starting X of the cell
+        $y = $pdf->GetY() + 8; // 10mm below current line
+        $pdf->Line($x, $y, $x + 38, $y); // x1, y1, x2, y2
+
+        $pdf->SetXY(120,38);
+        $y = $pdf->GetY();
+        $pdf->Line(10, $y, 289, $y);
+
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->SetTextColor(0,0,0);
+        $pdf->SetXY(10,30);
+        $pdf->Cell(0, 10, 'SESSION - ', 0, 1, '');
+        $pdf->SetXY(30,30);
+        $pdf->Cell(0, 10, $session, 0, 1, '');
+        $pdf->SetXY(225,30);
+        $pdf->Cell(0, 10, 'REGISTRATION NO - ', 0, 1, '');
+        $pdf->SetXY(262,30);
+        $pdf->Cell(0, 10, $reg_no, 0, 1, '');
         // info here
         $X_AXIS = 10;
-        $Y_AXIS = 10;
+        $Y_AXIS = 30;
         $pdf->SetFont('Arial', 'B', 8);
         $pdf->SetTextColor(0,0,0);
         $pdf->SetXY($X_AXIS,$Y_AXIS +=10);
-        $pdf->Cell(40, 8, 'Name', 1, 0, 'C');
-        $pdf->Cell(40, 8, 'Father', 1, 0, 'C');
+        $pdf->Cell(50, 8, 'Name', 1, 0, 'C');
+        $pdf->Cell(50, 8, 'Father', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Mobile', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Class', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Section', 1, 0, 'C');
@@ -144,14 +177,14 @@ class PDFWithWatermark extends FPDF {
         $pdf->Cell(20, 8, 'Total', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Advance', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Discount', 1, 0, 'C');
-        $pdf->Cell(20, 8, 'Grand', 1, 0, 'C');
+        // $pdf->Cell(20, 8, 'Grand', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Paid', 1, 0, 'C');
         $pdf->Cell(20, 8, 'Dues', 1, 0, 'C');
 
         $pdf->SetXY($X_AXIS,$Y_AXIS +=8);
         $pdf->SetFont('Arial', '', 8);
-        $pdf->Cell(40, 5, strtoupper($registration_info ['name']), 1, 0, 'C');
-        $pdf->Cell(40, 5, strtoupper($registration_info ['fname']), 1, 0, 'C');
+        $pdf->Cell(50, 5, strtoupper($registration_info ['name']), 1, 0, 'C');
+        $pdf->Cell(50, 5, strtoupper($registration_info ['fname']), 1, 0, 'C');
         $pdf->Cell(20, 5, $registration_info ['mobile'], 1, 0, 'C');
         $pdf->Cell(20, 5, strtoupper($registration_info ['class']), 1, 0, 'C');
         $pdf->Cell(20, 5, strtoupper($registration_info['section']), 1, 0, 'C');
@@ -159,14 +192,14 @@ class PDFWithWatermark extends FPDF {
         $pdf->Cell(20, 5, number_format($total_grant, 2), 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($total_advance, 2), 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($total_discount, 2), 1, 0, 'C');
-        $pdf->Cell(20, 5, number_format($grant_total, 2), 1, 0, 'C');
+        // $pdf->Cell(20, 5, number_format($grant_total, 2), 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($total_paid, 2), 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($rest_due_row['rest_dues'], 2), 1, 0, 'C');
 
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->SetTextColor(0,0,0);
-        $pdf->SetXY($X_AXIS + 90,$Y_AXIS +=15);
-        $pdf->Cell(50, 8, 'Payment History', 0, 0, 'C');
+        $pdf->SetXY($X_AXIS + 110,$Y_AXIS +=15);
+        $pdf->Cell(50, 8, strtoupper('Payment History'), 0, 0, 'C');
         $pdf->SetFont('Arial', 'B', 8);
         $pdf->SetXY($X_AXIS,$Y_AXIS +=8);
         $pdf->Cell(10, 8, 'Sno.', 1, 0, 'C');

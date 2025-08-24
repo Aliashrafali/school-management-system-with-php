@@ -84,9 +84,11 @@
                                             <option disabled selected value>--Select Month--</option>
                                             <option value="all">All</option>
                                             <?php
-                                                for($m = 1; $m<=12; $m++){
-                                                    $monthname = date('F', mktime(0,0,0,$m,1));
-                                                    echo "<option value='$m'>$monthname</option>";
+                                                $currentYear = date('Y');
+                                                for($m = 1; $m <= 12; $m++){
+                                                    $monthName = date('F', mktime(0, 0, 0, $m, 1, $currentYear));
+                                                    $value = $monthName . ' ' . $currentYear;
+                                                    echo "<option value='$value'>$value</option>";
                                                 }
                                             ?>
                                         </select>

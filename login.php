@@ -1,5 +1,6 @@
 <?php include 'include/header.php'; ?>
 <?php
+    session_start();
     $error = $_GET['error'] ?? '';
     $msg = '';
     $type = 'error';
@@ -17,11 +18,22 @@
 ?>
 <style>
     main{
-        padding-top: 5%!important; 
+        padding-top: 10%!important; 
         margin-top: 0!important; 
     }
 </style>
 <main>
+    <section>
+        <div class="top-login">
+            <h1 class="erp-title">
+                Welcome to <span>Kid’s Blooming World School</span>
+            </h1>
+            <div class="erp-badge">
+                <i class="fas fa-school"></i>
+                ERP School Software
+            </div>
+        </div>
+    </section>
     <section>
         <div class="container">
             <form action="api/login/login.php" method="POST">

@@ -11,7 +11,7 @@
 
     include 'sql/config.php';
     include 'include/header.php';
-    session_start();
+
     if(isset($_GET['demand_id']) && isset($_GET['month_year'])){
         $demand_id = $_GET['demand_id'];
         $month_year = urldecode($_GET['month_year']);

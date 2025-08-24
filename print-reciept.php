@@ -65,6 +65,18 @@ class PDFWithWatermark extends FPDF {
 function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
     // Draw Border
     $pdf->Rect(10, 10 + $yShift, $pdf->GetPageWidth() - 20, ($pdf->GetPageHeight() / 2.4) - 10);
+    
+    $image = 'img/logo.png';
+    $pdf->Image($image, 10, $yShift + 12, 40, 20);
+
+     // QR code    
+    $qr_paymentrecieved = 'Paid Amount : '.$row['total_amount'];
+    $qr_file = 'qr_paymentrecieved/qr_'.$row['invoice_no'].'.png';
+    if(!file_exists('qr_paymentrecieved')){
+         mkdir('qr_paymentrecieved');
+    }
+    QRcode::png($qr_paymentrecieved, $qr_file, QR_ECLEVEL_L, 3);
+    $pdf->Image($qr_file, 173, $yShift + 12, 20, 20);
 
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0, 0, 0);

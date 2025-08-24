@@ -17,7 +17,7 @@
     }
     function require_auth(): array{
         $token = $_COOKIE[COOKIE_NAME] ?? '' ;
-          $login_url = login_url();
+        $login_url = login_url();
         if(!$token){
             header("Location:$login_url");
             exit;
@@ -26,10 +26,11 @@
             $decode = JWT::decode($token, new Key(JWT_SECRET, JWT_ALGO));
             return (array)$decode;
         }catch (\Firebase\JWT\ExpiredException $e) {
-            // Token expired
+            $_SESSION['last_page'] = $_SERVER['REQUEST_URI'];
             header("Location: $login_url?error=expired");
             exit;
         }catch(\Throwable $e){
+            $_SESSION['last_page'] = $_SERVER['REQUEST_URI'];
             header("Location: $login_url?error=invalid");
             exit;
         }

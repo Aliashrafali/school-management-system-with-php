@@ -1,6 +1,5 @@
 <?php
     date_default_timezone_set('Asia/Kolkata');
-    date_default_timezone_set('Asia/Kolkata');
     require __DIR__ . '/api/login/check_auth.php';
     require __DIR__ . '/api/login/auth.php';
 

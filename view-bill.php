@@ -136,6 +136,12 @@ while($row = $result->fetch_assoc()){
 
     $yOffset = $startY + ($index % 3) * $billHeight;
 
+    $image = 'img/logo.png';
+    $pdf->Image($image, 10, $yOffset, 40, 20);
+
+    $paymentqr = 'img/qr.png';
+    $pdf->Image($paymentqr, 173, $yOffset, 20, 20);
+
     // Border
     $pdf->SetDrawColor(0, 0, 0);
     $pdf->SetLineWidth(0.2);

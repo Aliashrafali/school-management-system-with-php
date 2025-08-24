@@ -53,9 +53,9 @@ try {
 
     // JOIN query
     $query = "SELECT r.reg_no, r.name, r.fname,r.mobile, r.class, r.section, r.roll, r.session,
-                     p.invoice_no, p.month_year, p.total_amount, p.paid_amount, p.paid_by
+                     p.invoice_no, p.month_year, p.total_amount, p.dues_amount
               FROM registration r
-              LEFT JOIN tbl_payments p ON r.reg_no = p.reg_no AND r.session = p.session";
+              LEFT JOIN tbl_demand p ON r.reg_no = p.reg_no AND r.session = p.session";
 
     if(!empty($conditions)){
         $query .= " WHERE " . implode(" AND ", $conditions);

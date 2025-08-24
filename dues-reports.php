@@ -40,7 +40,7 @@
                             <div class="pt-2">
                                 <h5>All Dues Reports in Excel</h5><hr>
                             </div>
-                            <form action="">
+                            <form id="collectionDuesReports" method="POST" action="api/account/dues-reports.php">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">

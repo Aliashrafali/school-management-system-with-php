@@ -70,3 +70,29 @@
 .erp-btn i {
     margin-right: 8px;
 }
+.top-login{
+    height: 100px;
+    background-color: #fff;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    border-bottom: 2px solid #ccc;
+    z-index: 9999;
+}
+  .erp-badge{
+    display:inline-flex; gap:10px; align-items:center;
+    font-weight:600; letter-spacing:.4px;
+    padding:5px 14px; border-radius:999px;
+    background:#fff; color:#1f4cff; border:1px solid #e6ebff;
+    box-shadow: 0 4px 12px rgba(31,76,255,.08);
+    margin-bottom:16px;
+  }
+  .erp-badge i{ font-size:16px; }
+  .erp-title{
+    font-weight:800; font-size:clamp(15px, 2vw, 20px);
+    margin:0 0 12px; color:#0f172a;
+    padding-top: 10px;
+  }
+  .erp-title span{ color:#1f4cff; }
