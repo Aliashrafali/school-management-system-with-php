@@ -31,7 +31,7 @@
             exit;
         }catch(\Throwable $e){
             $_SESSION['last_page'] = $_SERVER['REQUEST_URI'];
-            header("Location: $login_url?error=invalid");
+            header("Location: $login_url");
             exit;
         }
     }

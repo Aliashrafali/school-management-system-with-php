@@ -23,7 +23,8 @@ try {
     return (array)$decoded;
 } catch (Exception $e) {
     session_destroy();
-    header("Location: login?error=invalid");
+    // header("Location: login?error=invalid");
+    header("Location: login");
     exit;
 }
 ?>

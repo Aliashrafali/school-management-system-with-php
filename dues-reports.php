@@ -8,9 +8,13 @@
     header("Pragma: no-cache");
     header("Expires: 0");
     $claims = require_auth();
-    
+
     include 'sql/config.php';
     include 'include/header.php';
+
+    if(!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 ?>
 
 <header>
@@ -41,10 +45,11 @@
                                 <h5>All Dues Reports in Excel</h5><hr>
                             </div>
                             <form id="collectionDuesReports" method="POST" action="api/account/dues-reports.php">
+                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="class">
                                             <option disabled selected value>--Select Class--</option>
                                             <option value="all">All</option>
                                             <?php
@@ -60,7 +65,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="section">
                                             <option disabled selected value>--Select Section--</option>
                                             <option value="all">All</option>
                                             <?php
@@ -76,13 +81,15 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="month">
                                             <option disabled selected value>--Select Month--</option>
                                             <option value="all">All</option>
-                                            <?php
-                                                for($m = 1; $m<=12; $m++){
-                                                    $monthname = date('F', mktime(0,0,0,$m,1));
-                                                    echo "<option value='$m'>$monthname</option>";
+                                             <?php
+                                                $currentYear = date('Y');
+                                                for($m = 1; $m <= 12; $m++){
+                                                    $monthName = date('F', mktime(0, 0, 0, $m, 1, $currentYear));
+                                                    $value = $monthName . ' ' . $currentYear;
+                                                    echo "<option value='$value'>$value</option>";
                                                 }
                                             ?>
                                         </select>
@@ -91,7 +98,7 @@
 
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                            <select class="form-select">
+                                            <select class="form-select" name="session">
                                                 <option disabled selected value>--Select Session--</option>
                                                 <option value="all">All</option>
                                                 <?php

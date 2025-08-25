@@ -27,6 +27,6 @@
         'samesite' => 'Strict'
     ]);
 
-header('Location: ../../login');
+header('Location: ../../login?error=logout');
 exit;
 ?>

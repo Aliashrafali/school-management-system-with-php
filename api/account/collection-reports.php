@@ -23,8 +23,8 @@ try {
 
     $class = trim($input['class'] ?? '');
     $section = trim($input['section'] ?? '');
-    $month = $input['month'] ?? '';
-    $session = $input['session'] ?? '';
+    $month = trim($input['month'] ?? '');
+    $session = trim($input['session'] ?? '');
 
     $conditions = [];
     $params = [];
@@ -55,7 +55,7 @@ try {
     $query = "SELECT r.reg_no, r.name, r.fname,r.mobile, r.class, r.section, r.roll, r.session,
                      p.invoice_no, p.month_year, p.total_amount, p.paid_amount, p.paid_by
               FROM registration r
-              LEFT JOIN tbl_payments p ON r.reg_no = p.reg_no AND r.session = p.session";
+              INNER JOIN tbl_payments p ON r.reg_no = p.reg_no AND r.session = p.session";
 
     if(!empty($conditions)){
         $query .= " WHERE " . implode(" AND ", $conditions);

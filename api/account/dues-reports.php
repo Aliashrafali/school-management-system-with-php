@@ -23,8 +23,8 @@ try {
 
     $class = trim($input['class'] ?? '');
     $section = trim($input['section'] ?? '');
-    $month = $input['month'] ?? '';
-    $session = $input['session'] ?? '';
+    $month = trim($input['month'] ?? '');
+    $session = trim($input['session'] ?? '');
 
     $conditions = [];
     $params = [];
@@ -53,9 +53,9 @@ try {
 
     // JOIN query
     $query = "SELECT r.reg_no, r.name, r.fname,r.mobile, r.class, r.section, r.roll, r.session,
-                     p.invoice_no, p.month_year, p.total_amount, p.dues_amount
+                      p.month_year, p.total, p.rest_dues, p.paid
               FROM registration r
-              LEFT JOIN tbl_demand p ON r.reg_no = p.reg_no AND r.session = p.session";
+              INNER JOIN tbl_demand p ON r.reg_no = p.reg_no AND r.session = p.session";
 
     if(!empty($conditions)){
         $query .= " WHERE " . implode(" AND ", $conditions);
@@ -73,9 +73,14 @@ try {
         header("Content-Type: application/vnd.ms-excel");
         header("Content-Disposition: attachment; filename=paid_payments.xls");
 
-        echo "Reg No\tName\tFather\tMobile\tClass\tSection\tRoll\tSession\tInvoice No\tMonth Year\tPaid Amount\tPaid By\n";
+        echo "Reg No\tName\tFather\tMobile\tClass\tSection\tRoll\tSession\tMonth Year\tTotal Amount\tDues Amount\n";
         $totalPaid = 0;
+        $line = 0;
         while($row = $result->fetch_assoc()){
+            if ($row['rest_dues'] <= 0 && $row['paid'] > 0) {
+                continue; // skip this row
+            }
+
             echo $row['reg_no'] . "\t" .
                  strtoupper($row['name']) . "\t" .
                  strtoupper($row['fname']) . "\t" .
@@ -84,13 +89,19 @@ try {
                  strtoupper($row['section']) . "\t" .
                  $row['roll'] . "\t" .
                  $row['session'] . "\t" .
-                 ($row['invoice_no'] ?? '-') . "\t" .
                  ($row['month_year'] ?? '-') . "\t" .
-                 ($row['paid_amount'] ?? '0') . "\t" .
-                 ($row['paid_by'] ?? '-') . "\n";
-                 $totalPaid += (float)($row['paid_amount'] ?? 0);
+                 ($row['total'] ?? '-') . "\t";
+                 if($row['rest_dues'] == 0 && $row['paid'] == 0){
+                    $line .= ($row['total']); 
+                    $totalPaid += (float)($row['total'] ?? 0);
+                 }else{
+                    $line .= ($row['rest_dues']);
+                    $totalPaid += (float)($row['rest_dues'] ?? 0);
+                 }
+                 $line .= "\n";
+                 echo $line;
         }
-        echo "\t\t\t\t\t\t\t\t\t\tTotal Paid\t" . number_format($totalPaid, 2) . "\n";
+        echo "\t\t\t\t\t\t\t\t\t\tTotal Dues\t" . number_format($totalPaid, 2) . "\n";
         exit;
     } else {
         echo "No data found!";
