@@ -54,8 +54,9 @@ class PDFWithWatermark extends FPDF {
     //fetch data from database
     if(isset($_GET['reg_no'])){
         $reg_id = $_GET['reg_no'];
-        $fetch = $conn->prepare("SELECT * FROM registration WHERE reg_no = ?");
-        $fetch->bind_param('s', $reg_id);
+        $session = $_GET['session'] ?? '';
+        $fetch = $conn->prepare("SELECT * FROM registration WHERE reg_no = ? AND session = ?");
+        $fetch->bind_param('ss', $reg_id,$session);
         $fetch->execute();
         $result = $fetch->get_result();
         if($result->num_rows > 0){
@@ -75,7 +76,7 @@ class PDFWithWatermark extends FPDF {
     $pdf->AddPage();
     $pdf->SetFont('Arial', 'B', 15);
     $pdf->SetTextColor(220, 220, 220); // Light gray
-    $pdf->RotatedText(80, 213, 'KID\'S BLOOMING WORLD SCHOOL', 45); // ✅ Now this works
+    $pdf->RotatedText(80, 213, 'RN MISSION PUBLIC SCHOOL', 45); // ✅ Now this works
     $pdf->SetLineWidth(0.8); // Border thickness (3px)
     $pdf->SetDrawColor(0, 0, 0); // Black
 
@@ -87,25 +88,25 @@ class PDFWithWatermark extends FPDF {
         $pdf->GetPageWidth() - 20,  // Width (full width minus margins)
         ($pdf->GetPageHeight() / 2.4) - 10 // Half height - 10mm bottom padding
     );
-    $logo = 'img/logo.png';
-    $pdf->Image($logo, 2, 9, 50, 25);
+    $logo = 'img/logo.jpeg';
+    $pdf->Image($logo, 12, 12, 25, 20);
 
     // Set font and text
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0,0,0);
-    $pdf->Cell(0, 10, strtoupper('KID\'S BLOOMING WORLD SCHOOL'), 0, 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('RN MISSION PUBLIC SCHOOL'), 0, 1, 'C');
     $pdf->SetFont('Arial', '', 10);
     $pdf->SetXY(10,16);
-    $pdf->Cell(0, 10, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), '0', 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('Mujauna bazar,Parsa( Saran )'), '0', 1, 'C');
 
     $pdf->SetFont('Arial', 'B', 12);
     $pdf->SetXY(82,23);
     $pdf->SetTextColor(0,0,139);
     $pdf->SetDrawColor(0, 0, 139);
-    $pdf->Cell(50, 10, 'REGISTRATION RECIEVED', 0, 0, 'C');
-    $x = $pdf->GetX() - 50; // starting X of the cell
+    $pdf->Cell(50, 10, 'REGISTRATION RECEIPT', 0, 0, 'C');
+    $x = $pdf->GetX() - 45; // starting X of the cell
     $y = $pdf->GetY() + 8; // 10mm below current line
-    $pdf->Line($x-2, $y, $x + 52, $y); // x1, y1, x2, y2
+    $pdf->Line($x-2, $y, $x + 40, $y); // x1, y1, x2, y2
 
     $pdf->SetTextColor(0,0,0);
     $pdf->SetXY(15,35);
@@ -158,12 +159,27 @@ class PDFWithWatermark extends FPDF {
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->Cell(26, 10, strtoupper($row['fname']), 0, 0,);
 
+    $pdf->SetXY(90,$y_axis);
+    $pdf->SetFont('Arial', '', 9);
+    $pdf->Cell(26, 10, "Mother".' '. ':', 0, 0,);
+    $pdf->SetXY(105,$y_axis);
+    $pdf->SetFont('Arial', 'B', 9);
+    if($row['mname'] == '0' || empty($row['mname'])){
+        $pdf->Cell(26, 10, "Not Mentioned", 0, 0,);
+    }else{
+        $pdf->Cell(26, 10, strtoupper($row['mname']), 0, 0,);
+    }
+
     $pdf->SetXY(15,$y_axis+=7);
     $pdf->SetFont('Arial', '', 9);
     $pdf->Cell(26, 10, "Mobile".' '. ':', 0, 0,);
     $pdf->SetXY(45,$y_axis);
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(26, 10, $row['mobile'], 0, 0,);
+    if($row['mobile'] != 0 || !empty($row['mobile'])){
+        $pdf->Cell(26, 10, $row['mobile'], 0, 0,);
+    }else{
+        $pdf->Cell(26, 10, "Not Mentioned", 0, 0,);
+    }
 
     $pdf->SetXY(15,$y_axis+=7);
     $pdf->SetFont('Arial', '', 9);
@@ -177,7 +193,11 @@ class PDFWithWatermark extends FPDF {
     $pdf->Cell(26, 10, "Gender".' '. ':', 0, 0,);
     $pdf->SetXY(105,$y_axis);
     $pdf->SetFont('Arial', 'B', 9);
-    $pdf->Cell(26, 10, strtoupper($row['gender']), 0, 0,);
+    if($row['gender'] == '0' || empty($row['gender'])){
+        $pdf->Cell(26, 10, "Not Mentioned", 0, 0,);
+    }else{
+        $pdf->Cell(26, 10, strtoupper($row['gender']), 0, 0,);
+    }
 
     $pdf->SetXY(15,$y_axis+=7);
     $pdf->SetFont('Arial', '', 9);

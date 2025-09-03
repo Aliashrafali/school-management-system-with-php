@@ -30,9 +30,8 @@
                     </div>
                 </div> 
                 <div class="col-12 col-md-7 col-lg-7 col-sm-12 home-amount">
-                    <div class="total-print d-flex justify-content-between">
-                        <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"> Total Amount <?= date('F Y') ?> <i class="fas fa-arrow-right" style="font-size: 13px; padding-left: 5px; padding-right: 5px;"></i> <span style="color: #4CAF50;"><b>[ 00 ]</b></span></a>
-                        <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"> Total Amount Till Now <i class="fas fa-arrow-right" style="font-size: 13px; padding-left: 5px; padding-right: 5px;"></i> <span style="color: #FF4545;"><b>[ 00 ]</b></span></a>
+                    <div class="total-print" style="float: right;">
+                        <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"> <i class="far fa-user" style="margin-right: 7px;"></i> <b>Welcome</b>, <?= htmlspecialchars($claims['name'], ENT_QUOTES, 'UTF-8') ?></span></a>
                     </div>
                 </div>   
             </div>
@@ -132,11 +131,11 @@
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-12" id="home-page-mobile">
                     <div class="software-porform" style="height: 95px!important;">
-                        <a href="invoice-reports"><button class="payment-btn-home">Quick Payment</button></a>
+                        <a href="invoice-reports"><button class="payment-btn-home"><i class="fas fa-rupee-sign"></i></button></a>
                     </div>
                     <div class="software-porform" style="height: 95px!important;" id="reminder">
                         <div style="display: block; text-align: center;">
-                            <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home">Payment Reminder</button></a>
+                            <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home"style="background-color: #4300FF;"><i class="fas fa-bell"></i></button></a>
                         </div>
                     </div>
                     <div class="software-porform">
@@ -154,7 +153,7 @@
 
                 <div class="col-lg-2 col-md-2 col-sm-12" id="home-page-mobile">
                     <div class="software-porform" style="height: 95px!important;" id="desk-reminder">
-                        <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home">Payment Reminder</button></a>
+                        <a href="#" style="font-size: 15px!important;"><button class="payment-btn-home" style="background-color: #4300FF;"><i class="fas fa-bell"></i></button></a>
                     </div>
                     <div class="software-porform">
                         <span>Software Speed</span>

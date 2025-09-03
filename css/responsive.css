@@ -26,6 +26,11 @@
     border-bottom: 0.1px solid #EEE;
     border-radius: 0px 0px 5px 5px;
 }
+#mobileMenu li a form button{
+    background-color: #4300ff!important;
+    color: #fff!important;
+    border: none!important;
+}
 /* Offcanvas ka custom width */
 #mobileMenu.offcanvas-start {
   width: 250px;   /* yahan apne hisaab se width kam kijiye */
@@ -80,4 +85,58 @@
         margin: 0px!important;
         padding: 0px!important;
     }
+    .top-login{
+        display: none;
+    }
+    .title-area {
+        flex-direction: column;
+        align-items: flex-start; /* left align items */
+    }
+    .title-area h5,
+    .title-area span,
+    .title-area a {
+        width: 100%;   /* full width le */
+        margin-bottom: 8px;
+    }
+    .title-area button {
+        width: 100%;   /* mobile me button full width */
+    }
+    .whole-section{
+        margin: 0px;
+        padding: 0px;
+    }
+    .student-view .title-area-search button{
+        margin-top: 15px;
+    }
+    .student-view .title-area-search select{
+        margin-top: 10px;
+    }
+    .table-mobile td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+    }
+    .table-mobile .label {
+        font-weight: 600;
+        flex: 1;
+    }
+    .table-mobile .value {
+        flex: 1;
+        text-align: right;
+    }
+}
+
+/*Tab View*/
+@media (max-width: 1024px) {
+  .school-name {
+    font-size: 1rem;
+  }
+  .school-address {
+    font-size: 0.9rem;
+  }
+  #desk-top button {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+  }
 }

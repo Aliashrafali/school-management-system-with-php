@@ -52,7 +52,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-5">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account Panel</a>
@@ -77,6 +77,11 @@
                                             <th>Name</th>
                                             <th>Tution Fee</th>
                                             <th>Transport and Other Fees</th>
+                                             <?php
+                                                if ($row['back_dues'] != 0) {
+                                                    echo '<th>Back Dues</th>';
+                                                }
+                                            ?>
                                             <?php
                                                 $other_fees = [];
                                                 if (!empty($row['other_fee'])) {
@@ -113,7 +118,12 @@
                                             <td><span style="text-transform: capitalize;"><?= $row['name']; ?></span></td>
                                             <td><span style="text-transform: capitalize;"><?= number_format($row['tution_fee'], 2); ?></span></td>
                                             <td><span style="text-transform: capitalize;"><?= number_format($row['transport_and_other_fee'], 2); ?></span></td>
-                                             <?php foreach($other_fees as $label => $amount): ?>
+                                            <?php
+                                                if ($row['back_dues'] != 0) {
+                                                    echo '<td>' . number_format($row['back_dues'], 2) . '</td>';
+                                                }
+                                            ?> 
+                                            <?php foreach($other_fees as $label => $amount): ?>
                                                 <td><?= number_format((float)$amount, 2); ?></td>
                                             <?php endforeach; ?>
                                             <td><span style="text-transform: capitalize;"><?= number_format($row['total'], 2); ?></span></td>
@@ -232,7 +242,7 @@
                                     <div class="col-lg-3 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="name">Rest Dues</label>
-                                            <input type="text" id="rest_dues" name="rest_dues" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
+                                            <input type="text" id="rest_dues" name="rest_dues" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required readonly>
                                         </div>
                                     </div>
                                     <div class="col-lg-3 col-md-6 col-sm-12">

@@ -32,7 +32,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="registration.php" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Registration Panel</a>
@@ -45,7 +45,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="student-view">
                         <div class="all_records">
                             <a href="registration"><button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; background-color: #091057;">
@@ -53,7 +53,7 @@
                             </button></a><br>
                             <h6 class="pt-3">Student's Information</h6><hr>
                             <div class="table-responsive">
-                                <table class="table table-bordered w-100">
+                                <table class="table table-bordered w-100 table-mobile">
                                     <tbody>
                                         <tr>
                                             <td colspan="2"><span>Registration No. : <?php echo $row['reg_no']; ?></span></td>

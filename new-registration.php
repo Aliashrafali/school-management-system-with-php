@@ -22,7 +22,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-md-5 col-lg-5">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="registration" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Registration Panel</a>
@@ -46,7 +46,7 @@
             <form id="studentRegistration" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 whole-section">
                         <div class="student-view">
                             <span>Student Registration Form</span><hr>
                             <div class="personal-details">
@@ -97,9 +97,9 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Email Id ( इमेल आईडी )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Email Id ( इमेल आईडी )</label>
                                             <div class="input-group">
-                                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Your Email Id" required>
+                                                <input type="email" name="email" class="form-control" id="email" placeholder="Enter Your Email Id">
                                             </div>
                                         </div>
                                     </div>
@@ -113,7 +113,7 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Aadhar Number ( आधार संख्या )<sup><span style="color: red;">*</span></sup></label>
+                                            <label for="dob" class="form-label">Aadhar Number ( आधार संख्या ) <sup><span style="color: red;">*</span></sup></label>
                                             <div class="input-group">
                                                 <input type="text" name="adhar" class="form-control" id="radhar" oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Enter 12 Digit Adhar No." required>
                                             </div>
@@ -191,9 +191,9 @@
                                     </div>
                                     <div class="col-lg-4 col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label for="dob" class="form-label">Image ( विद्यार्थी का फोटो )<sup><span style="color: red;">*</span></sup> <small style="color: red;">Only JPG, JPEG and PNG Accepted</small></label>
+                                            <label for="dob" class="form-label">Image ( विद्यार्थी का फोटो ) <small style="color: red;">Only JPG, JPEG and PNG Accepted</small></label>
                                             <div class="input-group">
-                                                <input type="file" name="image" class="form-control" id="image" onchange="validateRegistrationImage()" style="text-transform: capitalize!important;" accept="image/jpg, image/png, image/jpeg" required>
+                                                <input type="file" name="image" class="form-control" id="image" style="text-transform: capitalize!important;" accept="image/jpg, image/png, image/jpeg">
                                             </div>
                                             <div id="preview-container" style="margin-top: 10px;">
                                                 <img id="image-preview" src="#" alt="Image Preview" style="max-width: 100px; display: none; border: 1px solid #ccc; padding: 5px; border-radius: 5px;" />
@@ -238,7 +238,10 @@
                                             <label for="exampleInputEmail1" class="form-label">Class ( कक्षा ) <sup><span style="color: red;">*</span></sup></label>
                                              <select class="form-select" name="class" id="rclass" aria-label="Default select example" required>
                                                 <option disabled selected value="">--Select Class--</option>
-                                                <option value="nur">Nursery</option>
+                                                <option value="nursery">Nursery</option>
+                                                <option value="KG 1">KG 1</option>
+                                                <option value="KG 2">KG 2</option>
+                                                <option value="Play">Play</option>
                                                 <option value="lkg">LKG (Lower Kindergarten)</option>
                                                 <option value="ukg">UKG (Upper Kindergarten)</option>
                                                 <option value="1">Class 1</option>
@@ -251,8 +254,6 @@
                                                 <option value="8">Class 8</option>
                                                 <option value="9">Class 9</option>
                                                 <option value="10">Class 10</option>
-                                                <option value="11">Class 11</option>
-                                                <option value="12">Class 12</option>
                                             </select>
                                         </div>
                                     </div>

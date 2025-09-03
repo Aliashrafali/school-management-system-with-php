@@ -21,6 +21,78 @@
     $suspended->fetch();
     $suspended->close();
 
+    $users = $conn->prepare("SELECT COUNT(*) as totalusers FROM users");
+    $users->execute();
+    $users->bind_result($total_users);
+    $users->fetch();
+    $users->close();
+
+    // august 2025 collection 
+    $month = date('n');
+    $year = date('Y');
+    if ($month >= 4) {
+        $current_session = $year . '-' . substr($year + 1, -2);
+    } else {
+        $current_session = ($year - 1) . '-' . substr($year, -2);
+    }
+    $monthly_collection = $conn->prepare("
+        SELECT DATE_FORMAT(p.date_and_time, '%M-%Y') AS month_year,
+        SUM(p.paid_amount) AS total_paid
+        FROM tbl_payments p INNER JOIN registration r ON r.reg_no = p.reg_no AND r.session = p.session WHERE p.session = ? AND MONTH(p.date_and_time) = ? AND YEAR(p.date_and_time) = ?
+        GROUP BY month_year
+    ");
+    $monthly_collection->bind_param('sii', $current_session,$month,$year);
+    $monthly_collection->execute();
+    $result = $monthly_collection->get_result();
+    $total_paid = 0;
+    if($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            $total_paid = $row['total_paid'];
+        }
+    }
+    
+
+    $today_collection = $conn->prepare("
+        SELECT SUM(paid_amount) AS today_total
+        FROM tbl_payments
+        WHERE session = ?
+        AND DATE(date_and_time) = CURDATE()
+    ");
+    $today_collection->bind_param('s', $current_session);
+    $today_collection->execute();
+    $today_collection_reports = $today_collection->get_result();
+    $todayPaid = 0;
+    if($today_collection_reports->num_rows > 0){
+        while($row_today = $today_collection_reports->fetch_assoc()){
+            $todayPaid = $row_today['today_total'];
+        }
+    }
+
+    // total dues
+    $current_month_year = date('F Y');
+    $dues = $conn->prepare("
+        SELECT r.reg_no, r.name, r.fname,r.mobile, r.class, r.section, r.roll, r.session,
+                      p.month_year, p.total, p.rest_dues, p.paid
+              FROM registration r
+              INNER JOIN tbl_demand p ON r.reg_no = p.reg_no AND r.session = p.session WHERE p.paid < p.total AND month_year = ?"
+    );
+    $dues->bind_param('s', $current_month_year);
+    $dues->execute();
+    $dues_result = $dues->get_result();
+    $data = [];
+    $total_dues = 0;
+    if($dues_result->num_rows > 0){
+    while ($rowdues = $dues_result->fetch_assoc()) {
+        $data[] = $rowdues;
+        if($rowdues['rest_dues'] == 0 && $rowdues['paid'] == 0){
+            $total_dues += (float)($rowdues['total'] ?? 0);
+        } else {
+            $total_dues += (float)($rowdues['rest_dues'] ?? 0);
+        }
+    }
+}
+
+
     $cards = [
         [
             "icon"=>"fas fa-user-graduate", 
@@ -56,7 +128,7 @@
         ],
         [
             "icon"=>"fas fa-user", 
-            "num"=>389,
+            "num"=>0,
             "url"=>"#", 
             "title"=>"Parents", 
             "bg-color"=>"#CBDCEB", 
@@ -67,7 +139,7 @@
         ],
         [
             "icon"=>"fas fa-user", 
-            "num"=>3, 
+            "num"=>$total_users, 
             "url"=>"#",
             "title"=>"User", 
             "bg-color"=>"#fff", 
@@ -78,9 +150,9 @@
         ],
         [
             "icon"=>"fas fa-folder-open", 
-            "num"=>7500, 
-            "url"=>"#",
-            "title"=>date("j F Y"). " Collection", 
+            "num"=>$todayPaid, 
+            "url"=>"collection-reports",
+            "title"=>"Today's Collection", 
             "bg-color"=>"#fff", 
             "color"=>"#4300FF", 
             "card-color"=>'#4300FF', 
@@ -89,9 +161,9 @@
         ],
         [
             "icon"=>"fas fa-folder-open", 
-            "num"=>145450, 
-            "url"=>"#",
-            "title"=>date("F Y") ." Collection", 
+            "num"=>$total_paid, 
+            "url"=>"collection-reports",
+            "title"=>date("M-y") ." Collection", 
             "bg-color"=>"#fff", 
             "color"=>"#dc3545", 
             "card-color"=>'#dc3545', 
@@ -100,8 +172,8 @@
         ],
         [
             "icon"=>"fas fa-file-invoice-dollar", 
-            "num"=>145450, 
-            "url"=>"#",
+            "num"=>$total_dues, 
+            "url"=>"dues-reports",
             "title"=>"Total Dues", 
             "bg-color"=>"#fff", 
             "color"=>"#01a9ac", 

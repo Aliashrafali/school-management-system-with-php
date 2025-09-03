@@ -16,9 +16,9 @@
             exit;
         }
         // random registration no
-        $prefix = 'KBWS';
+        $prefix = 'RNMS';
         $years = date('Y');
-        $randomnumber = mt_rand(1000, 9999);
+        $randomnumber = mt_rand(100, 999);
         $reg_no = $prefix . $years . $randomnumber;
         $name = $_POST['name'] ?? '';
         $fname = $_POST['fname'] ?? '';
@@ -41,32 +41,29 @@
         $registration_fee = $_POST['registration_fee'] ?? '';
         $session = $_POST['session'] ?? '';
         $status = 0;
-        
-            if (!isset($_FILES['image']) || $_FILES['image']['error'] !== 0) {
-                echo json_encode([
-                    'success' => false, 
-                    'message' => 'Image Upload Error: ' . ($_FILES['image']['error'] ?? 'Not Set')
-                ]);
-                exit;
-            }
 
-            $filePath = $_FILES['image']['tmp_name'];
-            $filename = $_FILES['image']['name'];
-            $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-            $allowed = ['jpg', 'png', 'jpeg'];
-            if(!in_array($fileExtension, $allowed)){
-                echo json_encode(['success' => false, 'message' => 'Invalid Image Type']);
-                exit;
+            $imageFileName = null;
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+                $filePath = $_FILES['image']['tmp_name'];
+                $filename = $_FILES['image']['name'];
+                $fileExtension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+                $allowed = ['jpg', 'png', 'jpeg'];
+                if(!in_array($fileExtension, $allowed)){
+                    echo json_encode(['success' => false, 'message' => 'Invalid Image Type']);
+                    exit;
+                }
+                $uploadDir = '../../sql/students';
+                if(!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+                $newFileName = uniqid(). '_' . basename($filename);
+                $destpath = $uploadDir . '/' . $newFileName;
+                if(!move_uploaded_file($filePath, $destpath)){
+                    echo json_encode(['success' => false, 'message' => 'Error While File Uploading']);
+                    exit;
+                }
+                $imageFileName = $newFileName;
+            }else{
+                $imageFileName = "";
             }
-            $uploadDir = '../../sql/students';
-            if(!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
-            $newFileName = uniqid(). '_' . basename($filename);
-            $destpath = $uploadDir . '/' . $newFileName;
-            if(!move_uploaded_file($filePath, $destpath)){
-                echo json_encode(['success' => false, 'message' => 'Error While File Uploading']);
-                exit;
-            }
-
             //check already exits
             $check = $conn->prepare("SELECT * FROM registration WHERE adhar = ? AND class = ?");
             $check->bind_param('ss', $adhar, $class);
@@ -93,7 +90,7 @@
             }
 
             $insert = $conn->prepare("INSERT INTO registration(reg_no,name,fname,mname,dob,mobile,altmobile,email,bgroup,adhar,gender,religion,category,parmanent_address,present_address,class,registration_date,registration_fee,session,image,status)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $insert->bind_param('ssssssssssssssssssssi', $reg_no, $name, $fname, $mname, $dob, $mobile, $altmobile, $email, $bgroup, $adhar, $gender, $religion, $category, $parmanent_address,$present_address, $class,$registration_date, $registration_fee,$session,$newFileName, $status);
+            $insert->bind_param('ssssssssssssssssssssi', $reg_no, $name, $fname, $mname, $dob, $mobile, $altmobile, $email, $bgroup, $adhar, $gender, $religion, $category, $parmanent_address,$present_address, $class,$registration_date, $registration_fee,$session,$imageFileName, $status);
                 try{
                     $insert->execute();
                     $id = $insert->insert_id;
@@ -109,7 +106,7 @@
                         'success' => true,
                         'message' => 'Registration successful!',
                         'reg_id' => $reg_no,
-                        'redirect' => 'print_reg?reg_no='.$reg_no
+                        'redirect' => 'print_reg?reg_no='.$reg_no. '&session=' . urlencode($session)
                     ]);
                 }catch(mysqli_sql_exception $e){
                     echo json_encode([

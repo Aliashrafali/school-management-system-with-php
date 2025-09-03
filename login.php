@@ -26,7 +26,7 @@
     <section>
         <div class="top-login">
             <h1 class="erp-title">
-                Welcome to <span>Kid’s Blooming World School</span>
+                Welcome to <span>RN MISSION PUBLIC SCHOOL</span>
             </h1>
             <div class="erp-badge">
                 <i class="fas fa-school"></i>
@@ -38,8 +38,8 @@
         <div class="container">
             <form action="api/login/login.php" method="POST">
                 <div class="row mt-2">
-                    <div class="col-lg-4 col-md-4 col-sm-12"></div>
-                    <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="col-lg-4 col-md-2 col-sm-12"></div>
+                    <div class="col-lg-4 col-md-8 col-sm-12">
                         <?php if (isset($error) && !empty($msg)): ?>
                             <div class="alert alert-danger text-center shadow-sm rounded-3 py-2 px-3" role="alert">
                                 <i class="bi bi-exclamation-circle"></i> 

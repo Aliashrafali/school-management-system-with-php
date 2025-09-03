@@ -1,5 +1,5 @@
 <?php
-    $dbname = 'sms';
+    $dbname = 'rnmps';
     $host = 'localhost';
     $username = 'root';
     $password = '';

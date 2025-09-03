@@ -24,7 +24,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Panel</a>
@@ -36,7 +36,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="student-view">
                         <div class="title-area">
                             <h5>All Student's Admission Records</h5>
@@ -78,8 +78,24 @@
                                                 <td><span style="text-transform: capitalize;"><?= $row['name']; ?></span></td>
                                                 <td><span style="text-transform: capitalize;"><?= $row['fname']; ?></span></td>
                                                 <td><span style="text-transform: uppercase;"><?= $row['class']; ?></span></td>
-                                                <td><span style="text-transform: uppercase;"><?= $row['section']; ?></span></td>
-                                                <td><span style="text-transform: uppercase;"><?= $row['roll']; ?></span></td>
+                                                <td><span>
+                                                    <?php
+                                                        if (empty($row['section']) || $row['section'] == '0') {
+                                                            echo "<span class='badge badge-outline-warning'>Not Mentioned</span>";
+                                                        } else {
+                                                            echo $row['section']; 
+                                                        }
+                                                    ?>
+                                                  </span></td>
+                                                <td><span>
+                                                    <?php
+                                                        if (empty($row['roll']) || $row['roll'] == 0) {
+                                                            echo "<span class='badge badge-outline-warning'>Not Mentioned</span>";
+                                                        } else {
+                                                            echo $row['roll']; 
+                                                        }
+                                                    ?>
+                                                </span></td>
                                                 <td><span>
                                                     <?php
                                                         $admission_date = $row['admission_date'];

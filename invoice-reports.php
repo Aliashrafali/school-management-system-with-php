@@ -43,7 +43,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account Panel</a>
@@ -56,7 +56,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="student-view">
                         <div class="title-area">
                             <h5 style="font-size: 17px; padding-top: 3px;">
@@ -67,8 +67,8 @@
                             </h5>
                             <span>
                                 <?php
-                                    $month_years = date('Y-m');
-                                    $students = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_demand WHERE DATE_FORMAT(date_and_time, '%Y-%m') = '$month_years'") or die(mysqli_error($conn));
+                                    $month_years = date('F Y');
+                                    $students = mysqli_query($conn, "SELECT COUNT(*) AS total FROM tbl_demand WHERE month_year = '$month_years'") or die(mysqli_error($conn));
                                     $allstudents = mysqli_fetch_assoc($students);
                                     $total = (int)$allstudents['total'];
                                     if($total < 0){
@@ -85,7 +85,7 @@
                                     <div class="col-lg-5 col-md-5 col-sm-12">
                                         <?php
                                             $classArray = [
-                                                "class" => ["nur","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
+                                                "class" => ["nursery","KG 1","KG 2","Play", "lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
                                             ];
                                         ?>
                                         <select class="form-select" aria-label="Default select example">
@@ -149,9 +149,24 @@
                                             <td><?= $row['reg_no']; ?></td>
                                             <td><span style="text-transform: capitalize;"><?= $row['name']; ?></span></td>
                                             <td><span style="text-transform: capitalize;"><?= $row['fname']; ?></span></td>
-                                            <td><span><?= $row['mobile']; ?></span></td>
+                                            <td><span>
+                                                <?php 
+                                                    if(!empty($row['mobile']) || $row['mobile'] != 0){
+                                                        echo $row['mobile'];
+                                                    } else{
+                                                        echo "<span class='badge badge-outline-warning'>Not Mentioned</span>";
+                                                    }
+                                                ?>
+                                            </span></td>
                                             <td><span style="text-transform: capitalize;"><?= $row['class']; ?></span></td>
-                                            <td><span style="text-transform: capitalize;"><?= $row['section']; ?></span></td>
+                                            <td><span style="text-transform: capitalize;">
+                                                <?php 
+                                                    if(empty($row['section']) || $row['section'] == '0'){
+                                                        echo "<span class='badge badge-outline-warning'>Not Mentioned</span>";
+                                                    } else{
+                                                        echo $row['section'];
+                                                    }
+                                                ?></span></td>
                                             <td><span><?= $row['month_year']; ?></span></td>
                                             <td><span>
                                                     <?php

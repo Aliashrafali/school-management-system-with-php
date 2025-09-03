@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-4 p-5">
             <div class="text-center mb-4">
-              <h3 class="fw-bold">Welcome to Kid's Blooming World School</h3>
+              <h3 class="fw-bold">RN MISSION PUBLIC SCHOOL</h3>
               <p class="text-muted small-text" style="color: #c9b4c5!important;">Sign up to create your secure admin.</p>
             </div>
             <form id="add_user" method="POST">

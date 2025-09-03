@@ -185,10 +185,18 @@ class PDFWithWatermark extends FPDF {
         $pdf->SetFont('Arial', '', 8);
         $pdf->Cell(50, 5, strtoupper($registration_info ['name']), 1, 0, 'C');
         $pdf->Cell(50, 5, strtoupper($registration_info ['fname']), 1, 0, 'C');
-        $pdf->Cell(20, 5, $registration_info ['mobile'], 1, 0, 'C');
+        $mobile = '';
+        if(!empty($registration_info['mobile']) || $registration_info['mobile'] != 0){
+            $mobile = $registration_info['mobile'];
+        }
+        $pdf->Cell(20, 5, $mobile, 1, 0, 'C');
         $pdf->Cell(20, 5, strtoupper($registration_info ['class']), 1, 0, 'C');
         $pdf->Cell(20, 5, strtoupper($registration_info['section']), 1, 0, 'C');
-        $pdf->Cell(20, 5, strtoupper($registration_info['roll']), 1, 0, 'C');
+        $roll = '';
+        if(!empty($registration_info['roll']) || $registration_info['roll'] != 0){
+            $roll = $registration_info['roll'];
+        }
+        $pdf->Cell(20, 5, $roll, 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($total_grant, 2), 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($total_advance, 2), 1, 0, 'C');
         $pdf->Cell(20, 5, number_format($total_discount, 2), 1, 0, 'C');

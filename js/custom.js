@@ -33,12 +33,12 @@ function validateRegistration(){
     let mname = document.getElementById('mname');
     let dob = document.getElementById('dob');
     let mobile = document.getElementById('mobile');
-    let email = document.getElementById('email');
+    // let email = document.getElementById('email');
     let bgroup = document.getElementById('bgroup');
     let radhar = document.getElementById('radhar'); 
     let religion = document.getElementById('religion');
     let category = document.getElementById('category');
-    let image = document.getElementById('image');
+    // let image = document.getElementById('image');
     let address = document.getElementById('address');
     let present = document.getElementById('present-address');
     let registration_date = document.getElementById('r_date');
@@ -71,11 +71,13 @@ function validateRegistration(){
       alert("Enter Valid Mobile Number");
       mobile.focus();
       return false;
-    }else if(!email.value){
-      alert("Enter Email Id");
-      email.focus();
-      return false;
-    }else if(!bgroup.value){
+    }
+    // else if(!email.value){
+    //   alert("Enter Email Id");
+    //   email.focus();
+    //   return false;
+    // }
+    else if(!bgroup.value){
       alert("Enter Blood Group !");
       bgroup.focus();
       return false;
@@ -87,7 +89,8 @@ function validateRegistration(){
       alert("Enter Valid Aadhar Number !");
       radhar.focus();
       return false;
-    }else if(!gender){
+    }
+    else if(!gender){
       alert("Gender Not Selected !");
       return false;
     }else if(!religion.value){
@@ -98,11 +101,13 @@ function validateRegistration(){
       alert("Select Category !");
       category.focus();
       return false;
-    }else if(!image.value){
-      alert("Upload image !");
-      image.focus();
-      return false;
-    }else if(!address.value){
+    }
+    // else if(!image.value){
+    //   alert("Upload image !");
+    //   image.focus();
+    //   return false;
+    // }
+    else if(!address.value){
       alert("Enter Address !");
       address.focus();
       return false;

@@ -47,7 +47,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account Panel</a>
@@ -185,7 +185,8 @@
                                                 }
                                             ?>
                                             <td>
-                                                <a href="#?=<?php echo $row['id']; ?>"><span class="badge rounded-pill text-bg-primary">Edit</span></a>
+                                                <a href="#?=<?php echo $row['id']; ?>"><span class="badge rounded-pill text-bg-primary">Edit</span></a><br>
+                                                <a href="print-reciept.php?invoice_no=<?php echo $row['invoice_no']; ?>"><span class="badge rounded-pill text-bg-danger">Download Received</span></a>
                                             </td>
                                         </tr>
                                     <?php

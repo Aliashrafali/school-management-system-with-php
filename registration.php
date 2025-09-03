@@ -23,7 +23,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-10">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <nsen href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Registration Panel</a>
@@ -35,7 +35,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="student-view">
                         <div class="title-area">
                             <h5>All Student's Records</h5>
@@ -82,7 +82,15 @@
                                                 <td><?= $row['reg_no']; ?></td>
                                                 <td><span style="text-transform: capitalize;"><?= $row['name']; ?></span></td>
                                                 <td><span style="text-transform: capitalize;"><?= $row['fname']; ?></span></td>
-                                                <td><span style="text-transform: uppercase;"><?= $row['mobile']; ?></span></td>
+                                                <td><span>
+                                                    <?php 
+                                                        if($row['mobile'] == 0 || empty($row['mobile'])){
+                                                            echo "<span class='badge badge-outline-warning'>Not Mentioned</span>";
+                                                        } else{
+                                                            echo $row['mobile'];
+                                                        }
+                                                    ?>
+                                                </span></td>
                                                 <td><span style="text-transform: uppercase;"><?= $row['class']; ?></span></td>
                                                 <td>
                                                     <?php
@@ -94,13 +102,17 @@
                                                 <td>
                                                     <?php
                                                         $dob = $row['dob'];
-                                                        $newdob = date('d-m-Y', strtotime($dob));
+                                                        if($dob == '0000-00-00' || empty($dob)){
+                                                            $newdob = "<span class='badge badge-outline-warning'>Not Mentioned</span>";
+                                                        }else{
+                                                            $newdob = date('d-m-Y', strtotime($dob));
+                                                        }
                                                     ?>
                                                     <span><?= $newdob; ?></span>
                                                 </td>
                                                 <td>
                                                     <?php
-                                                        if(empty($row['image'])){
+                                                        if(empty($row['image']) || !file_exists("sql/students/" . $row['image'])){
                                                     ?>
                                                         <img src="img/office-man.png" alt="office" height="40px" width="40px" class="img-thumbnail">
                                                     <?php
@@ -129,7 +141,7 @@
                                                 <td style="text-align: center; font-size: 15px!important;">
                                                     <a href="view_records?reg_no=<?php echo urlencode($row['reg_no']); ?>"><span class="badge rounded-pill text-bg-primary">View</span><span></span></a>
                                                     <a href="#?id=<?php echo $row['id']; ?>"><span class="badge rounded-pill text-bg-success">Edit</span><span></span></a><br>
-                                                    <a href="print_reg?reg_no=<?php echo urlencode($row['reg_no']); ?>"><span class="badge rounded-pill text-bg-danger">Print</span><span></span></a>
+                                                    <a href="print_reg?reg_no=<?php echo urlencode($row['reg_no']); ?>&session=<?php echo urlencode($row['session']); ?>"><span class="badge rounded-pill text-bg-danger">Print</span><span></span></a>
                                                 </td>
                                             </tr>
                                         <?php

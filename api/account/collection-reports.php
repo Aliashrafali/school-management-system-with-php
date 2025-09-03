@@ -71,7 +71,7 @@ try {
 
     if($result->num_rows > 0){
         header("Content-Type: application/vnd.ms-excel");
-        header("Content-Disposition: attachment; filename=paid_payments.xls");
+        header("Content-Disposition: attachment; filename=collection_reports.xls");
 
         echo "Reg No\tName\tFather\tMobile\tClass\tSection\tRoll\tSession\tInvoice No\tMonth Year\tPaid Amount\tPaid By\n";
         $totalPaid = 0;

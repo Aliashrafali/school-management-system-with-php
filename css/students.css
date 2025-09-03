@@ -161,6 +161,12 @@
 .student-view textarea{
   font-size: 14px;
 }
+.badge-outline-warning {
+    color: #313131; /* warning color */
+    border: 1px solid #ffc107;
+    border-radius: 20px;
+    background-color: #FFF4A4;
+}
 
 /* toast */
 @keyframes slideIn {

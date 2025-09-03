@@ -1,8 +1,5 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
 session_start();
 include '../../sql/config.php';
 
@@ -45,66 +42,49 @@ try {
         $current_session = ($year - 1) . '-' . substr($year, -2);
     }
 
-    // Process other fees if given
-    $fees_details = '';
+    // Process common other fees if given
+    $common_other_fees = [];
     $other_total = 0;
     if (isset($input['title'], $input['fees']) && is_array($input['title']) && is_array($input['fees'])) {
         $titles = $input['title'];
         $fees = $input['fees'];
-        $combined = [];
         for ($i = 0; $i < count($titles); $i++) {
             $title = trim($titles[$i]);
             $fee = trim($fees[$i]);
             if ($title !== '' && is_numeric($fee)) {
-                $combined[] = $title . ' ' . $fee;
+                $common_other_fees[] = $title . ' ' . $fee;
                 $other_total += floatval($fee);
             }
         }
-        $fees_details = implode(', ', $combined);
     }
 
     // Fetch students
-    if($class == 'all' && $section != 'all'){
+    if ($class == 'all' && $section != 'all') {
         $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE section = ? AND session = ?");
         $student_query->bind_param('ss', $section, $current_session);
-    }elseif($class != 'all' && ($section == 'all' || empty($section))){
+    } elseif ($class != 'all' && ($section == 'all' || empty($section))) {
         $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE class = ? AND session = ?");
         $student_query->bind_param('ss', $class, $current_session);
-    }elseif($class == 'all' && ($section == 'all' || empty($section))){
+    } elseif ($class == 'all' && ($section == 'all' || empty($section))) {
         $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE session = ?");
         $student_query->bind_param('s', $current_session);
-    }elseif($class != 'all' && $section != 'all'){
+    } elseif ($class != 'all' && $section != 'all') {
         $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE class = ? AND section = ? AND session = ?");
         $student_query->bind_param('sss', $class, $section, $current_session);
     }
-    // if (!empty($section)) {
-    //     $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE class = ? AND section = ? AND session = ?");
-    //     $student_query->bind_param('sss', $class, $section, $current_session);
-    // }else if($class !== 'all' AND $section == 'all'){
-    //     $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE class = ? AND session = ?");
-    //     $student_query->bind_param('ss', $class, $current_session);
-    // } else if($class == 'all' AND $section !== 'all'){
-    //     $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE section = ? AND session = ?");
-    //     $student_query->bind_param('ss', $section, $current_session);
-    // }  else if($class === 'all' AND $section === 'all'){
-    //     $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE session = ?");
-    //     $student_query->bind_param('s',  $current_session);
-    // } 
-    // else {
-    //     $student_query = $conn->prepare("SELECT id, reg_no FROM registration WHERE class = ? AND session = ?");
-    //     $student_query->bind_param('ss', $class, $current_session);
-    // }
     $student_query->execute();
     $students = $student_query->get_result();
 
     if ($students->num_rows === 0) {
-        echo json_encode(['success' => false, 'message' => 'No students found for given criteria']);
+        echo json_encode([
+            'success' => false, 'message' => 'No students found for given criteria'
+        ]);
         exit;
     }
 
     // Prepare queries
     $demand_check = $conn->prepare("SELECT id FROM tbl_demand WHERE student_id = ? AND reg_no = ? AND session = ? AND month_year = ?");
-    $last_demand_query = $conn->prepare("SELECT rest_dues, paid, advance_amount, total, tution_fee, transport_and_other_fee 
+    $last_demand_query = $conn->prepare("SELECT rest_dues, paid, advance_amount, total, tution_fee, transport_and_other_fee, month_year 
         FROM tbl_demand WHERE student_id = ? AND reg_no = ? AND session = ? ORDER BY id DESC LIMIT 1");
     $fee_query = $conn->prepare("SELECT tution_fee, transport_and_other_fee, back_dues 
         FROM tbl_fees WHERE reg_no = ? AND student_id = ? AND session = ? AND month_year = ? LIMIT 1");
@@ -120,11 +100,16 @@ try {
         $student_id = $student['id'];
         $reg_no = $student['reg_no'];
 
+        // Reset fees_details for each student
+        $fees_details = implode(', ', $common_other_fees);
+
         // Check if demand already exists
         $demand_check->bind_param('isss', $student_id, $reg_no, $current_session, $formatted_demand_month);
         $demand_check->execute();
         $check_result = $demand_check->get_result();
         if ($check_result->num_rows > 0) {
+            $existing = $check_result->fetch_assoc();
+            $inserted_student_ids[] = $student_id;
             continue; // Already generated
         }
 
@@ -141,6 +126,11 @@ try {
         if ($last_result->num_rows > 0) {
             // Not first time → continue with last demand values
             $last = $last_result->fetch_assoc();
+            $last_month_year = strtotime($last['month_year']);
+            $current_demand_month_ts = strtotime($formatted_demand_month);
+            if ($current_demand_month_ts < $last_month_year) {
+                continue; // Skip past months if future exists
+            }
             $tution_fee = floatval($last['tution_fee']);
             $transport_and_other_fee = floatval($last['transport_and_other_fee']);
             $back_dues = 0; // Only first time
@@ -150,7 +140,7 @@ try {
             $last_total = floatval($last['total']);
         } else {
             // First demand → take from tbl_fees
-            $fee_query->bind_param('siss', $reg_no, $student_id, $current_session,$formatted_demand_month);
+            $fee_query->bind_param('siss', $reg_no, $student_id, $current_session, $formatted_demand_month);
             $fee_query->execute();
             $fee_result = $fee_query->get_result();
 
@@ -210,10 +200,12 @@ try {
         }
     }
 
-    if ($inserted > 0) {
+    if ($inserted > 0 || count($inserted_student_ids) > 0) {
         echo json_encode([
             'success' => true,
-            'message' => 'Demand Bill Generated Successfully',
+            'message' => ($inserted > 0) 
+            ? 'Demand Bill Generated Successfully' 
+            : 'Demand Bill Already Exists. Ready for Print.',
             'redirect' => true,
             'class' => $class,
             'section' => $section,
@@ -223,7 +215,7 @@ try {
     } else {
         echo json_encode([
             'success' => false,
-            'message' => 'No demand bill generated. Bills may already exist for this month.',
+            'message' => 'No students available for bill generation.',
         ]);
     }
 } catch (Exception $e) {

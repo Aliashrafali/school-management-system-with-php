@@ -40,7 +40,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-md-12 col-lg-5">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account Panel</a>
@@ -53,7 +53,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="student-view">
                         <div class="title-area pb-2">
                             <span>
@@ -75,7 +75,7 @@
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <?php
                                             $classArray = [
-                                                "class" => ["nur","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
+                                                "class" => ["nursery","KG 1","KG 2","Play","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
                                             ];
                                         ?>
                                         <select class="form-select" aria-label="Default select example">

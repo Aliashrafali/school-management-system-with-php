@@ -136,11 +136,11 @@ while($row = $result->fetch_assoc()){
 
     $yOffset = $startY + ($index % 3) * $billHeight;
 
-    $image = 'img/logo.png';
-    $pdf->Image($image, 10, $yOffset, 40, 20);
+    $image = 'img/logo.jpeg';
+    $pdf->Image($image, 12, $yOffset + 1, 22, 17);
 
-    $paymentqr = 'img/qr.png';
-    $pdf->Image($paymentqr, 173, $yOffset, 20, 20);
+    $paymentqr = 'img/payment.jpeg';
+    $pdf->Image($paymentqr, 174, $yOffset, 25, 21);
 
     // Border
     $pdf->SetDrawColor(0, 0, 0);
@@ -151,16 +151,16 @@ while($row = $result->fetch_assoc()){
     $pdf->SetXY(10, $yOffset += 2);
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0, 0, 0);
-    $pdf->Cell(190, 6, strtoupper('Kid\'s Blooming World School'), 0, 1, 'C');
+    $pdf->Cell(190, 6, strtoupper('RN MISSION PUBLIC SCHOOL'), 0, 1, 'C');
 
     $pdf->SetFont('Arial', '', 10);
     $pdf->SetXY(10, $yOffset += 7);
-    $pdf->Cell(190, 5, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), 0, 1, 'C');
+    $pdf->Cell(190, 5, strtoupper('Mujauna bazar,Parsa( Saran )'), 0, 1, 'C');
     $pdf->SetFont('Arial', 'B', 9);
     $pdf->SetXY(10, $yOffset += 5);
     $pdf->SetTextColor(0,0,139);
     $pdf->SetDrawColor(0, 0, 139);
-    $pdf->Cell(190, 5, strtoupper('Monthaly Demand Bill'), 0, 1, 'C');
+    $pdf->Cell(190, 5, strtoupper('Monthly Demand Bill'), 0, 1, 'C');
     $x = $pdf->GetX() + 78; // starting X of the cell
     $y = $pdf->GetY(); // 10mm below current line
     $pdf->Line($x-2, $y, $x + 36, $y); // x1, y1, x2, y2
@@ -176,7 +176,8 @@ while($row = $result->fetch_assoc()){
     $pdf->SetFont('Arial', '', 9);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetXY($info_x, $yOffset += 9); 
-    $pdf->Cell($width, 5, 'Serial No.: ' . ($index + 1), 0, 0); 
+    // $pdf->Cell($width, 5, 'Session.: ' . ($index + 1), 0, 0); 
+    $pdf->Cell($width, 5, 'Session.: ' . $row['session'], 0, 0); 
 
     $pdf->SetXY($info_x + $width - 15, $yOffset += 0); 
     $pdf->Cell($width, 5, 'Date.:', 0, 0); 
@@ -202,7 +203,7 @@ while($row = $result->fetch_assoc()){
     $pdf->SetXY($info_x, $yOffset);
     // Total printable width (adjust according to your page)
     $totalWidth = 190; // Assuming left and right margin are 10 each on A4
-    $numColumns = 5;
+    $numColumns = 4;
     $colWidth = $totalWidth / $numColumns;
 
     // Cell height
@@ -210,10 +211,18 @@ while($row = $result->fetch_assoc()){
 
     // Draw each field
     $pdf->Cell($colWidth, $cellHeight, 'Name : ' . ucwords(strtolower($row['name'])), 0, 0);
+    $pdf->Cell($colWidth, $cellHeight, 'Father : ' . ucwords(strtolower($row['fname'])), 0, 0);
     $pdf->Cell($colWidth, $cellHeight, 'Class : ' . strtoupper($row['class']), 0, 0);
-    $pdf->Cell($colWidth, $cellHeight, 'Section : ' . strtoupper($row['section']), 0, 0);
-    $pdf->Cell($colWidth, $cellHeight, 'Roll No. : ' . strtoupper($row['roll']), 0, 0);
-    $pdf->Cell($colWidth, $cellHeight, 'Session : ' . strtoupper($row['session']), 0, 1);
+    // $sectionText = 'Section : ';
+    // if (!empty($row['section']) && $row['section'] != "0") {
+    //     $sectionText .= strtoupper($row['section']);
+    // }
+    // $pdf->Cell($colWidth, $cellHeight, $sectionText, 0, 0);
+    $rollText = 'Roll : ';
+    if(!empty($row['roll']) || $row['roll'] !== 0){
+        $rollText .= strtoupper($row['roll']);
+    }
+    $pdf->Cell($colWidth, $cellHeight, $rollText, 0, 1);
 
     $pdf->SetX(10); // left margin
     $pdf->SetFont('Arial', '', 8);

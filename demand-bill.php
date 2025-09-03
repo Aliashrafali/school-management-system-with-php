@@ -26,7 +26,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="javascript:void(0)" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-rupee-sign" style="padding-right: 5px;"></i> Account Panel</a>
@@ -39,7 +39,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="fees-view">
                         <div class="bill-form pt-3">
                             <div class="d-flex justify-content-between">
@@ -54,7 +54,7 @@
                                             <label for="exampleInputEmail1" class="form-label">Class <sup><span style="color: red;">*</span></sup></label>
                                             <?php
                                                 $classArray = [
-                                                    "class" => ["all","nur","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
+                                                    "class" => ["all","nursery","KG 1","KG 2","Play","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
                                                 ];
                                             ?>
                                             <select class="form-select" name="class" id="demand-class" aria-label="Default select example" required>
@@ -212,7 +212,8 @@
                         const idsParam = encodeURIComponent(res.student_ids.join(','));
                         url += `&student_ids=${idsParam}`;
                     }
-                   window.open(url, '_blank');
+                //    window.open(url, '_blank');
+                window.location.href = url;
                 }
                 //setTimeout(() => {
                     //location.reload();

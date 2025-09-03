@@ -2,15 +2,15 @@
   <div class="row" style="border-bottom: 0.1px solid #EEE;">
     <div class="col-12 col-md-4 p-0 m-0">
       <div class="top-header-left">
-        <a href="">Mob. & Whatsapp : +91-8228886898 </a><br>
-        <!-- <a href="">Email: akhileshsingh90068@gmail.com</a> -->
+        <a href="">Mobile : +91- 9006861511, +91-6201675471 </a><br>
+        <a href="mailto:akhileshsingh90068@gmail.com">Email: akhileshsingh90068@gmail.com</a>
       </div>
     </div>
 
     <div class="col-12 col-md-4 p-0 m-0 text-center">
       <div class="top-header-middile">
-        <h1 class="school-name">Kid’s Blooming World School</h1>
-        <p class="school-address">Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)</p>
+        <h1 class="school-name">RN MISSION PUBLIC SCHOOL</h1>
+        <p class="school-address">Mujauna bazar,Parsa( Saran )</p>
       </div>
     </div>
 
@@ -23,7 +23,7 @@
 
         <div id="profile">
           <div class="logout">
-            <a href="#" class="admin-active"><i class="far fa-user"></i> Hello, <?= htmlspecialchars($claims['name'], ENT_QUOTES, 'UTF-8') ?></a>
+            <!-- <a href="#" class="admin-active"><i class="far fa-user"></i> Hello, <?= htmlspecialchars($claims['name'], ENT_QUOTES, 'UTF-8') ?></a> -->
             <form action="api/login/logout.php" method="POST">
                 <button type="submit"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </form>
@@ -47,8 +47,8 @@
             </div>
           </div>
 
-          <a href=""><button><i class="fas fa-user"></i> Teacher</button></a>
-          <a href="parents"><button><i class="fas fa-users"></i> Parents</button></a>
+          <a href="" id="desk-top"><button><i class="fas fa-user"></i> Teacher</button></a>
+          <a href="parents" id="desk-top"><button><i class="fas fa-users"></i> Parents</button></a>
 
           <div class="dropdown">
             <button class="dropbtn"><i class="fas fa-user"></i> Users</button>
@@ -103,8 +103,8 @@
             </div>
           </div>
 
-          <a href=""><button><i class="fas fa-user-shield"></i> Administrator</button></a>
-          <a href=""><button><i class="fas fa-cog"></i> Setting</button></a>
+          <a href="" id="desk-top"><button><i class="fas fa-user-shield"></i> Administrator</button></a>
+          <a href="" id="desk-top"><button><i class="fas fa-cog"></i> Setting</button></a>
         </nav>
       </div>
     </div>
@@ -123,7 +123,7 @@
 <!-- ✅ Offcanvas Sidebar Menu -->
 <div class="offcanvas offcanvas-start" id="mobileMenu">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title text-white">RN Mission School</h5><hr>
+    <h5 class="offcanvas-title text-white">RN MISSION PUBLIC SCHOOL</h5><hr>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
   </div>
   <div class="offcanvas-body">
@@ -187,6 +187,11 @@
       </li>
       <li><a href="#"><i class="fas fa-user-shield me-2"></i> Administrator</a></li>
       <li><a href="#"><i class="fas fa-cog me-2"></i> Setting</a></li>
+      <li><a href="javascript:void(0)">
+        <form action="api/login/logout.php" method="POST">
+                <button type="submit"><i class="fas fa-sign-out-alt me-2"></i> Logout</button>
+        </form>
+      </a></li>
     </ul>
   </div>
 </div>

@@ -66,8 +66,8 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
     // Draw Border
     $pdf->Rect(10, 10 + $yShift, $pdf->GetPageWidth() - 20, ($pdf->GetPageHeight() / 2.4) - 10);
     
-    $image = 'img/logo.png';
-    $pdf->Image($image, 10, $yShift + 12, 40, 20);
+    $image = 'img/logo.jpeg';
+    $pdf->Image($image, 12, $yShift + 11.5, 25, 20);
 
      // QR code    
     $qr_paymentrecieved = 'Paid Amount : '.$row['total_amount'];
@@ -76,16 +76,16 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
          mkdir('qr_paymentrecieved');
     }
     QRcode::png($qr_paymentrecieved, $qr_file, QR_ECLEVEL_L, 3);
-    $pdf->Image($qr_file, 173, $yShift + 12, 20, 20);
+    $pdf->Image($qr_file, 173, $yShift + 10.2, 25, 25);
 
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->SetTextColor(0, 0, 0);
     $pdf->SetXY(10, 10 + $yShift);
-    $pdf->Cell(0, 10, strtoupper('Kid\'s Blooming World School'), 0, 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('RN MISSION PUBLIC SCHOOL'), 0, 1, 'C');
 
     $pdf->SetFont('Arial', '', 10);
     $pdf->SetXY(10, 16 + $yShift);
-    $pdf->Cell(0, 10, strtoupper('Pojhiyan, Lalganj Vaishali,Bihar, 844121 (India)'), 0, 1, 'C');
+    $pdf->Cell(0, 10, strtoupper('Mujauna bazar,Parsa( Saran )'), 0, 1, 'C');
 
     $pdf->SetFont('Arial', 'B', 10);
     $pdf->SetXY(81, 23 + $yShift);
@@ -131,7 +131,11 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
 
     $pdf->SetX($startX + 2);
     $pdf->Cell(30, 6, "Mobile No.:", 0, 0);
-    $pdf->Cell(70, 6, '+91-' . $row['mobile'], 0, 1);
+    $mobile = '';
+    if(!empty($row['mobile']) || $row['mobile'] != 0){
+        $mobile = '+91-'.$row['mobile'];
+    }
+    $pdf->Cell(70, 6, $mobile, 0, 1);
 
     $pdf->SetX($startX + 2);
     $pdf->Cell(30, 6, "Payment Of:", 0, 0);
@@ -143,7 +147,11 @@ function generateReceipt($pdf, $row, $yShift = 0, $copyType = 'SCHOOL COPY') {
 
     $pdf->SetX($startX + $leftWidth + 2);
     $pdf->Cell(25, 6, "Roll No.:", 0, 0);
-    $pdf->Cell(40, 6, $row['roll'], 0, 1);
+    $roll = '';
+    if(!empty($row['roll']) || $row['roll'] != 0){
+        $roll = $row['roll'];
+    }
+    $pdf->Cell(40, 6, $roll, 0, 1);
 
     $pdf->SetX($startX + $leftWidth + 2);
     $pdf->Cell(25, 6, "Section:", 0, 0);

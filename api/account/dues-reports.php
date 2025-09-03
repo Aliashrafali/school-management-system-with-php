@@ -52,10 +52,42 @@ try {
     }
 
     // JOIN query
-    $query = "SELECT r.reg_no, r.name, r.fname,r.mobile, r.class, r.section, r.roll, r.session,
-                      p.month_year, p.total, p.rest_dues, p.paid
-              FROM registration r
-              INNER JOIN tbl_demand p ON r.reg_no = p.reg_no AND r.session = p.session";
+    // $query = "SELECT r.reg_no, r.name, r.fname,r.mobile, r.class, r.section, r.roll, r.session,
+    //                   p.month_year, p.total, p.rest_dues, p.paid
+    //           FROM registration r
+    //           INNER JOIN tbl_demand p ON r.reg_no = p.reg_no AND r.session = p.session";
+
+    // updated
+    if($month == 'all'){
+        // Latest month record per student
+        $query = "
+            SELECT r.reg_no, r.name, r.fname, r.mobile, r.class, r.section, r.roll, r.session,
+                p.month_year, p.total, p.rest_dues, p.paid
+            FROM registration r
+            INNER JOIN tbl_demand p 
+                ON r.reg_no = p.reg_no AND r.session = p.session
+            INNER JOIN (
+                SELECT reg_no, session, MAX(STR_TO_DATE(month_year, '%M %Y')) as max_month
+                FROM tbl_demand
+                GROUP BY reg_no, session
+            ) latest 
+                ON p.reg_no = latest.reg_no 
+            AND p.session = latest.session 
+            AND STR_TO_DATE(p.month_year, '%M %Y') = latest.max_month
+        ";
+    } else {
+        // Specific month record
+        $query = "
+            SELECT r.reg_no, r.name, r.fname, r.mobile, r.class, r.section, r.roll, r.session,
+                p.month_year, p.total, p.rest_dues, p.paid
+            FROM registration r
+            INNER JOIN tbl_demand p 
+                ON r.reg_no = p.reg_no AND r.session = p.session
+        ";
+        $conditions[] = "p.month_year = ?";
+        $params[] = $month;
+        $types .= 's';
+    }
 
     if(!empty($conditions)){
         $query .= " WHERE " . implode(" AND ", $conditions);
@@ -71,25 +103,27 @@ try {
 
     if($result->num_rows > 0){
         header("Content-Type: application/vnd.ms-excel");
-        header("Content-Disposition: attachment; filename=paid_payments.xls");
+        header("Content-Disposition: attachment; filename=dues_reports.xls");
 
-        echo "Reg No\tName\tFather\tMobile\tClass\tSection\tRoll\tSession\tMonth Year\tTotal Amount\tDues Amount\n";
+        echo "Reg No\tName\tFather\tMobile\tClass\tSection\tRoll\tSession\tMonth Year\tDues Amount\n";
         $totalPaid = 0;
-        $line = 0;
         while($row = $result->fetch_assoc()){
             if ($row['rest_dues'] <= 0 && $row['paid'] > 0) {
                 continue; // skip this row
             }
-
-            echo $row['reg_no'] . "\t" .
+             $line = $row['reg_no'] . "\t" .
                  strtoupper($row['name']) . "\t" .
                  strtoupper($row['fname']) . "\t" .
                  strtoupper($row['mobile']). "\t".
                  strtoupper($row['class']) . "\t" .
                  strtoupper($row['section']) . "\t" .
                  $row['roll'] . "\t" .
-                 $row['session'] . "\t" .
-                 ($row['month_year'] ?? '-') . "\t" .
+                 $row['session'] . "\t";
+                if ($month == 'all') {
+                    $line .= "All\t";  // static
+                } else {
+                    $line .= ($row['month_year'] ?? '-') . "\t"; // actual month
+                }
                  ($row['total'] ?? '-') . "\t";
                  if($row['rest_dues'] == 0 && $row['paid'] == 0){
                     $line .= ($row['total']); 
@@ -101,7 +135,7 @@ try {
                  $line .= "\n";
                  echo $line;
         }
-        echo "\t\t\t\t\t\t\t\t\t\tTotal Dues\t" . number_format($totalPaid, 2) . "\n";
+        echo "\t\t\t\t\t\t\t\t\tTotal Dues\t" . number_format($totalPaid, 2) . "\n";
         exit;
     } else {
         echo "No data found!";

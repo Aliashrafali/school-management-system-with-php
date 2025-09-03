@@ -53,7 +53,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 whole-section">
                     <div class="student-view">
                         <div class="all_records">
                             <a href="student"><button type="button" class="btn btn-primary" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem; background-color: #091057;">
@@ -64,7 +64,7 @@
                                 <div class="details-title">
                                     <span><b>Personal Details</b></span>
                                 </div>
-                                <table class="table table-bordered w-100">
+                                <table class="table table-bordered w-100 table-mobile">
                                     <tbody>
                                         <tr>
                                             <td colspan="2"><span style="text-transform: capitalize;">Registration No. :</span> <?= $row['reg_no']; ?></td>
@@ -145,7 +145,7 @@
                                 <div class="details-title">
                                     <span><b>Admission Details</b></span>
                                 </div>
-                                <table class="table table-bordered w-100">
+                                <table class="table table-bordered w-100 table-mobile">
                                     <tbody>
                                         <tr>
                                             <td><span style="text-transform: uppercase;">Class : <?= $row['class']; ?></span></td>
@@ -164,7 +164,7 @@
                                 <div class="details-title">
                                     <span><b>Fees Details</b></span>
                                 </div>
-                                <table class="table table-bordered w-100">
+                                <table class="table table-bordered w-100 table-mobile">
                                     <tbody>
                                         <tr>
                                             <td><span style="text-transform: uppercase;">Tution Fee : <?= $row['tution_fee']; ?></span></td>

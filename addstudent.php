@@ -24,7 +24,7 @@
     <section>
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-5">
+                <div class="col-12 col-lg-5 col-md-12">
                     <div class="home-title">
                         <a href="" style="font-size: 25px; border-right: 0.1px solid #313131; padding-right: 20px;">Dashboard</a>
                         <a href="student" style="margin-left: 20px; font-family: 'Exo 2';"><i class="fas fa-user" style="padding-right: 5px;"></i> Student Panel</a>
@@ -38,7 +38,7 @@
         <div id="toast1" class="toast1 hidden"></div>
         <div class="container-fluid">
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-12 whole-section">
                         <div class="student-view">
                             <span>Student Admission</span><hr>
                             <div class="row">
@@ -205,7 +205,18 @@
                                                 <div class="col-lg-4 col-md-6 col-sm-12">
                                                     <div class="mb-3">
                                                         <label for="dob" class="form-label">Image ( विद्यार्थी का फोटो )<sup><span style="color: red;">*</span></sup></label><br>
-                                                        <img id="previewImage" src="sql/students/<?php echo $row['image']; ?>" alt="sql/students/<?php echo $row['image']; ?>" class="img-thumbnail mt-2" height="100px" width="100px">
+                                                        <?php
+                                                            if(!empty($row['image']) && $row['image'] != '0' && file_exists('sql/students/'.$row['image'])){
+                                                        ?>
+                                                            <img id="previewImage" src="sql/students/<?php echo $row['image']; ?>" alt="sql/students/<?php echo $row['image']; ?>" class="img-thumbnail mt-2" height="100px" width="100px">
+                                                        <?php
+                                                            }else{
+                                                        ?>
+                                                            <img src="img/office-man.png" alt="height="100px" width="100px"">
+                                                        <?php
+                                                            }
+                                                        ?>
+                                                        
                                                     </div>
                                                 </div>
                                             </div>

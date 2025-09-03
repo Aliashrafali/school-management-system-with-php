@@ -31,7 +31,8 @@
         'all-idcards' => 'All ID Cards',
         'login' => 'Welcome to School ERP System || login',
         'welcome' => 'Welcome',
-        'add-users' => 'Add User'
+        'add-users' => 'Add User',
+        'edit' => 'Demand Edit'
     ];
 
     $title = isset($titles[$page]) ? $titles[$page] : "School Management System";

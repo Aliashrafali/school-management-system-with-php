@@ -11,12 +11,12 @@ function sendRegistrationMail($email, $name, $reg_no, $class) {
         $mail->isSMTP();
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'mdashraf9135@gmail.com';   // आपका Gmail
-        $mail->Password   = 'wdpefvmipogayxhy';    // Gmail App Password
+        $mail->Username   = 'mdashraf9135@gmail.com';   
+        $mail->Password   = 'wdpefvmipogayxhy';   
         $mail->SMTPSecure = 'tls';
         $mail->Port       = 587;
         
-        $mail->setFrom('mdashraf9135@gmail.com', "Kid's Blooming World School");
+        $mail->setFrom('akhileshsingh90068@gmail.com', "RN MISSION PUBLIC SCHOOL");
         $mail->addAddress($email, $name);
 
         $mail->isHTML(true);
@@ -28,10 +28,10 @@ function sendRegistrationMail($email, $name, $reg_no, $class) {
             Class: <b>$class</b><br><br>
             Regards,<br>
             <strong>
-                <b>Kid's blooming world school.</b><br>
+                <b>RN MISSION PUBLIC SCHOOL.</b><br>
             </strong>
-            <span>Address : Pojhiyan , Lalganj Vaishali Bihar 844121 India.</span> <br>
-            <span>Mobile : +91-8228886898</span>
+            <span>Address : Mujauna bazar,Parsa( Saran ).</span> <br>
+            <span>Mobile : +91- 9006861511, +91-6201675471</span>
             ";
         $mail->send();
         return [
