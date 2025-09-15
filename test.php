@@ -3,76 +3,190 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Video with Testimonials Overlay</title>
+  <title>5 Card Slider with Captions</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0f0f0;
-      margin: 0;
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
+    #testimonialCarouselvideo .carousel-inner {
+      padding: 0; /* remove side padding */
     }
-
-    .video-testimonials-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 800px;
-      border-radius: 12px;
+    #testimonialCarouselvideo .carousel-item .card-wrapper {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px; /* cards ke beech gap */
+    }
+    #testimonialCarouselvideo .card-wrapper .card {
+      flex: 1 1 calc(20% - 15px); /* 5 equal width cards */
+      border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
     }
-
-    .video-testimonials-wrapper iframe {
+    #testimonialCarouselvideo .video-card img {
       width: 100%;
-      height: 450px;
-      display: block;
-      border: none;
+      height: 150px;
+      object-fit: cover!important;
     }
-
-    .testimonial-overlay {
+    #testimonialCarouselvideo .play-icon {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none; /* allows clicks to pass through to video */
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 20px;
-      box-sizing: border-box;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent 50%);
-      color: #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3rem;
+      color: white;
+      opacity: 0.85;
     }
-
-    .testimonial {
-      margin: 0 0 12px;
-      padding: 12px 16px;
-      font-size: 1.1em;
-      background: rgba(0, 0, 0, 0.6);
-      border-left: 4px solid #ffcc00;
-      border-radius: 6px;
+    #testimonialCarouselvideo .card-body {
+      padding: 8px;
     }
-
-    .testimonial cite {
-      display: block;
-      margin-top: 6px;
-      font-size: 0.9em;
-      font-style: normal;
-      color: #ddd;
+    #testimonialCarouselvideo .card-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0;
+    }
+    #testimonialCarouselvideo .video-card {
+      position: relative;
+    }
+    #testimonialCarouselvideo .card-wrapper .card-body p{
+        background-color: #2c8b56;
+        display: inline-block;
+        color: #fff;
+        padding: 1px 7px 3px 7px;
+        border-radius: 3px;
+        font-size: 14px;
+        margin: 7px;
+        font-weight: 600;
+        letter-spacing: 1px;
     }
   </style>
 </head>
-<body>
-  <div class="video-testimonials-wrapper">
-    <iframe
-      src="https://www.youtube.com/embed/CqvSvss7Cqc"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
+<body class="bg-light">
+
+<div class="container-fluid py-5">
+  <div id="testimonialCarouselvideo" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="card-wrapper">
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+            <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <div class="card-wrapper">
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+         <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+          <div class="card video-card">
+            <a href="https://www.youtube.com/watch?v=CqvSvss7Cqc" target="_blank">
+              <img src="https://img.youtube.com/vi/CqvSvss7Cqc/maxresdefault.jpg">
+              <i class="bi bi-play-circle-fill play-icon"></i>
+            </a>
+            <div class="card-body text-center">
+              <h6 class="card-title">Rajmohan De Sarkar</h6>
+              <p>Technical Director</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
   </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

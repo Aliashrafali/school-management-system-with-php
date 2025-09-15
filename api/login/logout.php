@@ -5,6 +5,7 @@
     header("Expires: 0");
 
     require __DIR__ . '/../../sql/config.php';
+    require __DIR__ . '/auth.php';
 
     define('COOKIE_NAME', 'school_erp_token');
     session_start();
@@ -27,6 +28,7 @@
         'samesite' => 'Strict'
     ]);
 
-header('Location: ../../login?error=logout');
-exit;
+// header('Location:login?error=logout');
+    header('Location: ' . login_url() . '?error=logout');
+    exit;
 ?>

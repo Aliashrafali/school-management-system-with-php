@@ -4,6 +4,7 @@
     date_default_timezone_set('Asia/Kolkata');
     require __DIR__ . '/../../vendor/autoload.php';
     require __DIR__ . '/../../sql/config.php';
+    require __DIR__ . '/auth.php';
 
     use Firebase\JWT\JWT;
     use Firebase\JWT\Key;
@@ -14,7 +15,8 @@
 
 
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
-        header("Location: ../../login.php?error=method");
+        // header("Location: ../../login.php?error=method");
+        header('Location: ' . login_url() . '?error=method');
         exit;
     }
 
@@ -22,7 +24,8 @@
     $password = trim($_POST['password'] ?? '');
 
     if($username == '' || $password == ''){
-        header("Location: ../../login.php?error=required");
+        // header("Location: ../../login.php?error=required");
+        header('Location: ' . login_url() . '?error=required');
         exit;
     }
 
@@ -33,7 +36,8 @@
     $user = $result->fetch_assoc();
 
     if(!$user || !password_verify($password,$user['pass'])){
-        header("Location: ../../login?error=invalid");
+        // header("Location: ../../login?error=invalid");
+        header('Location: ' . login_url() . '?error=invalid');
         exit;
     }
 

@@ -50,3 +50,15 @@
     border-radius: 5px;
     box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
 }
+.student-view .title-area-admit{
+    height: auto;
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid #091057;
+    padding: 10px 5px 10px 5px;
+}
+.student-view .title-area-admit select{
+    height: 47px;
+}
+.student-view .title-area-admit input[type="text"]{
+    height: 47px;
+}

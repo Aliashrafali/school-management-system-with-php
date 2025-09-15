@@ -32,7 +32,9 @@
         'login' => 'Welcome to School ERP System || login',
         'welcome' => 'Welcome',
         'add-users' => 'Add User',
-        'edit' => 'Demand Edit'
+        'edit' => 'Demand Edit',
+        'admit-card-generate' => 'Admit Card Generate',
+        'admit-cards-details' => 'Admit Cards Details'
     ];
 
     $title = isset($titles[$page]) ? $titles[$page] : "School Management System";

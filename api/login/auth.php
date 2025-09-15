@@ -6,13 +6,13 @@
     use Firebase\JWT\Key;
 
     define('COOKIE_NAME', 'school_erp_token');
-    define('JWT_SECRET', $secret_key); // change to strong key from env/config
+    define('JWT_SECRET', $secret_key); 
     define('JWT_ALGO', 'HS256');
 
    function login_url(): string {
         $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'];
-        $project = '/schoolmanagementsystem';
+        $project = '/rnmissionschollERP';
         return "$protocol://$host$project/login";
     }
     function require_auth(): array{

@@ -8,9 +8,10 @@
     header("Pragma: no-cache");
     header("Expires: 0");
     $claims = require_auth();
-
-    include 'sql/config.php';
     include 'include/header.php';
+    if(!isset($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 ?>
 
 <header>
@@ -51,16 +52,16 @@
                             <div class="pt-2">
                                 <h5><i class="fas fa-id-card" style="padding-right: 8px;"></i> Admit Cards Download</h5><hr>
                             </div>
-                            <form action="">
+                            <form id="admiCards" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="class">
                                             <option disabled selected value>--Select Class--</option>
-                                            <option value="all">All</option>
                                             <?php
                                                 $classArray = [
-                                                    "class" => ["nur","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
+                                                   "class" => ["nursery","KG 1","KG 2","Play","lkg","ukg","1", "2", "3", "4", "5","6", "7", "8", "9", "10", "11", "12"]
                                                 ];
                                                 foreach($classArray['class'] as $class){
                                                     echo "<option value=\"$class\" style='text-transform:uppercase'>$class</option>";
@@ -71,7 +72,7 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                        <select class="form-select">
+                                        <select class="form-select" name="section">
                                             <option disabled selected value>--Select Section--</option>
                                             <option value="all">All</option>
                                             <?php
@@ -87,15 +88,20 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                            <select class="form-select">
+                                            <select class="form-select" name="session">
                                                 <option disabled selected value>--Select Session--</option>
                                                 <?php
                                                     $startYears = '2000';
                                                     $endYears = date('Y');
-                                                    $fullYears = $startYears.'-'.$endYears;
+                                                    $currentYear   = date('Y');
+                                                    $nextYearShort = substr($currentYear + 1, -2);
+                                                    $currentSession = $currentYear . '-' . $nextYearShort;
+
                                                     for($year = $startYears; $year <= $endYears; $year++){
                                                         $final = substr($year + 1, -2);
-                                                        echo "<option value='{$year}-{$final}'>{$year}-{$final}</option>";
+                                                        $session = $year . '-' . $final;
+                                                        $selected = ($session === $currentSession) ? 'selected' : '';
+                                                        echo "<option value='{$session}' {$selected}>{$session}</option>";
                                                     }
                                                 ?>
                                             </select>
@@ -103,18 +109,20 @@
                                     </div>
                                     <div class="col-lg-3 col-md-3 col-sm-12">
                                         <div class="mb-3">
-                                            <select class="form-select">
+                                            <select class="form-select" name="exam_type">
                                                 <option disabled selected value>--Select Exam Type--</option>
-                                                <option value="quarterly">Quarterly Exam</option>
-                                                <option value="half-yearly">Half-Yearly Exam</option>
-                                                <option value="pre-annual">Pre-Annual Exam</option>
-                                                <option value="annual">Annual Exam</option>
+                                                <!-- <option value="formative assessment 01">Formative Assessment 01</option>
+                                                <option value="formative assessment 02">Formative Assessment 02</option>
+                                                <option value="formative assessment 03">Formative Assessment 03</option>
+                                                <option value="formative assessment 04">Formative Assessment 04</option> -->
+                                                <option value="summative assessment 01">Summative Assessment 01</option>
+                                                <!-- <option value="final examination">Final Examination</option> -->
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12">
                                         <div style="display: block; float: right;">
-                                            <button type="submit" class="w-100"><i class="fas fa-download"></i> Download Admit Cards</button>
+                                            <button type="submit" class="w-100"><i class="fas fa-download"></i> Generate Admit Cards</button>
                                         </div>
                                     </div>
                                 </div>
@@ -126,6 +134,48 @@
         </div>
     </section>
 </main>
+
+<script>
+    let admiCards = document.getElementById('admiCards');
+    admiCards.addEventListener("submit", async function(e){
+        e.preventDefault();
+        const formData = new FormData(admiCards);
+        try {
+            const response = await fetch('api/exam/admit-cards.php', {
+                method:"POST",
+                body:formData
+            });
+            const res = await response.json();
+            if(res.success){
+                Toastify({
+                    text: res.message,
+                    duration: 3000,   
+                    gravity: "top",  
+                    position: "right", 
+                    backgroundColor: "#27a243",
+                    stopOnFocus: true, 
+                }).showToast();
+                setTimeout(() => {
+                    if(res.redirect){
+                        window.location.href = res.redirect;
+                    }
+                }, 3000);
+            } else {
+                Toastify({
+                    text: res.message,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f72b2a",
+                    stopOnFocus: true,
+                }).showToast();
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Something Went Wrong");
+        }
+    });
+</script>
 
 <?php
     include 'include/footer.php';

@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="css/students.css">
     <link rel="stylesheet" href="css/fees.css">
     <link rel="stylesheet" href="css/parents.css?v=2">
-    <link rel="stylesheet" href="css/exam.css">
+    <link rel="stylesheet" href="css/exam.css?v=2">
     <link rel="stylesheet" href="css/login.css">
     <link rel="stylesheet" href="css/users.css">
     <link rel="stylesheet" href="css/responsive.css?v=1">
